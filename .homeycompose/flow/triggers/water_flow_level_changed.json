@@ -1,0 +1,30 @@
+{
+    "title": {
+        "en": "Water flow level has changed",
+        "de": "Waterdurchfluss-Stufe hat sich geændert",
+        "nl": "Waterdoorstroomniveau is gewijzigd"
+    },
+    "titleFormatted": {
+        "en": "Water flow level has changed",
+        "de": "Waterdurchfluss-Stufe hat sich geændert",
+        "nl": "Waterdoorstroomniveau is gewijzigd"
+    },
+    "args": [
+        {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+        }
+    ],
+    "tokens": [
+        {
+            "name": "water_flow_level",
+            "type": "string",
+            "title": {
+                "en": "Water flow",
+                "de": "Waterdurchfluss",
+                "nl": "Waterverbruik"
+            }
+        }
+    ]
+}

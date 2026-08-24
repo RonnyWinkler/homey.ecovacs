@@ -1,0 +1,30 @@
+{
+    "title": {
+        "en": "Suction power has changed",
+        "de": "Saugleistung hat sich geændert",
+        "nl": "Zuigkracht is gewijzigd"
+    },
+    "titleFormatted": {
+        "en": "Suction power has changed",
+        "de": "Saugleistung hat sich geændert",
+        "nl": "Zuigkracht is gewijzigd"
+    },
+    "args": [
+        {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+        }
+    ],
+    "tokens": [
+        {
+            "name": "suction_power",
+            "type": "string",
+            "title": {
+                "en": "Suction power",
+                "de": "Saugleistung",
+                "nl": "Zuigkracht"
+            }
+        }
+    ]
+}

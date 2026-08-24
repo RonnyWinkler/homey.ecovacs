@@ -1,0 +1,64 @@
+{
+    "title": {
+        "en": "Set suction power",
+        "de": "Setze Saugleistung",
+        "nl": "Zuigkracht instellen"
+    },
+    "titleFormatted": {
+        "en": "Set suction power to [[suction_power]]",
+        "de": "Setze Saugleistung auf [[suction_power]]",
+        "nl": "Zuigkracht instellen op [[suction_power]]"
+
+    },
+    "args": [
+        {
+            "type": "dropdown",
+            "name": "suction_power",
+            "required": true,
+            "title": {
+                "en": "Suction power",
+                "de": "Saugleistung",
+                "nl": "Zuigkracht"
+            },
+            "values": [
+                {
+                    "id": "1",
+                    "title": {
+                        "en": "Quiet",
+                        "de": "Leise",
+                        "nl": "Zacht"
+                    }
+                },
+                {
+                    "id": "2",
+                    "title": {
+                        "en": "Standard",
+                        "de": "Standard",
+                        "nl": "Standaard"
+                    }
+                },
+                {
+                    "id": "3",
+                    "title": {
+                        "en": "Heigh",
+                        "de": "Hoch",
+                        "nl": "Hoog"
+                    }
+                },
+                {
+                    "id": "4",
+                    "title": {
+                        "en": "Max",
+                        "nl": "Max",
+                        "fr": "Max"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+        }
+    ]
+}

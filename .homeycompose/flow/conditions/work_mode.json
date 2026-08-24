@@ -1,0 +1,62 @@
+{
+    "title": {
+        "en": "Cleaning mode !{{is|isn't}}",
+        "de": "Reinigungsmodus !{{ist|ist nicht}}",
+        "nl": "Reinigingsmodus !{{is|is niet}}"
+    },
+    "titleFormatted": {
+        "en": "Cleaning mode !{{is|isn't}} [[value]]",
+        "de": "Reinigungsmodus !{{ist|ist nicht}} [[value]]",
+        "nl": "Reinigingsmodus !{{is|is niet}} [[value]]"
+    },
+    "args": [
+        {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+        },
+        {
+            "name": "value",
+            "type": "dropdown",
+            "title": { 
+                "en": "Cleaning mode",
+                "de": "Reinigungsmodus",
+                "nl": "Reinigingsmodus"
+            },
+            "values": [
+                {
+                    "id": "0",
+                    "title": {
+                        "en": "Vacuum and mop",
+                        "de": "Saugen und Wischen",
+                        "nl": "Tofzuigen en dweilen"
+                    }
+                },
+                {
+                    "id": "1",
+                    "title": {
+                        "en": "Vacuum",
+                        "de": "Saugen",
+                        "nl": "Tofzuigen"
+                    }
+                },
+                {
+                    "id": "2",
+                    "title": {
+                        "en": "Mop",
+                        "de": "Wischen",
+                        "nl": "Dweilen"
+                    }
+                },
+                {
+                    "id": "3",
+                    "title": {
+                        "en": "Mop after vacuum",
+                        "de": "Wischen nach dem Saugen",
+                        "nl": "Dweilen na tofzuigen"
+                    }
+                }
+            ]
+       }
+    ]
+}

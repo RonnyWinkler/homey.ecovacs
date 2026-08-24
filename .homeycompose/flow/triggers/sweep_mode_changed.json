@@ -1,0 +1,30 @@
+{
+    "title": {
+        "en": "Cleaning speed has changed",
+        "de": "Reinigungsgeschwindigkeit hat sich geændert",
+        "nl": "Reinigings snelheid is gewijzigd"
+    },
+    "titleFormatted": {
+        "en": "Cleaning speed has changed",
+        "de": "Reinigungsgeschwindigkeit hat sich geændert",
+        "nl": "Reinigings snelheid is gewijzigd"
+    },
+    "args": [
+        {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+        }
+    ],
+    "tokens": [
+        {
+            "name": "work_mode",
+            "type": "string",
+            "title": {
+                "en": "Cleaning speed",
+                "de": "Reinigungsgeschwindigkeit",
+                "nl": "Reinigings snelheid"
+            }
+        }
+    ]
+}

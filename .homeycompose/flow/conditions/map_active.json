@@ -1,0 +1,39 @@
+{
+    "title": {
+        "en": "Map !{{is|isn't}} active",
+        "de": "Karte !{{ist|ist nicht}} aktiv",
+        "nl": "Kaart !{{is|is niet}} actief"
+    },
+    "titleFormatted": {
+        "en": "Map [[map]] !{{is|isn't}} active",
+        "de": "Karte [[map]] !{{ist|ist nicht}} aktiv",
+        "nl": "Kaart [[map]] !{{is|is niet}} actief"
+    },
+    "hint": {
+        "en": "Check if a map is the current map",
+        "de": "Kontrollieren, ob eine Karte die aktuelle Karte ist",
+        "nl": "Controleer of een kaart de huidige kaart is"
+    },
+    "args": [
+        {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+        },
+        {
+            "type": "autocomplete",
+            "name": "map",
+            "required": true,
+            "title": {
+                "en": "Map",
+                "de": "Karte",
+                "nl": "Kaart"
+            },
+            "placeholder": {
+                "en": "Kitchen",
+                "fr": "Küche",
+                "nl": "Keuken"
+            }
+        }
+    ]
+}

@@ -1,0 +1,30 @@
+{
+    "title": {
+        "en": "Charge state has changed",
+        "de": "Ladezustand hat sich geændert",
+        "nl": "Ladezicht gewijzigd"
+    },
+    "titleFormatted": {
+        "en": "Charge state has changed",
+        "de": "Ladezustand hat sich geændert",
+        "nl": "Ladezicht gewijzigd"
+    },
+    "args": [
+        {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+        }
+    ],
+    "tokens": [
+        {
+            "name": "state_charge",
+            "type": "string",
+            "title": {
+                "en": "Charge state",
+                "de": "Lade-Status",
+                "nl": "Laden toestand"
+            }
+        }
+    ]
+}

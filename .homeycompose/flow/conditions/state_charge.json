@@ -1,0 +1,54 @@
+{
+    "title": {
+        "en": "Charge state !{{is|isn't}}",
+        "de": "Lade-Status !{{ist|ist nicht}}",
+        "nl": "Oplaadstatus !{{is|is niet}}"
+    },
+    "titleFormatted": {
+        "en": "Charge state !{{is|isn't}} [[state]]",
+        "de": "Lade-Status !{{ist|ist nicht}} [[state]]",
+        "nl": "Oplaadstatus !{{is|is niet}} [[state]]"
+    },
+    "args": [
+        {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+        },
+        {
+            "name": "state",
+            "type": "dropdown",
+            "title": { 
+                "en": "Charge state",
+                "de": "Lade-Status",
+                "nl": "Laden toestand"
+            },
+            "values": [
+                {
+                    "id": "idle",
+                    "title": {
+                        "en": "Idle",
+                        "de": "Leerlauf",
+                        "nl": "Inactief"
+                    }
+                },
+                {
+                    "id": "charging",
+                    "title": {
+                        "en": "Charging",
+                        "de": "Laden",
+                        "nl": "Laden"
+                    }
+                },
+                {
+                    "id": "returning",
+                    "title": {
+                        "en": "Go to charge",
+                        "de": "Zur Aufladung",
+                        "nl": "Naar laden"
+                    }
+                }
+            ]
+       }
+    ]
+}

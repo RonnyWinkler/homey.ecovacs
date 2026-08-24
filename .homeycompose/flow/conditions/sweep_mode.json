@@ -1,0 +1,54 @@
+{
+    "title": {
+        "en": "Cleaning speed !{{is|isn't}}",
+        "de": "Reinigungsgeschwindigkeit !{{ist|ist nicht}}",
+        "nl": "Reinigings snelheid !{{is|is niet}}"
+    },
+    "titleFormatted": {
+        "en": "Cleaning speed !{{is|isn't}} [[value]]",
+        "de": "Reinigungsgeschwindigkeit !{{ist|ist nicht}} [[value]]",
+        "nl": "Reinigings snelheid !{{is|is niet}} [[value]]"
+    },
+    "args": [
+        {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+        },
+        {
+            "name": "value",
+            "type": "dropdown",
+            "title": { 
+                "en": "Cleaning speed",
+                "de": "Reinigungsgeschwindigkeit",
+                "nl": "Reinigings snelheid"
+            },
+            "values": [
+                {
+                    "id": "0",
+                    "title": {
+                        "en": "Standard",
+                        "de": "Standard",
+                        "nl": "Standaard"
+                    }
+                },
+                {
+                    "id": "1",
+                    "title": {
+                        "en": "Deep",
+                        "de": "Tief",
+                        "nl": "Grondig"
+                    }
+                },
+                {
+                    "id": "2",
+                    "title": {
+                        "en": "Efficient",
+                        "de": "Effizient",
+                        "nl": "Efficient"
+                    }
+                }
+            ]
+       }
+    ]
+}

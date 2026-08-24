@@ -1,0 +1,19 @@
+{
+    "title": {
+        "en": "Start cleaning",
+        "de": "Reinigung starten",
+        "nl": "Schoonmaak starten"
+    },
+    "titleFormatted": {
+        "en": "Start cleaning",
+        "de": "Reinigung starten",
+        "nl": "Schoonmaak starten"
+    },
+    "args": [
+        {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+        }
+    ]
+}

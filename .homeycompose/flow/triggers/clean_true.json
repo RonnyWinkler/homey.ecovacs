@@ -1,0 +1,14 @@
+{
+    "title": {
+        "en": "CLeaning started",
+        "de": "Reinigung begonnen",
+        "nl": "Schoonmaak begonnen"
+    },
+    "args": [
+        {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+        }
+    ]
+}

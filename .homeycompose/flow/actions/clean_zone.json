@@ -1,0 +1,39 @@
+{
+    "title": {
+        "en": "Clean zone",
+        "de": "Zone reinigen",
+        "nl": "Reinig zone "
+    },
+    "titleFormatted": {
+        "en": "Clean zone [[zone]]",
+        "de": "Reinige Zone [[zone]]",
+        "nl": "Reinig zone [[zone]]"
+    },
+    "hint": {
+        "en": "The zone can only be selected from active map",
+        "de": "Die Zone kann nur aus der aktiven Karte ausgewählt werden",
+        "nl": "De zone kan alleen worden geselecteerd uit de actieve kaart"
+    },
+    "args": [
+        {
+            "type": "autocomplete",
+            "name": "zone",
+            "required": true,
+            "title": {
+                "en": "Zone",
+                "de": "Zone",
+                "nl": "Kamer"
+            },
+            "placeholder": {
+                "en": "Kitchen",
+                "de": "Küche",
+                "nl": "Keuken"
+            }
+        },
+        {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+        }
+    ]
+}

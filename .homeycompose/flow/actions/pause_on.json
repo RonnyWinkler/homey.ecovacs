@@ -1,0 +1,19 @@
+{
+    "title": {
+        "en": "Pause cleaning",
+        "de": "Reinigung pausieren",
+        "nl": "Schoonmaken pauzeren"
+    },
+    "titleFormatted": {
+        "en": "Pause cleaning",
+        "de": "Reinigung pausieren",
+        "nl": "Schoonmaken pauzeren"
+    },
+    "args": [
+        {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+        }
+    ]
+}

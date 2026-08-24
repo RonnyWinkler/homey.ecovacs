@@ -1,0 +1,8 @@
+{
+  "1.0.0": {
+    "en": "New app version incl. new 2FA auth process and V2 device support."
+  },
+  "1.0.1": {
+    "en": "Added forum topic. Added logging."
+  }
+}

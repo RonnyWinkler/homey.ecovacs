@@ -1,0 +1,19 @@
+{
+    "title": {
+        "en": "Return to docking station",
+        "de": "Kehre zur Ladestation zurück",
+        "nl": "Ter dockingstation terugkeren"
+    },
+    "titleFormatted": {
+        "en": "Return to docking station",
+        "de": "Kehre zur Ladestation zurück",
+        "nl": "Ter dockingstation terugkeren"
+    },
+    "args": [
+        {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+        }
+    ]
+}

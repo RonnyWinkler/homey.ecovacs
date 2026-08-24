@@ -1,0 +1,19 @@
+{
+    "title": {
+        "en": "Continue cleaning",
+        "de": "Reinigung fortsetzen",
+        "nl": "Schoonmaken verdergaan"
+    },
+    "titleFormatted": {
+        "en": "Continue cleaning",
+        "de": "Reinigung fortsetzen",
+        "nl": "Schoonmaken verdergaan"
+    },
+    "args": [
+        {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+        }
+    ]
+}

@@ -1,0 +1,62 @@
+{
+    "title": {
+        "en": "Water flow value !{{is|isn't}}",
+        "de": "Waterdurchfluss-Wert !{{ist|ist nicht}}",
+        "nl": "Waterdoorstroomwaarde !{{is|is niet}}"
+    },
+    "titleFormatted": {
+        "en": "Water flow value !{{is|isn't}} [[value]]",
+        "de": "Waterdurchfluss-Wert !{{ist|ist nicht}} [[value]]",
+        "nl": "Waterdoorstroomwaarde !{{is|is niet}} [[value]]"
+    },
+    "args": [
+        {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+        },
+        {
+            "name": "value",
+            "type": "range",
+            "title": { 
+                "en": "Water flow value",
+                "de": "Waterdurchfluss-Wert",
+                "nl": "Waterdoorstroomwaarde"
+            },
+            "min": 1,
+            "max": 50,
+            "step": 1,
+            "values": [
+                {
+                    "id": "1",
+                    "title": {
+                        "en": "Low",
+                        "de": "Niedrig",
+                        "nl": "Laag"
+                    }
+                }, {
+                    "id": "2",
+                    "title": {
+                        "en": "Medium",
+                        "de": "Mittel",
+                        "nl": "Gemiddeld"
+                    }
+                }, {
+                    "id": "3",
+                    "title": {
+                        "en": "High",
+                        "de": "Hoch",
+                        "nl": "Hoog"
+                    }
+                }, {
+                    "id": "4",
+                    "title": {
+                        "en": "Very High",
+                        "de": "Sehr Hoch",
+                        "nl": "Zeer hoog"
+                    }
+                }
+            ]
+       }
+    ]
+}

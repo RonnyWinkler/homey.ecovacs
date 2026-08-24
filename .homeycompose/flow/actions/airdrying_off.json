@@ -1,0 +1,19 @@
+{
+    "title": {
+        "en": "Stop drying mopping pads",
+        "de": "Wischpads trocknen stoppen",
+        "nl": "Dweilpads drogen stoppen"
+    },
+    "titleFormatted": {
+        "en": "Stop drying mopping pads",
+        "de": "Wischpads trocknen stoppen",
+        "nl": "Dweilpads drogen stoppen"
+    },
+    "args": [
+        {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+        }
+    ]
+}

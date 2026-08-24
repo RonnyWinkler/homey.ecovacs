@@ -1,0 +1,35 @@
+{
+    "title": {
+        "en": "Run a raw vacbot command",
+        "de": "Führer einen raw vacbot Befehl aus",
+        "nl": "Voer een commando uit"
+    },
+    "titleFormatted": {
+        "en": "Start a vacbot.run([[command]]) command",
+        "de": "Führe einen vacbot.run([[command]]) Befehl aus",
+        "nl": "Voer een vacbot.run([[command]]) commando uit"
+
+    },
+    "args": [
+        {
+            "type": "text",
+            "name": "command",
+            "required": true,
+            "title": {
+                "en": "Command",
+                "de": "Kommando",
+                "nl": "Commando"
+            },
+            "placeholder": {
+                "en": "Relocate",
+                "de": "Relocate",
+                "nl": "Relocate"
+            }
+        },
+        {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+        }
+    ]
+}

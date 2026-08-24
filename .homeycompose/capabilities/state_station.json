@@ -1,0 +1,62 @@
+{
+    "type": "enum",
+    "title": {
+        "en": "Station state",
+        "de": "Station-Status",
+        "nl": "Stations toestand"
+    },
+    "uiComponent": "sensor",
+    "getable": true,
+    "setable": false,
+    "icon": "./assets/capabilities/state_station.svg",
+    "values": [
+        {
+            "id": "idle",
+            "title": {
+                "en": "Idle",
+                "de": "Leerlauf",
+                "nl": "Inactief"
+            }
+        },
+        {
+            "id": "washing",
+            "title": {
+                "en": "Washing",
+                "de": "Waschen",
+                "nl": "Wassen"
+            }
+        },
+        {
+            "id": "drying",
+            "title": {
+                "en": "Drying",
+                "de": "Trocknen",
+                "nl": "Drogen"
+            }
+        },
+        {
+            "id": "goCharging",
+            "title": {
+                "en": "Go to charge",
+                "de": "Zur Aufladung",
+                "nl": "Naar laden"
+            }
+        },
+        {
+            "id": "goWashing",
+            "title": {
+                "en": "Go to wash",
+                "de": "Zum Waschen",
+                "nl": "Naar wassen"
+            }
+        },
+        {
+            "id": "emptying",
+            "title": {
+                "en": "Emptying",
+                "de": "Leeren",
+                "nl": "Leegmaken"
+            }
+        }
+    ]
+}

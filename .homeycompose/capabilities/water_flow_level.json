@@ -1,0 +1,44 @@
+{
+    "type": "enum",
+    "uiComponent": "picker",
+    "title": {
+        "en": "Water flow",
+        "de": "Waterdurchfluss",
+        "nl": "Waterverbruik"
+    },
+    "values": [
+        {
+            "id": "1",
+            "title": {
+                "en": "Low",
+				"de": "Niedrig",
+                "nl": "Laag"
+            }
+        }, {
+            "id": "2",
+            "title": {
+                "en": "Medium",
+				"de": "Mittel",
+                "nl": "Gemiddeld"
+            }
+        }, {
+            "id": "3",
+            "title": {
+                "en": "High",
+				"de": "Hoch",
+                "nl": "Hoog"
+            }
+        }, {
+            "id": "4",
+            "title": {
+                "en": "Very High",
+				"de": "Sehr Hoch",
+                "nl": "Zeer hoog"
+            }
+        }
+    ],
+    "getable": true,
+    "setable": true,
+    "insights": false,
+    "icon": "/assets/capabilities/water_flow.svg"
+}

@@ -1,0 +1,38 @@
+{
+    "type": "enum",
+    "title": {
+        "en": "Charge state",
+        "de": "Lade-Status",
+        "nl": "Laden toestand"
+    },
+    "uiComponent": "sensor",
+    "getable": true,
+    "setable": false,
+    "icon": "./assets/capabilities/state_charge.svg",
+    "values": [
+        {
+            "id": "idle",
+            "title": {
+                "en": "Idle",
+                "de": "Leerlauf",
+                "nl": "Inactief"
+            }
+        },
+        {
+            "id": "charging",
+            "title": {
+                "en": "Charging",
+                "de": "Laden",
+                "nl": "Laden"
+            }
+        },
+        {
+            "id": "returning",
+            "title": {
+                "en": "Go to charge",
+                "de": "Zur Aufladung",
+                "nl": "Naar laden"
+            }
+        }
+    ]
+}

@@ -1,0 +1,62 @@
+{
+    "title": {
+        "en": "Suction power !{{is|isn't}}",
+        "de": "Saugleistung !{{ist|ist nicht}}",
+        "nl": "Zuigkracht !{{is|is niet}}"
+    },
+    "titleFormatted": {
+        "en": "Suction power !{{is|isn't}} [[value]]",
+        "de": "Saugleistung !{{ist|ist nicht}} [[value]]",
+        "nl": "Zuigkracht !{{is|is niet}} [[value]]"
+    },
+    "args": [
+        {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+        },
+        {
+            "name": "value",
+            "type": "dropdown",
+            "title": { 
+                "en": "Suction power",
+                "de": "Saugleistung",
+                "nl": "Zuigkracht"
+            },
+            "values": [
+                {
+                    "id": "1",
+                    "title": {
+                        "en": "Quiet",
+                        "de": "Leise",
+                        "nl": "Zacht"
+                    }
+                },
+                {
+                    "id": "2",
+                    "title": {
+                        "en": "Standard",
+                        "de": "Standard",
+                        "nl": "Standaard"
+                    }
+                },
+                {
+                    "id": "3",
+                    "title": {
+                        "en": "Heigh",
+                        "de": "Hoch",
+                        "nl": "Hoog"
+                    }
+                },
+                {
+                    "id": "4",
+                    "title": {
+                        "en": "Max",
+                        "de": "Max",
+                        "nl": "Max"
+                    }
+                }
+            ]
+       }
+    ]
+}

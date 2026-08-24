@@ -1,0 +1,136 @@
+{
+    "name": {
+        "en": "Ecovacs Deebot",
+        "fr": "Ecovacs Deebot"
+    },
+    "class": "vacuumcleaner",
+    "platforms": [
+        "local"
+    ],
+    "connectivity": [
+        "cloud"
+    ],
+    "energy": {
+        "batteries": [
+            "INTERNAL"
+        ]
+    },
+    "images": {
+        "large": "/drivers/deebot/assets/images/large.png",
+        "small": "/drivers/deebot/assets/images/small.png"
+    },
+    "capabilities": [
+
+        "clean",
+        "pause",
+        "stop",
+        "charge",
+        "park",
+        "park_position",
+
+        "state_device",
+        "state_station",
+        "state_charge",
+
+        "measure_battery",
+
+        "work_mode",
+        "sweep_mode",
+        "suction_power",
+        "water_flow_level",
+        "water_flow_value"
+
+    ],
+    "pair": [
+        {
+            "id": "account",
+            "navigation": {
+                "next": "check_account"
+            }
+        },
+        {
+            "id": "check_account",
+            "template": "loading",
+            "navigation": {
+                "prev": "account",
+                "next": "list_devices"
+            }
+        },
+        {
+            "id": "pincode",
+            "template": "pincode",
+            "options": {
+                "hint": "Enter the 2FA code",
+                "type": "number",
+                "length": 6
+            },
+            "navigation": {
+                "prev": "account"
+            }
+        },
+        {
+            "id": "list_devices",
+            "template": "list_devices",
+            "navigation": {
+                "next": "add_devices"
+            }
+        },
+        {
+            "id": "add_devices",
+            "template": "add_devices"
+        },
+        {
+            "id": "done",
+            "template": "done"
+        },
+        {
+            "id": "account_error",
+            "navigation": {
+                "prev": "account"
+            }
+        }
+    ],
+    "repair": [
+        {
+            "id": "account",
+            "navigation": {
+                "next": "check_account"
+            }
+        },
+        {
+            "id": "check_account",
+            "template": "loading",
+            "navigation": {
+                "prev": "account",
+                "next": "list_devices"
+            }
+        },
+        {
+            "id": "pincode",
+            "template": "pincode",
+            "options": {
+                "hint": "Enter the 2FA code",
+                "type": "number",
+                "length": 6
+            },
+            "navigation": {
+                "prev": "account",
+                "next": "list_devices"
+            }
+        },
+        {
+            "id": "list_devices",
+            "template": "list_devices"
+        },
+        {
+            "id": "done",
+            "template": "done"
+        },
+        {
+            "id": "account_error",
+            "navigation": {
+                "prev": "account"
+            }
+        }
+   ]
+}

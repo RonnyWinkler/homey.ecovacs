@@ -1,0 +1,30 @@
+{
+    "title": {
+        "en": "Cleaning mode has changed",
+        "de": "Reinigungsmodus hat sich geændert",
+        "nl": "Reinigingsmodus is gewijzigd"
+    },
+    "titleFormatted": {
+        "en": "Cleaning mode has changed",
+        "de": "Reinigungsmodus hat sich geændert",
+        "nl": "Reinigingsmodus is gewijzigd"
+    },
+    "args": [
+        {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+        }
+    ],
+    "tokens": [
+        {
+            "name": "work_mode",
+            "type": "string",
+            "title": {
+                "en": "Cleaning mode",
+                "de": "Reinigungsmodus",
+                "nl": "Reinigingsmodus"
+            }
+        }
+    ]
+}

@@ -1,0 +1,19 @@
+{
+    "title": {
+        "en": "Dry mopping pads",
+        "de": "Wischpads trocknen",
+        "nl": "Dweilpads drogen"
+    },
+    "titleFormatted": {
+        "en": "Dry mopping pads",
+        "de": "Wischpads trocknen",
+        "nl": "Dweilpads drogen"
+    },
+    "args": [
+        {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+        }
+    ]
+}

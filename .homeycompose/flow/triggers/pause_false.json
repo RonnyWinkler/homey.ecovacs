@@ -1,0 +1,14 @@
+{
+    "title": {
+        "en": "Not paused",
+        "de": "Nicht pausiert",
+        "nl": "Niet gepauzeerd"
+    },
+    "args": [
+        {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+        }
+    ]
+}

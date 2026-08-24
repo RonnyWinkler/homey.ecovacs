@@ -1,0 +1,19 @@
+{
+    "title": {
+        "en": "Go to park position",
+        "de": "Zur Parkposition gehen",
+        "nl": "Naar parkeerplaats gaan"
+    },
+    "titleFormatted": {
+        "en": "Go to park position",
+        "de": "Zur Parkposition gehen",
+        "nl": "Naar parkeerplaats gaan"
+    },
+    "args": [
+        {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+        }
+    ]
+}

@@ -1,0 +1,39 @@
+{
+    "type": "enum",
+    "uiComponent": "picker",
+    "title": {
+        "en": "Cleaning speed",
+        "de": "Reinigungsgeschwindigkeit",
+        "nl": "Reinigings snelheid"
+    },
+    "values": [
+        {
+            "id": "0",
+            "title": {
+                "en": "Standard",
+                "de": "Standard",
+                "nl": "Standaard"
+            }
+        },
+        {
+            "id": "1",
+            "title": {
+                "en": "Deep",
+                "de": "Tief",
+                "nl": "Grondig"
+            }
+        },
+        {
+            "id": "2",
+            "title": {
+                "en": "Efficient",
+                "de": "Effizient",
+                "nl": "Efficient"
+            }
+        }
+    ],
+    "getable": true,
+    "setable": true,
+    "insights": false,
+    "icon": "/assets/capabilities/sweep_mode.svg"
+}

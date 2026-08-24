@@ -1,0 +1,82 @@
+{
+  "id": "com.ecovacs.deebot",
+  "version": "1.0.1",
+  "compatibility": ">=8.1.1",
+  "sdk": 3,
+  "name": {
+    "en": "Ecovacs Deebot"
+  },
+  "brandColor": "#0264F5",
+  "description": {
+    "en": "You relax. DEEBOT delivers",
+    "nl": "Jij ontspant. DEEBOT doet de rest",
+    "de": "Du entspannst. DEEBOT erledigt den Rest.",
+    "fr": "Vous vous détendez. DEEBOT s'occupe du reste"
+  },
+  "contributors": {
+    "developers": [
+      {
+        "name": "Sascha (mrbungle64)"
+      }
+    ],
+    "translators": [
+    ]
+  },
+  "category": [
+    "appliances"
+  ],
+  "permissions": [],
+  "platforms": [
+    "local"
+  ],
+  "images": {
+    "small": "/assets/images/small.png",
+    "large": "/assets/images/large.png"
+  },
+  "contributing": {
+    "donate": {
+      "paypal": {
+        "username": "winklerronny"
+      }
+    }
+  },
+  "author": {
+    "name": "Ronny Winkler",
+    "email": "ronny.winkler@web.de"
+  },
+  "bugs": {
+    "url": "https://github.com/RonnyWinkler/homey.ecovacs/issues"
+  },
+  "api": {
+    "getLogs": {
+      "method": "get",
+      "path": "/getlogs"
+    },
+    "deleteLogs": {
+      "method": "get",
+      "path": "/deletelogs"
+    }
+  },
+  "tags": {
+    "en": [
+      "Ecovacs",
+      "Deebot",
+      "vacuum",
+      "mopping",
+      "clean report",
+      "ecovacs multimap"
+    ],
+    "nl": [
+      "Ecovacs",
+      "Deebot",
+      "vakuum",
+      "dweilen",
+      "multimap",
+      "ecovacs",
+      "afbeelding"
+    ]
+  },
+  "homepage": "https://rwdevelopment.de/homeypro-apps/",
+  "source": "https://github.com/RonnyWinkler/homey.ecovacs",
+  "homeyCommunityTopicId": 158711
+}

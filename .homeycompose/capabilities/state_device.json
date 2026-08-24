@@ -1,0 +1,30 @@
+{
+    "type": "enum",
+    "title": {
+        "en": "Device state",
+        "de": "Geräte-Status",
+        "nl": "Apparaat toestand"
+    },
+    "uiComponent": "sensor",
+    "getable": true,
+    "setable": false,
+    "icon": "./assets/capabilities/state_device.svg",
+    "values": [
+        {
+            "id": "idle",
+            "title": {
+                "en": "Idle",
+                "de": "Leerlauf",
+                "nl": "Inactief"
+            }
+        },
+        {
+            "id": "cleaning",
+            "title": {
+                "en": "Cleaning",
+                "de": "Reinigen",
+                "nl": "Schoonmaak"
+            }
+        }
+    ]
+}

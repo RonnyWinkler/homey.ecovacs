@@ -1,0 +1,12 @@
+{
+    "type": "boolean",
+    "getable": false,
+    "setable": true,
+    "title": {
+        "en": "Return to docking station",
+        "de": "Zur Ladestation zurückkehren",
+        "nl": "Ter dockingstation terugkeren"
+    },
+    "insights": false,
+    "icon": "/assets/capabilities/charge.svg"
+}

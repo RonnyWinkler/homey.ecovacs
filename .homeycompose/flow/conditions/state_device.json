@@ -1,0 +1,46 @@
+{
+    "title": {
+        "en": "Device state !{{is|isn't}}",
+        "de": "Geräte-Status !{{ist|ist nicht}}",
+        "nl": "Apparaatstatus !{{is|is niet}}"
+    },
+    "titleFormatted": {
+        "en": "Device state !{{is|isn't}} [[state]]",
+        "de": "Geräte-Status !{{ist|ist nicht}} [[state]]",
+        "nl": "Apparaatstatus !{{is|is niet}} [[state]]"
+    },
+    "args": [
+        {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+        },
+        {
+            "name": "state",
+            "type": "dropdown",
+            "title": { 
+                "en": "Device state",
+                "de": "Geräte-Status",
+                "nl": "Apparaat toestand"
+            },
+            "values": [
+                {
+                    "id": "idle",
+                    "title": {
+                        "en": "Idle",
+                        "de": "Leerlauf",
+                        "nl": "Inactief"
+                    }
+                },
+                {
+                    "id": "cleaning",
+                    "title": {
+                        "en": "Cleaning",
+                        "de": "Reinigen",
+                        "nl": "Schoonmaak"
+                    }
+                }
+            ]
+       }
+    ]
+}

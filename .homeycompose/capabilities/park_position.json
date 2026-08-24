@@ -1,0 +1,12 @@
+{
+    "type": "boolean",
+    "getable": false,
+    "setable": true,
+    "title": {
+        "en": "Save parking spot",
+        "de": "Parkpposition speichern",
+        "nl": "Parkeerplaats bewaren"
+    },
+    "insights": false,
+    "icon": "/assets/capabilities/park_position.svg"
+}

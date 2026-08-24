@@ -1,0 +1,47 @@
+{
+    "type": "enum",
+    "uiComponent": "picker",
+    "title": {
+        "en": "Suction power",
+        "de": "Saugleistung",
+        "nl": "Zuigkracht"
+    },
+    "values": [
+        {
+            "id": "1",
+            "title": {
+                "en": "Quiet",
+                "de": "Leise",
+                "nl": "Zacht"
+            }
+        },
+        {
+            "id": "2",
+            "title": {
+                "en": "Standard",
+                "de": "Standard",
+                "nl": "Standaard"
+            }
+        },
+        {
+            "id": "3",
+            "title": {
+                "en": "Heigh",
+                "de": "Hoch",
+                "nl": "Hoog"
+            }
+        },
+        {
+            "id": "4",
+            "title": {
+                "en": "Max",
+                "de": "Max",
+                "nl": "Max"
+            }
+        }
+    ],
+    "getable": true,
+    "setable": true,
+    "insights": false,
+    "icon": "/assets/capabilities/suction_power.svg"
+}

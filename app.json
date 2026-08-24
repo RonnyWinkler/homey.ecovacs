@@ -1,0 +1,2069 @@
+{
+  "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
+  "id": "com.ecovacs.deebot",
+  "version": "1.0.1",
+  "compatibility": ">=8.1.1",
+  "sdk": 3,
+  "name": {
+    "en": "Ecovacs Deebot"
+  },
+  "brandColor": "#0264F5",
+  "description": {
+    "en": "You relax. DEEBOT delivers",
+    "nl": "Jij ontspant. DEEBOT doet de rest",
+    "de": "Du entspannst. DEEBOT erledigt den Rest.",
+    "fr": "Vous vous détendez. DEEBOT s'occupe du reste"
+  },
+  "contributors": {
+    "developers": [
+      {
+        "name": "Sascha (mrbungle64)"
+      }
+    ],
+    "translators": []
+  },
+  "category": [
+    "appliances"
+  ],
+  "permissions": [],
+  "platforms": [
+    "local"
+  ],
+  "images": {
+    "small": "/assets/images/small.png",
+    "large": "/assets/images/large.png"
+  },
+  "contributing": {
+    "donate": {
+      "paypal": {
+        "username": "winklerronny"
+      }
+    }
+  },
+  "author": {
+    "name": "Ronny Winkler",
+    "email": "ronny.winkler@web.de"
+  },
+  "bugs": {
+    "url": "https://github.com/RonnyWinkler/homey.ecovacs/issues"
+  },
+  "api": {
+    "getLogs": {
+      "method": "get",
+      "path": "/getlogs"
+    },
+    "deleteLogs": {
+      "method": "get",
+      "path": "/deletelogs"
+    }
+  },
+  "tags": {
+    "en": [
+      "Ecovacs",
+      "Deebot",
+      "vacuum",
+      "mopping",
+      "clean report",
+      "ecovacs multimap"
+    ],
+    "nl": [
+      "Ecovacs",
+      "Deebot",
+      "vakuum",
+      "dweilen",
+      "multimap",
+      "ecovacs",
+      "afbeelding"
+    ]
+  },
+  "homepage": "https://rwdevelopment.de/homeypro-apps/",
+  "source": "https://github.com/RonnyWinkler/homey.ecovacs",
+  "homeyCommunityTopicId": 158711,
+  "flow": {
+    "triggers": [
+      {
+        "title": {
+          "en": "Returning to docking station",
+          "de": "Zur Ladestation zurueckkehren",
+          "nl": "Ter dockingstation terugkeren"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+          }
+        ],
+        "id": "charge_true"
+      },
+      {
+        "title": {
+          "en": "CLeaning stopped",
+          "de": "Reinigung beendet",
+          "nl": "Schoonmaak beeindigd"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+          }
+        ],
+        "id": "clean_false"
+      },
+      {
+        "title": {
+          "en": "CLeaning started",
+          "de": "Reinigung begonnen",
+          "nl": "Schoonmaak begonnen"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+          }
+        ],
+        "id": "clean_true"
+      },
+      {
+        "title": {
+          "en": "Not paused",
+          "de": "Nicht pausiert",
+          "nl": "Niet gepauzeerd"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+          }
+        ],
+        "id": "pause_false"
+      },
+      {
+        "title": {
+          "en": "Paused",
+          "de": "Pausiert",
+          "nl": "Gepauzeerd"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+          }
+        ],
+        "id": "pause_true"
+      },
+      {
+        "title": {
+          "en": "Charge state has changed",
+          "de": "Ladezustand hat sich geændert",
+          "nl": "Ladezicht gewijzigd"
+        },
+        "titleFormatted": {
+          "en": "Charge state has changed",
+          "de": "Ladezustand hat sich geændert",
+          "nl": "Ladezicht gewijzigd"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+          }
+        ],
+        "tokens": [
+          {
+            "name": "state_charge",
+            "type": "string",
+            "title": {
+              "en": "Charge state",
+              "de": "Lade-Status",
+              "nl": "Laden toestand"
+            }
+          }
+        ],
+        "id": "state_charge_changed"
+      },
+      {
+        "title": {
+          "en": "Device state has changed",
+          "de": "Geräte-Status hat sich geændert",
+          "nl": "Apparaatstatus is gewijzigd"
+        },
+        "titleFormatted": {
+          "en": "Device state has changed",
+          "de": "Geräte-Status hat sich geændert",
+          "nl": "Apparaatstatus is gewijzigd"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+          }
+        ],
+        "tokens": [
+          {
+            "name": "state_device",
+            "type": "string",
+            "title": {
+              "en": "Device state",
+              "de": "Geräte-Status",
+              "nl": "Apparaat toestand"
+            }
+          }
+        ],
+        "id": "state_device_changed"
+      },
+      {
+        "title": {
+          "en": "Station state has changed",
+          "de": "Station-Status hat sich geændert",
+          "nl": "Stations toestand gewijzigd"
+        },
+        "titleFormatted": {
+          "en": "Station state has changed",
+          "de": "Station-Status hat sich geændert",
+          "nl": "Stations toestand gewijzigd"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+          }
+        ],
+        "tokens": [
+          {
+            "name": "state_station",
+            "type": "string",
+            "title": {
+              "en": "Station state",
+              "de": "Station-Status",
+              "nl": "Stations toestand"
+            }
+          }
+        ],
+        "id": "state_station_changed"
+      },
+      {
+        "title": {
+          "en": "CLeaning stopped",
+          "de": "Reinigung beendet",
+          "nl": "Schoonmaak beeindigd"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+          }
+        ],
+        "id": "stop_true"
+      },
+      {
+        "title": {
+          "en": "Suction power has changed",
+          "de": "Saugleistung hat sich geændert",
+          "nl": "Zuigkracht is gewijzigd"
+        },
+        "titleFormatted": {
+          "en": "Suction power has changed",
+          "de": "Saugleistung hat sich geændert",
+          "nl": "Zuigkracht is gewijzigd"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+          }
+        ],
+        "tokens": [
+          {
+            "name": "suction_power",
+            "type": "string",
+            "title": {
+              "en": "Suction power",
+              "de": "Saugleistung",
+              "nl": "Zuigkracht"
+            }
+          }
+        ],
+        "id": "suction_power_changed"
+      },
+      {
+        "title": {
+          "en": "Cleaning speed has changed",
+          "de": "Reinigungsgeschwindigkeit hat sich geændert",
+          "nl": "Reinigings snelheid is gewijzigd"
+        },
+        "titleFormatted": {
+          "en": "Cleaning speed has changed",
+          "de": "Reinigungsgeschwindigkeit hat sich geændert",
+          "nl": "Reinigings snelheid is gewijzigd"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+          }
+        ],
+        "tokens": [
+          {
+            "name": "work_mode",
+            "type": "string",
+            "title": {
+              "en": "Cleaning speed",
+              "de": "Reinigungsgeschwindigkeit",
+              "nl": "Reinigings snelheid"
+            }
+          }
+        ],
+        "id": "sweep_mode_changed"
+      },
+      {
+        "title": {
+          "en": "Water flow level has changed",
+          "de": "Waterdurchfluss-Stufe hat sich geændert",
+          "nl": "Waterdoorstroomniveau is gewijzigd"
+        },
+        "titleFormatted": {
+          "en": "Water flow level has changed",
+          "de": "Waterdurchfluss-Stufe hat sich geændert",
+          "nl": "Waterdoorstroomniveau is gewijzigd"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+          }
+        ],
+        "tokens": [
+          {
+            "name": "water_flow_level",
+            "type": "string",
+            "title": {
+              "en": "Water flow",
+              "de": "Waterdurchfluss",
+              "nl": "Waterverbruik"
+            }
+          }
+        ],
+        "id": "water_flow_level_changed"
+      },
+      {
+        "title": {
+          "en": "Water flow value has changed",
+          "de": "Waterdurchfluss-Wert hat sich geændert",
+          "nl": "Waterdoorstroomwaarde is gewijzigd"
+        },
+        "titleFormatted": {
+          "en": "Water flow value has changed",
+          "de": "Waterdurchfluss-Wert hat sich geændert",
+          "nl": "Waterdoorstroomwaarde is gewijzigd"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+          }
+        ],
+        "tokens": [
+          {
+            "name": "water_flow_value",
+            "type": "string",
+            "title": {
+              "en": "Water flow",
+              "de": "Waterdurchfluss",
+              "nl": "Waterverbruik"
+            }
+          }
+        ],
+        "id": "water_flow_value_changed"
+      },
+      {
+        "title": {
+          "en": "Cleaning mode has changed",
+          "de": "Reinigungsmodus hat sich geændert",
+          "nl": "Reinigingsmodus is gewijzigd"
+        },
+        "titleFormatted": {
+          "en": "Cleaning mode has changed",
+          "de": "Reinigungsmodus hat sich geændert",
+          "nl": "Reinigingsmodus is gewijzigd"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+          }
+        ],
+        "tokens": [
+          {
+            "name": "work_mode",
+            "type": "string",
+            "title": {
+              "en": "Cleaning mode",
+              "de": "Reinigungsmodus",
+              "nl": "Reinigingsmodus"
+            }
+          }
+        ],
+        "id": "work_mode_changed"
+      }
+    ],
+    "conditions": [
+      {
+        "title": {
+          "en": "Map !{{is|isn't}} active",
+          "de": "Karte !{{ist|ist nicht}} aktiv",
+          "nl": "Kaart !{{is|is niet}} actief"
+        },
+        "titleFormatted": {
+          "en": "Map [[map]] !{{is|isn't}} active",
+          "de": "Karte [[map]] !{{ist|ist nicht}} aktiv",
+          "nl": "Kaart [[map]] !{{is|is niet}} actief"
+        },
+        "hint": {
+          "en": "Check if a map is the current map",
+          "de": "Kontrollieren, ob eine Karte die aktuelle Karte ist",
+          "nl": "Controleer of een kaart de huidige kaart is"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+          },
+          {
+            "type": "autocomplete",
+            "name": "map",
+            "required": true,
+            "title": {
+              "en": "Map",
+              "de": "Karte",
+              "nl": "Kaart"
+            },
+            "placeholder": {
+              "en": "Kitchen",
+              "fr": "Küche",
+              "nl": "Keuken"
+            }
+          }
+        ],
+        "id": "map_active"
+      },
+      {
+        "title": {
+          "en": "Charge state !{{is|isn't}}",
+          "de": "Lade-Status !{{ist|ist nicht}}",
+          "nl": "Oplaadstatus !{{is|is niet}}"
+        },
+        "titleFormatted": {
+          "en": "Charge state !{{is|isn't}} [[state]]",
+          "de": "Lade-Status !{{ist|ist nicht}} [[state]]",
+          "nl": "Oplaadstatus !{{is|is niet}} [[state]]"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+          },
+          {
+            "name": "state",
+            "type": "dropdown",
+            "title": {
+              "en": "Charge state",
+              "de": "Lade-Status",
+              "nl": "Laden toestand"
+            },
+            "values": [
+              {
+                "id": "idle",
+                "title": {
+                  "en": "Idle",
+                  "de": "Leerlauf",
+                  "nl": "Inactief"
+                }
+              },
+              {
+                "id": "charging",
+                "title": {
+                  "en": "Charging",
+                  "de": "Laden",
+                  "nl": "Laden"
+                }
+              },
+              {
+                "id": "returning",
+                "title": {
+                  "en": "Go to charge",
+                  "de": "Zur Aufladung",
+                  "nl": "Naar laden"
+                }
+              }
+            ]
+          }
+        ],
+        "id": "state_charge"
+      },
+      {
+        "title": {
+          "en": "Device state !{{is|isn't}}",
+          "de": "Geräte-Status !{{ist|ist nicht}}",
+          "nl": "Apparaatstatus !{{is|is niet}}"
+        },
+        "titleFormatted": {
+          "en": "Device state !{{is|isn't}} [[state]]",
+          "de": "Geräte-Status !{{ist|ist nicht}} [[state]]",
+          "nl": "Apparaatstatus !{{is|is niet}} [[state]]"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+          },
+          {
+            "name": "state",
+            "type": "dropdown",
+            "title": {
+              "en": "Device state",
+              "de": "Geräte-Status",
+              "nl": "Apparaat toestand"
+            },
+            "values": [
+              {
+                "id": "idle",
+                "title": {
+                  "en": "Idle",
+                  "de": "Leerlauf",
+                  "nl": "Inactief"
+                }
+              },
+              {
+                "id": "cleaning",
+                "title": {
+                  "en": "Cleaning",
+                  "de": "Reinigen",
+                  "nl": "Schoonmaak"
+                }
+              }
+            ]
+          }
+        ],
+        "id": "state_device"
+      },
+      {
+        "title": {
+          "en": "Station state !{{is|isn't}}",
+          "de": "Stations-Status !{{ist|ist nicht}}",
+          "nl": "Stations toestand !{{is|is niet}}"
+        },
+        "titleFormatted": {
+          "en": "Station state !{{is|isn't}} [[state]]",
+          "de": "Stations-Status !{{ist|ist nicht}} [[state]]",
+          "nl": "Stations toestand !{{is|is niet}} [[state]]"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+          },
+          {
+            "name": "state",
+            "type": "dropdown",
+            "title": {
+              "en": "Station state",
+              "de": "Station-Status",
+              "nl": "Stations toestand"
+            },
+            "values": [
+              {
+                "id": "idle",
+                "title": {
+                  "en": "Idle",
+                  "de": "Leerlauf",
+                  "nl": "Inactief"
+                }
+              },
+              {
+                "id": "washing",
+                "title": {
+                  "en": "Washing",
+                  "de": "Waschen",
+                  "nl": "Wassen"
+                }
+              },
+              {
+                "id": "drying",
+                "title": {
+                  "en": "Drying",
+                  "de": "Trocknen",
+                  "nl": "Drogen"
+                }
+              },
+              {
+                "id": "goCharging",
+                "title": {
+                  "en": "Go to charge",
+                  "de": "Zur Aufladung",
+                  "nl": "Naar laden"
+                }
+              },
+              {
+                "id": "goWashing",
+                "title": {
+                  "en": "Go to wash",
+                  "de": "Zum Waschen",
+                  "nl": "Naar wassen"
+                }
+              },
+              {
+                "id": "emptying",
+                "title": {
+                  "en": "Emptying",
+                  "de": "Leeren",
+                  "nl": "Leegmaken"
+                }
+              }
+            ]
+          }
+        ],
+        "id": "state_station"
+      },
+      {
+        "title": {
+          "en": "Suction power !{{is|isn't}}",
+          "de": "Saugleistung !{{ist|ist nicht}}",
+          "nl": "Zuigkracht !{{is|is niet}}"
+        },
+        "titleFormatted": {
+          "en": "Suction power !{{is|isn't}} [[value]]",
+          "de": "Saugleistung !{{ist|ist nicht}} [[value]]",
+          "nl": "Zuigkracht !{{is|is niet}} [[value]]"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+          },
+          {
+            "name": "value",
+            "type": "dropdown",
+            "title": {
+              "en": "Suction power",
+              "de": "Saugleistung",
+              "nl": "Zuigkracht"
+            },
+            "values": [
+              {
+                "id": "1",
+                "title": {
+                  "en": "Quiet",
+                  "de": "Leise",
+                  "nl": "Zacht"
+                }
+              },
+              {
+                "id": "2",
+                "title": {
+                  "en": "Standard",
+                  "de": "Standard",
+                  "nl": "Standaard"
+                }
+              },
+              {
+                "id": "3",
+                "title": {
+                  "en": "Heigh",
+                  "de": "Hoch",
+                  "nl": "Hoog"
+                }
+              },
+              {
+                "id": "4",
+                "title": {
+                  "en": "Max",
+                  "de": "Max",
+                  "nl": "Max"
+                }
+              }
+            ]
+          }
+        ],
+        "id": "suction_power"
+      },
+      {
+        "title": {
+          "en": "Cleaning speed !{{is|isn't}}",
+          "de": "Reinigungsgeschwindigkeit !{{ist|ist nicht}}",
+          "nl": "Reinigings snelheid !{{is|is niet}}"
+        },
+        "titleFormatted": {
+          "en": "Cleaning speed !{{is|isn't}} [[value]]",
+          "de": "Reinigungsgeschwindigkeit !{{ist|ist nicht}} [[value]]",
+          "nl": "Reinigings snelheid !{{is|is niet}} [[value]]"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+          },
+          {
+            "name": "value",
+            "type": "dropdown",
+            "title": {
+              "en": "Cleaning speed",
+              "de": "Reinigungsgeschwindigkeit",
+              "nl": "Reinigings snelheid"
+            },
+            "values": [
+              {
+                "id": "0",
+                "title": {
+                  "en": "Standard",
+                  "de": "Standard",
+                  "nl": "Standaard"
+                }
+              },
+              {
+                "id": "1",
+                "title": {
+                  "en": "Deep",
+                  "de": "Tief",
+                  "nl": "Grondig"
+                }
+              },
+              {
+                "id": "2",
+                "title": {
+                  "en": "Efficient",
+                  "de": "Effizient",
+                  "nl": "Efficient"
+                }
+              }
+            ]
+          }
+        ],
+        "id": "sweep_mode"
+      },
+      {
+        "title": {
+          "en": "Water flow level !{{is|isn't}}",
+          "de": "Waterdurchfluss-Stufe !{{ist|ist nicht}}",
+          "nl": "Waterdoorstroomniveau !{{is|is niet}}"
+        },
+        "titleFormatted": {
+          "en": "Water flow level !{{is|isn't}} [[level]]",
+          "de": "Waterdurchfluss-Stufe !{{ist|ist nicht}} [[level]]",
+          "nl": "Waterdoorstroomniveau !{{is|is niet}} [[level]]"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+          },
+          {
+            "name": "level",
+            "type": "dropdown",
+            "title": {
+              "en": "Water flow level",
+              "de": "Waterdurchfluss-Stufe",
+              "nl": "Waterdoorstroomniveau"
+            },
+            "values": [
+              {
+                "id": "1",
+                "title": {
+                  "en": "Low",
+                  "de": "Niedrig",
+                  "nl": "Laag"
+                }
+              },
+              {
+                "id": "2",
+                "title": {
+                  "en": "Medium",
+                  "de": "Mittel",
+                  "nl": "Gemiddeld"
+                }
+              },
+              {
+                "id": "3",
+                "title": {
+                  "en": "High",
+                  "de": "Hoch",
+                  "nl": "Hoog"
+                }
+              },
+              {
+                "id": "4",
+                "title": {
+                  "en": "Very High",
+                  "de": "Sehr Hoch",
+                  "nl": "Zeer hoog"
+                }
+              }
+            ]
+          }
+        ],
+        "id": "water_flow_level"
+      },
+      {
+        "title": {
+          "en": "Water flow value !{{is|isn't}}",
+          "de": "Waterdurchfluss-Wert !{{ist|ist nicht}}",
+          "nl": "Waterdoorstroomwaarde !{{is|is niet}}"
+        },
+        "titleFormatted": {
+          "en": "Water flow value !{{is|isn't}} [[value]]",
+          "de": "Waterdurchfluss-Wert !{{ist|ist nicht}} [[value]]",
+          "nl": "Waterdoorstroomwaarde !{{is|is niet}} [[value]]"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+          },
+          {
+            "name": "value",
+            "type": "range",
+            "title": {
+              "en": "Water flow value",
+              "de": "Waterdurchfluss-Wert",
+              "nl": "Waterdoorstroomwaarde"
+            },
+            "min": 1,
+            "max": 50,
+            "step": 1,
+            "values": [
+              {
+                "id": "1",
+                "title": {
+                  "en": "Low",
+                  "de": "Niedrig",
+                  "nl": "Laag"
+                }
+              },
+              {
+                "id": "2",
+                "title": {
+                  "en": "Medium",
+                  "de": "Mittel",
+                  "nl": "Gemiddeld"
+                }
+              },
+              {
+                "id": "3",
+                "title": {
+                  "en": "High",
+                  "de": "Hoch",
+                  "nl": "Hoog"
+                }
+              },
+              {
+                "id": "4",
+                "title": {
+                  "en": "Very High",
+                  "de": "Sehr Hoch",
+                  "nl": "Zeer hoog"
+                }
+              }
+            ]
+          }
+        ],
+        "id": "water_flow_value"
+      },
+      {
+        "title": {
+          "en": "Cleaning mode !{{is|isn't}}",
+          "de": "Reinigungsmodus !{{ist|ist nicht}}",
+          "nl": "Reinigingsmodus !{{is|is niet}}"
+        },
+        "titleFormatted": {
+          "en": "Cleaning mode !{{is|isn't}} [[value]]",
+          "de": "Reinigungsmodus !{{ist|ist nicht}} [[value]]",
+          "nl": "Reinigingsmodus !{{is|is niet}} [[value]]"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+          },
+          {
+            "name": "value",
+            "type": "dropdown",
+            "title": {
+              "en": "Cleaning mode",
+              "de": "Reinigungsmodus",
+              "nl": "Reinigingsmodus"
+            },
+            "values": [
+              {
+                "id": "0",
+                "title": {
+                  "en": "Vacuum and mop",
+                  "de": "Saugen und Wischen",
+                  "nl": "Tofzuigen en dweilen"
+                }
+              },
+              {
+                "id": "1",
+                "title": {
+                  "en": "Vacuum",
+                  "de": "Saugen",
+                  "nl": "Tofzuigen"
+                }
+              },
+              {
+                "id": "2",
+                "title": {
+                  "en": "Mop",
+                  "de": "Wischen",
+                  "nl": "Dweilen"
+                }
+              },
+              {
+                "id": "3",
+                "title": {
+                  "en": "Mop after vacuum",
+                  "de": "Wischen nach dem Saugen",
+                  "nl": "Dweilen na tofzuigen"
+                }
+              }
+            ]
+          }
+        ],
+        "id": "work_mode"
+      }
+    ],
+    "actions": [
+      {
+        "title": {
+          "en": "Stop drying mopping pads",
+          "de": "Wischpads trocknen stoppen",
+          "nl": "Dweilpads drogen stoppen"
+        },
+        "titleFormatted": {
+          "en": "Stop drying mopping pads",
+          "de": "Wischpads trocknen stoppen",
+          "nl": "Dweilpads drogen stoppen"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+          }
+        ],
+        "id": "airdrying_off"
+      },
+      {
+        "title": {
+          "en": "Dry mopping pads",
+          "de": "Wischpads trocknen",
+          "nl": "Dweilpads drogen"
+        },
+        "titleFormatted": {
+          "en": "Dry mopping pads",
+          "de": "Wischpads trocknen",
+          "nl": "Dweilpads drogen"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+          }
+        ],
+        "id": "airdrying_on"
+      },
+      {
+        "title": {
+          "en": "Return to docking station",
+          "de": "Kehre zur Ladestation zurück",
+          "nl": "Ter dockingstation terugkeren"
+        },
+        "titleFormatted": {
+          "en": "Return to docking station",
+          "de": "Kehre zur Ladestation zurück",
+          "nl": "Ter dockingstation terugkeren"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+          }
+        ],
+        "id": "charge"
+      },
+      {
+        "title": {
+          "en": "Start cleaning",
+          "de": "Reinigung starten",
+          "nl": "Schoonmaak starten"
+        },
+        "titleFormatted": {
+          "en": "Start cleaning",
+          "de": "Reinigung starten",
+          "nl": "Schoonmaak starten"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+          }
+        ],
+        "id": "clean"
+      },
+      {
+        "title": {
+          "en": "Clean zone",
+          "de": "Zone reinigen",
+          "nl": "Reinig zone "
+        },
+        "titleFormatted": {
+          "en": "Clean zone [[zone]]",
+          "de": "Reinige Zone [[zone]]",
+          "nl": "Reinig zone [[zone]]"
+        },
+        "hint": {
+          "en": "The zone can only be selected from active map",
+          "de": "Die Zone kann nur aus der aktiven Karte ausgewählt werden",
+          "nl": "De zone kan alleen worden geselecteerd uit de actieve kaart"
+        },
+        "args": [
+          {
+            "type": "autocomplete",
+            "name": "zone",
+            "required": true,
+            "title": {
+              "en": "Zone",
+              "de": "Zone",
+              "nl": "Kamer"
+            },
+            "placeholder": {
+              "en": "Kitchen",
+              "de": "Küche",
+              "nl": "Keuken"
+            }
+          },
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+          }
+        ],
+        "id": "clean_zone"
+      },
+      {
+        "title": {
+          "en": "Empty the dustbin",
+          "de": "Staubbehälter leeren",
+          "nl": "Leeg de stofbak"
+        },
+        "titleFormatted": {
+          "en": "Empty the dustbin",
+          "de": "Staubbehälter leeren",
+          "nl": "Leeg de stofbak"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+          }
+        ],
+        "id": "empty_dustbin"
+      },
+      {
+        "title": {
+          "en": "Go to park position",
+          "de": "Zur Parkposition gehen",
+          "nl": "Naar parkeerplaats gaan"
+        },
+        "titleFormatted": {
+          "en": "Go to park position",
+          "de": "Zur Parkposition gehen",
+          "nl": "Naar parkeerplaats gaan"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+          }
+        ],
+        "id": "park"
+      },
+      {
+        "title": {
+          "en": "Continue cleaning",
+          "de": "Reinigung fortsetzen",
+          "nl": "Schoonmaken verdergaan"
+        },
+        "titleFormatted": {
+          "en": "Continue cleaning",
+          "de": "Reinigung fortsetzen",
+          "nl": "Schoonmaken verdergaan"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+          }
+        ],
+        "id": "pause_off"
+      },
+      {
+        "title": {
+          "en": "Pause cleaning",
+          "de": "Reinigung pausieren",
+          "nl": "Schoonmaken pauzeren"
+        },
+        "titleFormatted": {
+          "en": "Pause cleaning",
+          "de": "Reinigung pausieren",
+          "nl": "Schoonmaken pauzeren"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+          }
+        ],
+        "id": "pause_on"
+      },
+      {
+        "title": {
+          "en": "Run a raw vacbot command",
+          "de": "Führer einen raw vacbot Befehl aus",
+          "nl": "Voer een commando uit"
+        },
+        "titleFormatted": {
+          "en": "Start a vacbot.run([[command]]) command",
+          "de": "Führe einen vacbot.run([[command]]) Befehl aus",
+          "nl": "Voer een vacbot.run([[command]]) commando uit"
+        },
+        "args": [
+          {
+            "type": "text",
+            "name": "command",
+            "required": true,
+            "title": {
+              "en": "Command",
+              "de": "Kommando",
+              "nl": "Commando"
+            },
+            "placeholder": {
+              "en": "Relocate",
+              "de": "Relocate",
+              "nl": "Relocate"
+            }
+          },
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+          }
+        ],
+        "id": "raw_command"
+      },
+      {
+        "title": {
+          "en": "Stop cleaning",
+          "de": "Reinigung beenden",
+          "nl": "Schoonmaak beeindigen"
+        },
+        "titleFormatted": {
+          "en": "Stop cleaning",
+          "de": "Reinigung beenden",
+          "nl": "Schoonmaak beeindigen"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+          }
+        ],
+        "id": "stop"
+      },
+      {
+        "title": {
+          "en": "Set suction power",
+          "de": "Setze Saugleistung",
+          "nl": "Zuigkracht instellen"
+        },
+        "titleFormatted": {
+          "en": "Set suction power to [[suction_power]]",
+          "de": "Setze Saugleistung auf [[suction_power]]",
+          "nl": "Zuigkracht instellen op [[suction_power]]"
+        },
+        "args": [
+          {
+            "type": "dropdown",
+            "name": "suction_power",
+            "required": true,
+            "title": {
+              "en": "Suction power",
+              "de": "Saugleistung",
+              "nl": "Zuigkracht"
+            },
+            "values": [
+              {
+                "id": "1",
+                "title": {
+                  "en": "Quiet",
+                  "de": "Leise",
+                  "nl": "Zacht"
+                }
+              },
+              {
+                "id": "2",
+                "title": {
+                  "en": "Standard",
+                  "de": "Standard",
+                  "nl": "Standaard"
+                }
+              },
+              {
+                "id": "3",
+                "title": {
+                  "en": "Heigh",
+                  "de": "Hoch",
+                  "nl": "Hoog"
+                }
+              },
+              {
+                "id": "4",
+                "title": {
+                  "en": "Max",
+                  "nl": "Max",
+                  "fr": "Max"
+                }
+              }
+            ]
+          },
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+          }
+        ],
+        "id": "suction_power"
+      },
+      {
+        "title": {
+          "en": "Set cleaning speed",
+          "de": "Setze Reinigungsgeschwindigkeit",
+          "nl": "Reinigingsmodus instellen"
+        },
+        "titleFormatted": {
+          "en": "Set cleaning speed to [[mode]]",
+          "de": "Setze Reinigungsgeschwindigkeit auf [[mode]]",
+          "nl": "Reinigings snelheid instellen op [[mode]]"
+        },
+        "args": [
+          {
+            "type": "dropdown",
+            "name": "mode",
+            "required": true,
+            "title": {
+              "en": "Cleaning speed",
+              "de": "Reinigungsgeschwindigkeit",
+              "nl": "Reinigings snelheid"
+            },
+            "values": [
+              {
+                "id": "0",
+                "title": {
+                  "en": "Standard",
+                  "de": "Standard",
+                  "nl": "Standaard"
+                }
+              },
+              {
+                "id": "1",
+                "title": {
+                  "en": "Deep",
+                  "de": "Tief",
+                  "nl": "Grondig"
+                }
+              },
+              {
+                "id": "2",
+                "title": {
+                  "en": "Efficient",
+                  "de": "Effizient",
+                  "nl": "Efficient"
+                }
+              }
+            ]
+          },
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+          }
+        ],
+        "id": "sweep_mode"
+      },
+      {
+        "title": {
+          "en": "Stop washing mopping pads",
+          "de": "Wischpads waschen stoppen",
+          "nl": "Dweilpads wassen stoppen"
+        },
+        "titleFormatted": {
+          "en": "Stop washing mopping pads",
+          "de": "Wischpads waschen stoppen",
+          "nl": "Dweilpads wassen stoppen"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+          }
+        ],
+        "id": "wash_mop_off"
+      },
+      {
+        "title": {
+          "en": "Wash mopping pads",
+          "de": "Wischpads waschen",
+          "nl": "Dweilpads wassen"
+        },
+        "titleFormatted": {
+          "en": "Wash mopping pads",
+          "de": "Wischpads waschen",
+          "nl": "Dweilpads wassen"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+          }
+        ],
+        "id": "wash_mop_on"
+      },
+      {
+        "title": {
+          "en": "Set water flow level",
+          "de": "Setze Wasserdurchfluss-Stufe",
+          "nl": "Waterdoorstroomniveau instellen"
+        },
+        "titleFormatted": {
+          "en": "Set water flow level to [[level]]",
+          "de": "Setze Wasserdurchfluss-Stufe auf [[level]]",
+          "nl": "Waterdoorstroomniveau instellen op [[level]]"
+        },
+        "args": [
+          {
+            "type": "dropdown",
+            "name": "level",
+            "required": true,
+            "title": {
+              "en": "Water flow level",
+              "de": "Wasserdurchfluss-Stufe",
+              "nl": "Waterdoorstroomniveau"
+            },
+            "values": [
+              {
+                "id": "1",
+                "title": {
+                  "en": "Low",
+                  "de": "Niedrig",
+                  "nl": "Laag"
+                }
+              },
+              {
+                "id": "2",
+                "title": {
+                  "en": "Medium",
+                  "de": "Mittel",
+                  "nl": "Gemiddeld"
+                }
+              },
+              {
+                "id": "3",
+                "title": {
+                  "en": "High",
+                  "de": "Hoch",
+                  "nl": "Hoog"
+                }
+              },
+              {
+                "id": "4",
+                "title": {
+                  "en": "Very High",
+                  "de": "Sehr Hoch",
+                  "nl": "Zeer hoog"
+                }
+              }
+            ]
+          },
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+          }
+        ],
+        "id": "water_flow_level"
+      },
+      {
+        "title": {
+          "en": "Set water flow value",
+          "de": "Setze Wasserdurchfluss-Wert",
+          "nl": "Waterverbruik instellen"
+        },
+        "titleFormatted": {
+          "en": "Set water flow value to [[value]]",
+          "de": "Setze Wasserdurchfluss-Wert auf [[value]]",
+          "nl": "Waterdoorstroomwaarde instellen op [[value]]"
+        },
+        "args": [
+          {
+            "type": "range",
+            "name": "value",
+            "required": true,
+            "title": {
+              "en": "Water flow value",
+              "de": "Wasserdurchfluss-Wert",
+              "nl": "Waterdoorstroomwaarde"
+            },
+            "min": 1,
+            "max": 50,
+            "step": 1
+          },
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+          }
+        ],
+        "id": "water_flow_value"
+      },
+      {
+        "title": {
+          "en": "Set cleaning mode",
+          "de": "Setze Reinigungsmodus",
+          "nl": "Reinigingsmodus instellen"
+        },
+        "titleFormatted": {
+          "en": "Set cleaning mode to [[mode]]",
+          "de": "Setze SaugleisReinigungsmodustung auf [[mode]]",
+          "nl": "Reinigingsmodus instellen op [[mode]]"
+        },
+        "args": [
+          {
+            "type": "dropdown",
+            "name": "mode",
+            "required": true,
+            "title": {
+              "en": "Cleaning mode",
+              "de": "Reinigungsmodus",
+              "nl": "Reinigingsmodus"
+            },
+            "values": [
+              {
+                "id": "0",
+                "title": {
+                  "en": "Vacuum and mop",
+                  "de": "Saugen und Wischen",
+                  "nl": "Tofzuigen en dweilen"
+                }
+              },
+              {
+                "id": "1",
+                "title": {
+                  "en": "Vacuum",
+                  "de": "Saugen",
+                  "nl": "Tofzuigen"
+                }
+              },
+              {
+                "id": "2",
+                "title": {
+                  "en": "Mop",
+                  "de": "Wischen",
+                  "nl": "Dweilen"
+                }
+              },
+              {
+                "id": "3",
+                "title": {
+                  "en": "Mop after vacuum",
+                  "de": "Wischen nach dem Saugen",
+                  "nl": "Dweilen na tofzuigen"
+                }
+              }
+            ]
+          },
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+          }
+        ],
+        "id": "work_mode"
+      }
+    ]
+  },
+  "drivers": [
+    {
+      "name": {
+        "en": "Ecovacs Deebot",
+        "fr": "Ecovacs Deebot"
+      },
+      "class": "vacuumcleaner",
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "energy": {
+        "batteries": [
+          "INTERNAL"
+        ]
+      },
+      "images": {
+        "large": "/drivers/deebot/assets/images/large.png",
+        "small": "/drivers/deebot/assets/images/small.png"
+      },
+      "capabilities": [
+        "clean",
+        "pause",
+        "stop",
+        "charge",
+        "park",
+        "park_position",
+        "state_device",
+        "state_station",
+        "state_charge",
+        "measure_battery",
+        "work_mode",
+        "sweep_mode",
+        "suction_power",
+        "water_flow_level",
+        "water_flow_value"
+      ],
+      "pair": [
+        {
+          "id": "account",
+          "navigation": {
+            "next": "check_account"
+          }
+        },
+        {
+          "id": "check_account",
+          "template": "loading",
+          "navigation": {
+            "prev": "account",
+            "next": "list_devices"
+          }
+        },
+        {
+          "id": "pincode",
+          "template": "pincode",
+          "options": {
+            "hint": "Enter the 2FA code",
+            "type": "number",
+            "length": 6
+          },
+          "navigation": {
+            "prev": "account"
+          }
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        },
+        {
+          "id": "done",
+          "template": "done"
+        },
+        {
+          "id": "account_error",
+          "navigation": {
+            "prev": "account"
+          }
+        }
+      ],
+      "repair": [
+        {
+          "id": "account",
+          "navigation": {
+            "next": "check_account"
+          }
+        },
+        {
+          "id": "check_account",
+          "template": "loading",
+          "navigation": {
+            "prev": "account",
+            "next": "list_devices"
+          }
+        },
+        {
+          "id": "pincode",
+          "template": "pincode",
+          "options": {
+            "hint": "Enter the 2FA code",
+            "type": "number",
+            "length": 6
+          },
+          "navigation": {
+            "prev": "account",
+            "next": "list_devices"
+          }
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices"
+        },
+        {
+          "id": "done",
+          "template": "done"
+        },
+        {
+          "id": "account_error",
+          "navigation": {
+            "prev": "account"
+          }
+        }
+      ],
+      "id": "deebot"
+    }
+  ],
+  "capabilities": {
+    "charge": {
+      "type": "boolean",
+      "getable": false,
+      "setable": true,
+      "title": {
+        "en": "Return to docking station",
+        "de": "Zur Ladestation zurückkehren",
+        "nl": "Ter dockingstation terugkeren"
+      },
+      "insights": false,
+      "icon": "/assets/capabilities/charge.svg"
+    },
+    "clean": {
+      "type": "boolean",
+      "getable": true,
+      "setable": true,
+      "title": {
+        "en": "Clean",
+        "de": "Reinigen",
+        "nl": "Schoonmaken"
+      },
+      "insights": false,
+      "icon": "/assets/capabilities/clean.svg"
+    },
+    "park": {
+      "type": "boolean",
+      "getable": false,
+      "setable": true,
+      "title": {
+        "en": "Park",
+        "de": "Parken",
+        "nl": "Parkeer"
+      },
+      "insights": false,
+      "icon": "/assets/capabilities/park.svg"
+    },
+    "park_position": {
+      "type": "boolean",
+      "getable": false,
+      "setable": true,
+      "title": {
+        "en": "Save parking spot",
+        "de": "Parkpposition speichern",
+        "nl": "Parkeerplaats bewaren"
+      },
+      "insights": false,
+      "icon": "/assets/capabilities/park_position.svg"
+    },
+    "pause": {
+      "type": "boolean",
+      "getable": true,
+      "setable": true,
+      "title": {
+        "en": "Pause",
+        "de": "Pausieren",
+        "nl": "Pauzeren"
+      },
+      "insights": false,
+      "icon": "/assets/capabilities/pause.svg"
+    },
+    "state_charge": {
+      "type": "enum",
+      "title": {
+        "en": "Charge state",
+        "de": "Lade-Status",
+        "nl": "Laden toestand"
+      },
+      "uiComponent": "sensor",
+      "getable": true,
+      "setable": false,
+      "icon": "./assets/capabilities/state_charge.svg",
+      "values": [
+        {
+          "id": "idle",
+          "title": {
+            "en": "Idle",
+            "de": "Leerlauf",
+            "nl": "Inactief"
+          }
+        },
+        {
+          "id": "charging",
+          "title": {
+            "en": "Charging",
+            "de": "Laden",
+            "nl": "Laden"
+          }
+        },
+        {
+          "id": "returning",
+          "title": {
+            "en": "Go to charge",
+            "de": "Zur Aufladung",
+            "nl": "Naar laden"
+          }
+        }
+      ]
+    },
+    "state_device": {
+      "type": "enum",
+      "title": {
+        "en": "Device state",
+        "de": "Geräte-Status",
+        "nl": "Apparaat toestand"
+      },
+      "uiComponent": "sensor",
+      "getable": true,
+      "setable": false,
+      "icon": "./assets/capabilities/state_device.svg",
+      "values": [
+        {
+          "id": "idle",
+          "title": {
+            "en": "Idle",
+            "de": "Leerlauf",
+            "nl": "Inactief"
+          }
+        },
+        {
+          "id": "cleaning",
+          "title": {
+            "en": "Cleaning",
+            "de": "Reinigen",
+            "nl": "Schoonmaak"
+          }
+        }
+      ]
+    },
+    "state_station": {
+      "type": "enum",
+      "title": {
+        "en": "Station state",
+        "de": "Station-Status",
+        "nl": "Stations toestand"
+      },
+      "uiComponent": "sensor",
+      "getable": true,
+      "setable": false,
+      "icon": "./assets/capabilities/state_station.svg",
+      "values": [
+        {
+          "id": "idle",
+          "title": {
+            "en": "Idle",
+            "de": "Leerlauf",
+            "nl": "Inactief"
+          }
+        },
+        {
+          "id": "washing",
+          "title": {
+            "en": "Washing",
+            "de": "Waschen",
+            "nl": "Wassen"
+          }
+        },
+        {
+          "id": "drying",
+          "title": {
+            "en": "Drying",
+            "de": "Trocknen",
+            "nl": "Drogen"
+          }
+        },
+        {
+          "id": "goCharging",
+          "title": {
+            "en": "Go to charge",
+            "de": "Zur Aufladung",
+            "nl": "Naar laden"
+          }
+        },
+        {
+          "id": "goWashing",
+          "title": {
+            "en": "Go to wash",
+            "de": "Zum Waschen",
+            "nl": "Naar wassen"
+          }
+        },
+        {
+          "id": "emptying",
+          "title": {
+            "en": "Emptying",
+            "de": "Leeren",
+            "nl": "Leegmaken"
+          }
+        }
+      ]
+    },
+    "stop": {
+      "type": "boolean",
+      "getable": false,
+      "setable": true,
+      "title": {
+        "en": "Stop",
+        "de": "Stopp",
+        "nl": "Stop"
+      },
+      "insights": false,
+      "icon": "/assets/capabilities/stop.svg"
+    },
+    "suction_power": {
+      "type": "enum",
+      "uiComponent": "picker",
+      "title": {
+        "en": "Suction power",
+        "de": "Saugleistung",
+        "nl": "Zuigkracht"
+      },
+      "values": [
+        {
+          "id": "1",
+          "title": {
+            "en": "Quiet",
+            "de": "Leise",
+            "nl": "Zacht"
+          }
+        },
+        {
+          "id": "2",
+          "title": {
+            "en": "Standard",
+            "de": "Standard",
+            "nl": "Standaard"
+          }
+        },
+        {
+          "id": "3",
+          "title": {
+            "en": "Heigh",
+            "de": "Hoch",
+            "nl": "Hoog"
+          }
+        },
+        {
+          "id": "4",
+          "title": {
+            "en": "Max",
+            "de": "Max",
+            "nl": "Max"
+          }
+        }
+      ],
+      "getable": true,
+      "setable": true,
+      "insights": false,
+      "icon": "/assets/capabilities/suction_power.svg"
+    },
+    "sweep_mode": {
+      "type": "enum",
+      "uiComponent": "picker",
+      "title": {
+        "en": "Cleaning speed",
+        "de": "Reinigungsgeschwindigkeit",
+        "nl": "Reinigings snelheid"
+      },
+      "values": [
+        {
+          "id": "0",
+          "title": {
+            "en": "Standard",
+            "de": "Standard",
+            "nl": "Standaard"
+          }
+        },
+        {
+          "id": "1",
+          "title": {
+            "en": "Deep",
+            "de": "Tief",
+            "nl": "Grondig"
+          }
+        },
+        {
+          "id": "2",
+          "title": {
+            "en": "Efficient",
+            "de": "Effizient",
+            "nl": "Efficient"
+          }
+        }
+      ],
+      "getable": true,
+      "setable": true,
+      "insights": false,
+      "icon": "/assets/capabilities/sweep_mode.svg"
+    },
+    "water_flow_level": {
+      "type": "enum",
+      "uiComponent": "picker",
+      "title": {
+        "en": "Water flow",
+        "de": "Waterdurchfluss",
+        "nl": "Waterverbruik"
+      },
+      "values": [
+        {
+          "id": "1",
+          "title": {
+            "en": "Low",
+            "de": "Niedrig",
+            "nl": "Laag"
+          }
+        },
+        {
+          "id": "2",
+          "title": {
+            "en": "Medium",
+            "de": "Mittel",
+            "nl": "Gemiddeld"
+          }
+        },
+        {
+          "id": "3",
+          "title": {
+            "en": "High",
+            "de": "Hoch",
+            "nl": "Hoog"
+          }
+        },
+        {
+          "id": "4",
+          "title": {
+            "en": "Very High",
+            "de": "Sehr Hoch",
+            "nl": "Zeer hoog"
+          }
+        }
+      ],
+      "getable": true,
+      "setable": true,
+      "insights": false,
+      "icon": "/assets/capabilities/water_flow.svg"
+    },
+    "water_flow_value": {
+      "type": "number",
+      "uiComponent": "slider",
+      "title": {
+        "en": "Water flow",
+        "de": "Waterdurchfluss",
+        "nl": "Waterverbruik"
+      },
+      "min": 1,
+      "max": 50,
+      "step": 1,
+      "getable": true,
+      "setable": true,
+      "insights": false,
+      "icon": "/assets/capabilities/water_flow.svg"
+    },
+    "work_mode": {
+      "type": "enum",
+      "uiComponent": "picker",
+      "title": {
+        "en": "Cleaning mode",
+        "de": "Reinigungsmodus",
+        "nl": "Reinigingsmodus"
+      },
+      "values": [
+        {
+          "id": "0",
+          "title": {
+            "en": "Vacuum and mop",
+            "de": "Saugen und Wischen",
+            "nl": "Tofzuigen en dweilen"
+          }
+        },
+        {
+          "id": "1",
+          "title": {
+            "en": "Vacuum",
+            "de": "Saugen",
+            "nl": "Tofzuigen"
+          }
+        },
+        {
+          "id": "2",
+          "title": {
+            "en": "Mop",
+            "de": "Wischen",
+            "nl": "Dweilen"
+          }
+        },
+        {
+          "id": "3",
+          "title": {
+            "en": "Mop after vacuum",
+            "de": "Wischen nach dem Saugen",
+            "nl": "Dweilen na tofzuigen"
+          }
+        }
+      ],
+      "getable": true,
+      "setable": true,
+      "insights": false,
+      "icon": "/assets/capabilities/work_mode.svg"
+    }
+  }
+}

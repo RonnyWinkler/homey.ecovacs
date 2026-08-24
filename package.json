@@ -1,0 +1,14 @@
+{
+  "dependencies": {
+    "axios": "file:./lib/axios/axios-1.16.1.tgz",
+    "chalk": "^6.0.0",
+    "ecovacs-deebot": "^1.0.0-alpha.23",
+    "fixture-stdout": "^0.2.1",
+    "lzma": "^2.3.2",
+    "mqtt": "^5.15.2",
+    "uniqid": "^5.4.0"
+  },
+  "overrides": {
+    "axios": "$axios"
+  }
+}

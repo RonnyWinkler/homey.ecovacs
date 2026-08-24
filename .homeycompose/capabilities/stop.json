@@ -1,0 +1,12 @@
+{
+    "type": "boolean",
+    "getable": false,
+    "setable": true,
+    "title": {
+        "en": "Stop",
+        "de": "Stopp",
+        "nl": "Stop"
+    },
+    "insights": false,
+    "icon": "/assets/capabilities/stop.svg"
+}

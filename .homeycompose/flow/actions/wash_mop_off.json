@@ -1,0 +1,19 @@
+{
+    "title": {
+        "en": "Stop washing mopping pads",
+        "de": "Wischpads waschen stoppen",
+        "nl": "Dweilpads wassen stoppen"
+    },
+    "titleFormatted": {
+        "en": "Stop washing mopping pads",
+        "de": "Wischpads waschen stoppen",
+        "nl": "Dweilpads wassen stoppen"
+    },
+    "args": [
+        {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+        }
+    ]
+}

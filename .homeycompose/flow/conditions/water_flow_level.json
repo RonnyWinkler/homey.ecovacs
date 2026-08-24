@@ -1,0 +1,59 @@
+{
+    "title": {
+        "en": "Water flow level !{{is|isn't}}",
+        "de": "Waterdurchfluss-Stufe !{{ist|ist nicht}}",
+        "nl": "Waterdoorstroomniveau !{{is|is niet}}"
+    },
+    "titleFormatted": {
+        "en": "Water flow level !{{is|isn't}} [[level]]",
+        "de": "Waterdurchfluss-Stufe !{{ist|ist nicht}} [[level]]",
+        "nl": "Waterdoorstroomniveau !{{is|is niet}} [[level]]"
+    },
+    "args": [
+        {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+        },
+        {
+            "name": "level",
+            "type": "dropdown",
+            "title": { 
+                "en": "Water flow level",
+                "de": "Waterdurchfluss-Stufe",
+                "nl": "Waterdoorstroomniveau"
+            },
+            "values": [
+                {
+                    "id": "1",
+                    "title": {
+                        "en": "Low",
+                        "de": "Niedrig",
+                        "nl": "Laag"
+                    }
+                }, {
+                    "id": "2",
+                    "title": {
+                        "en": "Medium",
+                        "de": "Mittel",
+                        "nl": "Gemiddeld"
+                    }
+                }, {
+                    "id": "3",
+                    "title": {
+                        "en": "High",
+                        "de": "Hoch",
+                        "nl": "Hoog"
+                    }
+                }, {
+                    "id": "4",
+                    "title": {
+                        "en": "Very High",
+                        "de": "Sehr Hoch",
+                        "nl": "Zeer hoog"
+                    }
+                }
+            ]
+       }
+    ]
+}

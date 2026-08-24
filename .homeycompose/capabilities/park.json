@@ -1,0 +1,12 @@
+{
+    "type": "boolean",
+    "getable": false,
+    "setable": true,
+    "title": {
+        "en": "Park",
+        "de": "Parken",
+        "nl": "Parkeer"
+    },
+    "insights": false,
+    "icon": "/assets/capabilities/park.svg"
+}

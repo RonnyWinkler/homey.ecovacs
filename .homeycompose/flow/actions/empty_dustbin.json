@@ -1,0 +1,19 @@
+{
+    "title": {
+        "en": "Empty the dustbin",
+        "de": "Staubbehälter leeren",
+        "nl": "Leeg de stofbak"
+    },
+    "titleFormatted": {
+        "en": "Empty the dustbin",
+        "de": "Staubbehälter leeren",
+        "nl": "Leeg de stofbak"
+    },
+    "args": [
+        {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+        }
+    ]
+}

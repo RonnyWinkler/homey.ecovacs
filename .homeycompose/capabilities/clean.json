@@ -1,0 +1,12 @@
+{
+    "type": "boolean",
+    "getable": true,
+    "setable": true,
+    "title": {
+        "en": "Clean",
+        "de": "Reinigen",
+        "nl": "Schoonmaken"
+    },
+    "insights": false,
+    "icon": "/assets/capabilities/clean.svg"
+}

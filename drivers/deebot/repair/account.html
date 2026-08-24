@@ -1,0 +1,33 @@
+<script type="application/javascript">
+
+    Homey.setTitle(Homey.__("pair.account.title"));
+
+    Homey.emit("getAccount").then(function (settings) {
+        if (settings){
+            document.getElementById('email').value = settings.email; 
+            document.getElementById('password').value = settings.password; 
+        }
+    });
+
+    function accountChanged(){
+        let data = {
+            "email": document.getElementById('email').value,
+            "password": document.getElementById('password').value
+        };
+        Homey.emit("accountChanged", data).then(function (result) {
+        });
+    }
+
+</script>
+
+<fieldset class="homey-form-fieldset">
+    <legend class="homey-form-legend"><span data-i18n="pair.account.account_settings"></span></legend>
+    <div class="homey-form-group">
+        <label for="email" class="homey-form-label"><span data-i18n="pair.account.email"></span></label>
+        <input id="email" class="homey-form-input" type="text" value="" oninput="accountChanged()"/>
+    </div>
+    <div class="homey-form-group">
+            <label for="password" class="homey-form-label"><span data-i18n="pair.account.password"></span></label>
+        <input id="password" class="homey-form-input" type="password" value="" oninput="accountChanged()"/>
+    </div>
+</fieldset>

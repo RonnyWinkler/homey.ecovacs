@@ -1,0 +1,78 @@
+{
+    "title": {
+        "en": "Station state !{{is|isn't}}",
+        "de": "Stations-Status !{{ist|ist nicht}}",
+        "nl": "Stations toestand !{{is|is niet}}"
+    },
+    "titleFormatted": {
+        "en": "Station state !{{is|isn't}} [[state]]",
+        "de": "Stations-Status !{{ist|ist nicht}} [[state]]",
+        "nl": "Stations toestand !{{is|is niet}} [[state]]"
+    },
+    "args": [
+        {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+        },
+        {
+            "name": "state",
+            "type": "dropdown",
+            "title": { 
+                "en": "Station state",
+                "de": "Station-Status",
+                "nl": "Stations toestand"
+            },
+            "values": [
+                {
+                    "id": "idle",
+                    "title": {
+                        "en": "Idle",
+                        "de": "Leerlauf",
+                        "nl": "Inactief"
+                    }
+                },
+                {
+                    "id": "washing",
+                    "title": {
+                        "en": "Washing",
+                        "de": "Waschen",
+                        "nl": "Wassen"
+                    }
+                },
+                {
+                    "id": "drying",
+                    "title": {
+                        "en": "Drying",
+                        "de": "Trocknen",
+                        "nl": "Drogen"
+                    }
+                },
+                {
+                    "id": "goCharging",
+                    "title": {
+                        "en": "Go to charge",
+                        "de": "Zur Aufladung",
+                        "nl": "Naar laden"
+                    }
+                },
+                {
+                    "id": "goWashing",
+                    "title": {
+                        "en": "Go to wash",
+                        "de": "Zum Waschen",
+                        "nl": "Naar wassen"
+                    }
+                },
+                {
+                    "id": "emptying",
+                    "title": {
+                        "en": "Emptying",
+                        "de": "Leeren",
+                        "nl": "Leegmaken"
+                    }
+                }
+            ]
+       }
+    ]
+}

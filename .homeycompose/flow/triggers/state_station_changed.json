@@ -1,0 +1,30 @@
+{
+    "title": {
+        "en": "Station state has changed",
+        "de": "Station-Status hat sich geændert",
+        "nl": "Stations toestand gewijzigd"
+    },
+    "titleFormatted": {
+        "en": "Station state has changed",
+        "de": "Station-Status hat sich geændert",
+        "nl": "Stations toestand gewijzigd"
+    },
+    "args": [
+        {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+        }
+    ],
+    "tokens": [
+        {
+            "name": "state_station",
+            "type": "string",
+            "title": {
+                "en": "Station state",
+                "de": "Station-Status",
+                "nl": "Stations toestand"
+            }
+        }
+    ]
+}
