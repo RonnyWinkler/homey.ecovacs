@@ -23,7 +23,7 @@ class VacuumDriver extends Driver {
 		this.accountData = {
 			email: '',
 			password: '',
-			deviceId: this.createDeviceId()
+			deviceId: await this.createDeviceId()
 		};
 
 		this.deviceApi = null; 
@@ -62,7 +62,7 @@ class VacuumDriver extends Driver {
 			deviceId: device.getStoreValue('deviceId')
 		};
 		if (typeof this.accountData.deviceId != 'string' || this.accountData.deviceId.length == 0) {
-			this.accountData.deviceId = this.createDeviceId();
+			this.accountData.deviceId = await this.createDeviceId();
 		}
 
 		this.deviceApi = null; 
@@ -173,8 +173,9 @@ class VacuumDriver extends Driver {
 		await session.done();
 	}
 
-	createDeviceId(){
-		return crypto.randomBytes(8).toString('hex');		
+	async createDeviceId(){
+		return await this.homey.cloud.getHomeyId();
+		// return crypto.randomBytes(8).toString('hex');		
 	}
 
 	log() {

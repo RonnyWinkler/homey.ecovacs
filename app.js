@@ -139,7 +139,7 @@ class Deebot extends Homey.App {
 			});
 
 		this.homey.flow.getActionCard('suction_power').registerRunListener(async (args, state) => {
-			return await args.device.flowActionCleanSpeed( args.suction_power );
+			return await args.device.flowActionSetCleanSpeed( args.suction_power );
 		});
 
 		this.homey.flow.getActionCard('water_flow_value').registerRunListener(async (args, state) => {
@@ -151,11 +151,11 @@ class Deebot extends Homey.App {
 		});
 
 		this.homey.flow.getActionCard('work_mode').registerRunListener(async (args, state) => {
-			return await args.device.flowActionWorkMode( args.mode );
+			return await args.device.flowActionSetWorkMode( args.mode );
 		});
 
 		this.homey.flow.getActionCard('sweep_mode').registerRunListener(async (args, state) => {
-			return await args.device.flowActionSweepMode( args.mode );
+			return await args.device.flowActionSetSweepMode( args.mode );
 		});
 
 	}

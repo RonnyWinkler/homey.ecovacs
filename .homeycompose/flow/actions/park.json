@@ -9,6 +9,11 @@
         "de": "Zur Parkposition gehen",
         "nl": "Naar parkeerplaats gaan"
     },
+    "hint": {
+        "en": "Save a previous position first. Then you can send Deebot to the saved position.",
+        "de":"Speichere zuvor eine Parkposition. Anschließend kannst du Deebot zur Parkposition schicken.",
+        "nl":"Sla eerst een vorige locatie op. Daarna kan je Deebot naar de opgeslagen locatie sturen."
+    },
     "args": [
         {
             "name": "device",

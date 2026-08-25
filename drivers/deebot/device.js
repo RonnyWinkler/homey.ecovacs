@@ -693,28 +693,28 @@ class VacuumDevice extends Device {
 		try {
 			if (appdebug) { this.log('vacbot.on(MapSpotAreaInfo, ' + JSON.stringify(area) + ')'); }
 
-			var tableAreas = this.getStoreValue('areas');
-			const index = tableAreas.findIndex(element => element.id === area.mapSpotAreaID);
-			if (index !== -1) { tableAreas.splice(index, 1); }
-			if (!tableAreas.find(o => o.id == area.mapSpotAreaID)) {
-				tableAreas.push(
-					{
-						mapid: area.mapID,
-						name: area.mapSpotAreaName,
-						zoneid: area.mapSpotAreaID,
-						id: area.mapID + area.mapSpotAreaID,
-						// toto: area.mapSpotAreaBoundaries,
-						// boundaries: this.convertBoundaries(area.mapSpotAreaBoundaries),
-					}
-				);
-				this.setStoreValue('areas', tableAreas).catch((error) => { this.error('Error: ' + error); });
-				// await this.createToken(area.mapID, area.mapSpotAreaID, area.mapSpotAreaName).then(() => { this.log('--Updated Zone ' + area.mapSpotAreaName); });
-				
-				var tableAreasPrint = tableAreas;
-				tableAreasPrint.forEach(area => delete area.toto);
-				tableAreasPrint.forEach(area => delete area.boundaries);
-				if (appdebug) { this.log(JSON.stringify(tableAreasPrint)); }
+			if (!area) {
+				return;
 			}
+			let tableAreas = this.getStoreValue('areas') ?? [];
+			tableAreas = tableAreas.filter(
+				item =>
+					item.mapid !== area.mapID ||
+					item.zoneid !== area.mapSpotAreaID
+			);
+
+			tableAreas.push({
+				mapid: area.mapID,
+				name: area.mapSpotAreaName,
+				zoneid: area.mapSpotAreaID,
+				// toto: area.mapSpotAreaBoundaries,
+				// boundaries: this.convertBoundaries(area.mapSpotAreaBoundaries),
+			});
+
+			this.setStoreValue('areas', tableAreas).catch((error) => { this.error('Error: ' + error); });
+			// await this.createToken(area.mapID, area.mapSpotAreaID, area.mapSpotAreaName).then(() => { this.log('--Updated Zone ' + area.mapSpotAreaName); });
+			
+			if (appdebug) { this.log(JSON.stringify(tableAreas)); }
 		}
 		catch (error) {
 			this.log('Error: ' + error.message);
@@ -862,7 +862,7 @@ class VacuumDevice extends Device {
 
 	async onCapabilityPark(value, opts) {
 		if (appdebug) { this.log('onCapabilityPark(' + value + ')'); }
-		this._park();
+		await this._park();
 	}
 
 	async onCapabilityParkPosition(value, opts) {
@@ -958,12 +958,12 @@ class VacuumDevice extends Device {
 
 	async flowActionPark() {
 		if (appdebug) { this.log('flowActionPark'); }
-		this._park();
+		await this._park();
 	}
 
 	async flowActionPauseOn() {
 		if (appdebug) { this.log('flowActionPauseOn'); }
-		awaitthis.vacbot.run('Pause');
+		this.vacbot.run('Pause');
 	}
 
 	async flowActionPauseOff() {
@@ -1054,13 +1054,13 @@ class VacuumDevice extends Device {
 		}
 	}
 
-	async flowActionWorkMode(mode) {
+	async flowActionSetWorkMode(mode) {
 		if (appdebug) { this.log('flowActionWorkMode(' + value + ')'); }
 		this.vacbot.run('SetWorkMode', Number(mode));		
 	}
 
-	async flowActionSweepkMode(mode) {
-		if (appdebug) { this.log('flowActionSweepMode(' + value + ')'); }
+	async flowActionSetSweepMode(mode) {
+		if (appdebug) { this.log('flowActionSweepMode(' + mode + ')'); }
 		this.vacbot.run('SetSweepMode', Number(mode));		
 	}
 
@@ -1124,10 +1124,12 @@ class VacuumDevice extends Device {
 	// =======================================================================================================================================================================================
 	// DEEBOT API
 	// =======================================================================================================================================================================================	
-	_park(){
+	async _park(){
 		let position = this.getStoreValue('parkPosition');
+		if (position == undefined){
+			throw new Error('No Park Position defined');
+		} 
 		position = position.x+','+position.y;
-		if (position == undefined) { throw 'No Park Position defined'; }
 		this.vacbot.run('GoToPosition', position);
 	}
 
