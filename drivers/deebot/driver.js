@@ -124,7 +124,7 @@ class VacuumDriver extends Driver {
 
 	async onShowView(session, view){
 		if (view === 'check_account') {
-			this.log("onShowView(check_account)");
+			this.log("onShowView(check_account), deviceId: " + this.accountData.deviceId + ", email: " + this.accountData.email);
 
 			try{
 				this.deviceApi = await ecovacsApi.getApi(this.accountData.deviceId);
@@ -135,15 +135,17 @@ class VacuumDriver extends Driver {
 				if (!(error.name === 'DeviceVerificationRequired')) {
 					await session.showView("account_error");
 				}
-				await this.deviceApi.requestDeviceVerificationCode();
-				await session.showView("pincode");
+				else{
+					await this.deviceApi.requestDeviceVerificationCode();
+					await session.showView("pincode");
+				}
 			}
 		}
 	}
 
 	async onListDevices(){
 		let devicesList = await this.deviceApi.devices();
-		this.log('onListDevices(): ' + JSON.stringify(devicesList));
+		this.log('onListDevices(): Deebot devices: ' + JSON.stringify(devicesList));
 		let devices = devicesList
 			.filter((device) => device.product_category === 'DEEBOT')
 			.map((device) => {
@@ -162,6 +164,7 @@ class VacuumDriver extends Driver {
 					}
 				};
 			});
+		this.log('onListDevices(): Homey devices: ' + JSON.stringify(devices));		
 		return devices;
 	}
 

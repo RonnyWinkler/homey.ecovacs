@@ -174,9 +174,10 @@ class VacuumDevice extends Device {
 		this.log('Vacuum has been added');
 
 		// let data = this.getData();
+		this.log('Device ID: ' + this.getStoreValue('deviceId') + ' email: ' + this.getStoreValue('email'));
 		this.api = await ecovacsApi.getApi(this.getStoreValue('deviceId'));
 		await this.api.connect( this.getStoreValue('email'), ecovacsApi.getPasswordHash(this.getStoreValue('password')) );
-		let init = true;
+		// let init = true;
 		await this.api.enableAutoTokenRefresh(this.getStoreValue('email'),  ecovacsApi.getPasswordHash(this.getStoreValue('password')));
 
 		this.setStoreValue('areas', []).catch((error) => { this.error('Error: ' + error); });
