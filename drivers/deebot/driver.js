@@ -164,7 +164,6 @@ class VacuumDriver extends Driver {
 					}
 				};
 			});
-		this.log('onListDevices(): Homey devices: ' + JSON.stringify(devices));		
 		return devices;
 	}
 
@@ -176,9 +175,10 @@ class VacuumDriver extends Driver {
 		await session.done();
 	}
 
+
 	async createDeviceId(){
-		return await this.homey.cloud.getHomeyId();
-		// return crypto.randomBytes(8).toString('hex');		
+		// return await this.homey.cloud.getHomeyId();
+		return ecovacsApi.getDeviceId( await this.homey.cloud.getHomeyId() );
 	}
 
 	log() {

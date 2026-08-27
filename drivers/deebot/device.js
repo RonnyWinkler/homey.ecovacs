@@ -15,7 +15,7 @@ class VacuumDevice extends Device {
 		this.log('Device ' + this.getName() + ' has been initialized');
 
 		await this._updateCapabilities();
-		this.setAvailable();	
+		await this.setAvailable();	
 
 		this.registerCapabilityListener('clean', this.onCapabilityClean.bind(this));
 		this.registerCapabilityListener('pause', this.onCapabilityPause.bind(this));
@@ -178,10 +178,10 @@ class VacuumDevice extends Device {
 		this.api = await ecovacsApi.getApi(this.getStoreValue('deviceId'));
 		await this.api.connect( this.getStoreValue('email'), ecovacsApi.getPasswordHash(this.getStoreValue('password')) );
 		// let init = true;
-		await this.api.enableAutoTokenRefresh(this.getStoreValue('email'),  ecovacsApi.getPasswordHash(this.getStoreValue('password')));
+		this.api.enableAutoTokenRefresh(this.getStoreValue('email'),  ecovacsApi.getPasswordHash(this.getStoreValue('password')));
 
-		this.setStoreValue('areas', []).catch((error) => { this.error('Error: ' + error); });
-		this.setStoreValue('mapnames', []).catch((error) => { this.error('Error: ' + error); });
+		await this.setStoreValue('areas', []).catch((error) => { this.error('Error: ' + error); });
+		await this.setStoreValue('mapnames', []).catch((error) => { this.error('Error: ' + error); });
 
 		this.log('Deebot ApiVersion : ', this.api.getVersion());
 		this.vacbot = this.api.getVacBot(this.api.uid, ecovacsApi.getConstant('REALM'), this.api.resource, this.api.user_access_token, this.getStoreValue('vacuum'), this.getStoreValue('geo'));
@@ -212,7 +212,6 @@ class VacuumDevice extends Device {
 			this.log('- Using country: ' + this.api.getCountryName());
 			this.log('- Using continent code: ' + this.api.getContinent());
 			this.log('ApiVersion : ' + this.api.getVersion());
-			this.setAvailable();
 			this.log('Device is ready');
 
 			this.vacbot.on('CurrentStats', (currentStats) => {

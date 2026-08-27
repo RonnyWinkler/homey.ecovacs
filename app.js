@@ -8,6 +8,8 @@ class Deebot extends Homey.App {
 
 	async onInit() {
 		if (process.env.DEBUG === '1') {
+
+			// Start/connect debugger
 			if (this.homey.platform == "local") {
 				try {
 				require('inspector').waitForDebugger();
@@ -38,11 +40,13 @@ class Deebot extends Homey.App {
 		this.log(`${Homey.manifest.id} V${Homey.manifest.version} is running...`);
 		this.log(`Ecovacs Deebot is started`)
 
+		// Set debug mode for ecovacs-deebot.js:
 		if (libdebug) { 
 			process.env.NODE_ENV = 'development'
 		} else {
 			process.env.NODE_ENV = 'production'
 		}
+		console.log('NODE_ENV:', process.env.NODE_ENV);
 
 		if (appdebug) { this.log('Settings:')}
 		if (appdebug) { this.log('- appdebug: ' + appdebug) }

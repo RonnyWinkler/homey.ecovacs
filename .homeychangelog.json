@@ -10,5 +10,8 @@
   },
   "1.0.3": {
     "en": "Fixed auth check."
+  },
+  "1.0.4": {
+    "en": "Changed auth (device id)."
   }
 }
