@@ -12,6 +12,9 @@
     "en": "Fixed auth check."
   },
   "1.0.4": {
-    "en": "Changed auth (device id)."
+    "en": "Changed authentication (device id)."
+  },
+  "1.0.5": {
+    "en": "Changed authentication."
   }
 }

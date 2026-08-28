@@ -59,11 +59,17 @@ class VacuumDriver extends Driver {
 		this.accountData = {
 			email: '',
 			password: '',
-			deviceId: device.getStoreValue('deviceId')
+			deviceId: await this.createDeviceId() //device.getStoreValue('deviceId')
 		};
-		if (typeof this.accountData.deviceId != 'string' || this.accountData.deviceId.length == 0) {
-			this.accountData.deviceId = await this.createDeviceId();
+		if (device.getStoreValue('email')) {
+			this.accountData.email = device.getStoreValue('email');
 		}
+		if (device.getStoreValue('password')) {
+			this.accountData.password = device.getStoreValue('password');
+		}
+		// if (typeof this.accountData.deviceId != 'string' || this.accountData.deviceId.length == 0) {
+		// 	this.accountData.deviceId = await this.createDeviceId();
+		// }
 
 		this.deviceApi = null; 
 
