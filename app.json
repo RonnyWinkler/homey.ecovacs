@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "com.ecovacs.deebot",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "compatibility": ">=8.1.1",
   "sdk": 3,
   "name": {
@@ -920,7 +920,7 @@
                 "title": {
                   "en": "Vacuum and mop",
                   "de": "Saugen und Wischen",
-                  "nl": "Tofzuigen en dweilen"
+                  "nl": "Stofzuigen en dweilen"
                 }
               },
               {
@@ -928,7 +928,7 @@
                 "title": {
                   "en": "Vacuum",
                   "de": "Saugen",
-                  "nl": "Tofzuigen"
+                  "nl": "Stofzuigen"
                 }
               },
               {
@@ -944,7 +944,7 @@
                 "title": {
                   "en": "Mop after vacuum",
                   "de": "Wischen nach dem Saugen",
-                  "nl": "Dweilen na tofzuigen"
+                  "nl": "Dweilen na stofzuigen"
                 }
               }
             ]
@@ -1498,7 +1498,7 @@
                 "title": {
                   "en": "Vacuum and mop",
                   "de": "Saugen und Wischen",
-                  "nl": "Tofzuigen en dweilen"
+                  "nl": "Stofzuigen en dweilen"
                 }
               },
               {
@@ -1506,7 +1506,7 @@
                 "title": {
                   "en": "Vacuum",
                   "de": "Saugen",
-                  "nl": "Tofzuigen"
+                  "nl": "Stofzuigen"
                 }
               },
               {
@@ -1522,7 +1522,7 @@
                 "title": {
                   "en": "Mop after vacuum",
                   "de": "Wischen nach dem Saugen",
-                  "nl": "Dweilen na tofzuigen"
+                  "nl": "Dweilen na stofzuigen"
                 }
               }
             ]
@@ -2037,7 +2037,7 @@
           "title": {
             "en": "Vacuum and mop",
             "de": "Saugen und Wischen",
-            "nl": "Tofzuigen en dweilen"
+            "nl": "Stofzuigen en dweilen"
           }
         },
         {
@@ -2045,7 +2045,7 @@
           "title": {
             "en": "Vacuum",
             "de": "Saugen",
-            "nl": "Tofzuigen"
+            "nl": "Stofzuigen"
           }
         },
         {
@@ -2061,7 +2061,7 @@
           "title": {
             "en": "Mop after vacuum",
             "de": "Wischen nach dem Saugen",
-            "nl": "Dweilen na tofzuigen"
+            "nl": "Dweilen na stofzuigen"
           }
         }
       ],

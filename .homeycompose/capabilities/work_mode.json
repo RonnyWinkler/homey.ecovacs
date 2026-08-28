@@ -12,7 +12,7 @@
             "title": {
                 "en": "Vacuum and mop",
                 "de": "Saugen und Wischen",
-                "nl": "Tofzuigen en dweilen"
+                "nl": "Stofzuigen en dweilen"
             }
         },
         {
@@ -20,7 +20,7 @@
             "title": {
                 "en": "Vacuum",
                 "de": "Saugen",
-                "nl": "Tofzuigen"
+                "nl": "Stofzuigen"
             }
         },
         {
@@ -36,7 +36,7 @@
             "title": {
                 "en": "Mop after vacuum",
                 "de": "Wischen nach dem Saugen",
-                "nl": "Dweilen na tofzuigen"
+                "nl": "Dweilen na stofzuigen"
             }
         }
     ],

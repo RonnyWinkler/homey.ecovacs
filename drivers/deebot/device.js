@@ -178,27 +178,27 @@ class VacuumDevice extends Device {
 
 		this.api = await ecovacsApi.getApi(this.getStoreValue('deviceId'));
 
-		this.api.on('credentialsUpdated', (data) => { 
-			this.log('credentialsUpdated'); 
-			this.setStoreValue('api', this.api);
-		});
+		// this.api.on('credentialsUpdated', (data) => { 
+		// 	this.log('credentialsUpdated'); 
+		// 	this.setStoreValue('api', this.api);
+		// });
 
-		try{
-			this.log('setCredentials (token)');
-			const api = this.getStoreValue('api');
-			this.api.setCredentials({
-				"email": this.getStoreValue('email'),
-				"uid": 	api.uid,
-				"user_access_token": api.user_access_token,
-				"tokenExpiresAt": api.tokenExpiresAt
-			});
-		}
-		catch(error){
-			thsis.log('credentials not valid, connect with user/password');
-			await this.api.connect( this.getStoreValue('email'), ecovacsApi.getPasswordHash(this.getStoreValue('password')) );
-		}
+		// try{
+		// 	this.log('setCredentials (token)');
+		// 	const api = this.getStoreValue('api');
+		// 	this.api.setCredentials({
+		// 		"email": this.getStoreValue('email'),
+		// 		"uid": 	api.uid,
+		// 		"user_access_token": api.user_access_token,
+		// 		"tokenExpiresAt": api.tokenExpiresAt
+		// 	});
+		// }
+		// catch(error){
+		// 	thsis.log('credentials not valid, connect with user/password');
+		// 	await this.api.connect( this.getStoreValue('email'), ecovacsApi.getPasswordHash(this.getStoreValue('password')) );
+		// }
 
-		// await this.api.connect( this.getStoreValue('email'), ecovacsApi.getPasswordHash(this.getStoreValue('password')) );
+		await this.api.connect( this.getStoreValue('email'), ecovacsApi.getPasswordHash(this.getStoreValue('password')) );
 		this.api.enableAutoTokenRefresh(this.getStoreValue('email'),  ecovacsApi.getPasswordHash(this.getStoreValue('password')));
 
 		await this.setStoreValue('areas', []).catch((error) => { this.error('Error: ' + error); });
