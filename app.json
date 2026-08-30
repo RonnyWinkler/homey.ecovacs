@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "com.ecovacs.deebot",
-  "version": "1.0.6",
+  "version": "1.1.0",
   "compatibility": ">=8.1.1",
   "sdk": 3,
   "name": {
@@ -95,6 +95,37 @@
           }
         ],
         "id": "charge_true"
+      },
+      {
+        "title": {
+          "en": "Set number of passes changed",
+          "de": "Setze Anzahl der Durchläufe hat sich geändert",
+          "nl": "Aantal passes is gewijzigd"
+        },
+        "titleFormatted": {
+          "en": "Set number of passes changed",
+          "de": "Setze Anzahl der Durchläufe hat sich geändert",
+          "nl": "Aantal passes is gewijzigd"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+          }
+        ],
+        "tokens": [
+          {
+            "name": "work_mode",
+            "type": "string",
+            "title": {
+              "en": "Number of passes",
+              "de": "Anzahl der Durchläufe",
+              "nl": "Aantal passes"
+            }
+          }
+        ],
+        "id": "clean_count_mode_changed"
       },
       {
         "title": {
@@ -421,6 +452,49 @@
       }
     ],
     "conditions": [
+      {
+        "title": {
+          "en": "Number of passes !{{is|isn't}}",
+          "de": "Anzahl der Durchläufe !{{ist|ist nicht}}",
+          "nl": "Aantal passes !{{is|is niet}}"
+        },
+        "titleFormatted": {
+          "en": "Number of passes !{{is|isn't}} [[value]]",
+          "de": "Anzahl der Durchläufe !{{ist|ist nicht}} [[value]]",
+          "nl": "Aantal passes !{{is|is niet}} [[value]]"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+          },
+          {
+            "name": "value",
+            "type": "dropdown",
+            "title": {
+              "en": "Number of passes",
+              "de": "Anzahl der Durchläufe",
+              "nl": "Aantal passes"
+            },
+            "values": [
+              {
+                "id": "1",
+                "title": {
+                  "en": "1x"
+                }
+              },
+              {
+                "id": "2",
+                "title": {
+                  "en": "2x"
+                }
+              }
+            ]
+          }
+        ],
+        "id": "clean_count_mode"
+      },
       {
         "title": {
           "en": "Map !{{is|isn't}} active",
@@ -1036,6 +1110,50 @@
       },
       {
         "title": {
+          "en": "Set number of passes",
+          "de": "Setze Anzahl der Durchläufe",
+          "nl": "Aantal passes"
+        },
+        "titleFormatted": {
+          "en": "Set number of passes to [[mode]]",
+          "de": "Setze Anzahl der Durchläufe auf [[mode]]",
+          "nl": "Aantal passes instellen op [[mode]]"
+        },
+        "args": [
+          {
+            "type": "dropdown",
+            "name": "mode",
+            "required": true,
+            "title": {
+              "en": "Number of passes",
+              "de": "Anzahl der Durchläufe",
+              "nl": "Aantal passes"
+            },
+            "values": [
+              {
+                "id": "1",
+                "title": {
+                  "en": "1x"
+                }
+              },
+              {
+                "id": "2",
+                "title": {
+                  "en": "2x"
+                }
+              }
+            ]
+          },
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+          }
+        ],
+        "id": "clean_count_mode"
+      },
+      {
+        "title": {
           "en": "Clean zone",
           "de": "Zone reinigen",
           "nl": "Reinig zone "
@@ -1073,6 +1191,46 @@
           }
         ],
         "id": "clean_zone"
+      },
+      {
+        "title": {
+          "en": "Dry the Moppingpads",
+          "de": "Trockne die Wischenpads",
+          "nl": "Droog van de dweilpads"
+        },
+        "titleFormatted": {
+          "en": "Dry the Moppingpads",
+          "de": "Trockne die Wischenpads",
+          "nl": "Droog van de dweilpads"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+          }
+        ],
+        "id": "dry_mop_start"
+      },
+      {
+        "title": {
+          "en": "Stop drying the Moppingpads",
+          "de": "Stoppe die Trocknung der Wischenpads",
+          "nl": "Stop de droog van de dweilpads"
+        },
+        "titleFormatted": {
+          "en": "Stop drying the Moppingpads",
+          "de": "Stoppe die Trocknung der Wischenpads",
+          "nl": "Stop de droog van de dweilpads"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+          }
+        ],
+        "id": "dry_mop_stop"
       },
       {
         "title": {
@@ -1193,6 +1351,46 @@
           }
         ],
         "id": "raw_command"
+      },
+      {
+        "title": {
+          "en": "Use map",
+          "de": "Verwende Karte",
+          "nl": "Gebruik kaart"
+        },
+        "titleFormatted": {
+          "en": "Use map [[map]]",
+          "de": "Verwende Karte [[map]]",
+          "nl": "Gebruik kaart [[map]]"
+        },
+        "hint": {
+          "en": "Use the selected map as the active map",
+          "de": "Verwendet die gewählte Karte als aktive Karte",
+          "nl": "Gebruik de geselecteerde kaart als actieve kaart"
+        },
+        "args": [
+          {
+            "type": "autocomplete",
+            "name": "map",
+            "required": true,
+            "title": {
+              "en": "Map",
+              "de": "Karte",
+              "nl": "Kaart"
+            },
+            "placeholder": {
+              "en": "Ground floor",
+              "de": "Erdgeschoss",
+              "nl": "Basislaag"
+            }
+          },
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+          }
+        ],
+        "id": "set_map"
       },
       {
         "title": {
@@ -1373,6 +1571,46 @@
           }
         ],
         "id": "wash_mop_on"
+      },
+      {
+        "title": {
+          "en": "Clean the Moppingpads",
+          "de": "Reinige die Wischenpads",
+          "nl": "Reinigen van de dweilpads"
+        },
+        "titleFormatted": {
+          "en": "Clean the Moppingpads",
+          "de": "Reinige die Wischenpads",
+          "nl": "Reinigen van de dweilpads"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+          }
+        ],
+        "id": "wash_mop_start"
+      },
+      {
+        "title": {
+          "en": "Stop cleaning the Moppingpads",
+          "de": "Stoppe die Reinigung der Wischenpads",
+          "nl": "Stop de schoonmaak van de dweilpads"
+        },
+        "titleFormatted": {
+          "en": "Stop cleaning the Moppingpads",
+          "de": "Stoppe die Reinigung der Wischenpads",
+          "nl": "Stop de schoonmaak van de dweilpads"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+          }
+        ],
+        "id": "wash_mop_stop"
       },
       {
         "title": {
@@ -1566,16 +1804,42 @@
         "charge",
         "park",
         "park_position",
+        "wash_mop",
+        "dry_mop",
+        "empty_dustbin",
         "state_device",
         "state_station",
         "state_charge",
+        "work_mode.display",
+        "sweep_mode.display",
+        "clean_count_mode.display",
+        "suction_power.display",
+        "water_flow_level.display",
         "measure_battery",
         "work_mode",
         "sweep_mode",
+        "clean_count_mode",
         "suction_power",
         "water_flow_level",
         "water_flow_value"
       ],
+      "capabilitiesOptions": {
+        "work_mode.display": {
+          "uiComponent": "sensor"
+        },
+        "sweep_mode.display": {
+          "uiComponent": "sensor"
+        },
+        "clean_count_mode.display": {
+          "uiComponent": "sensor"
+        },
+        "suction_power.display": {
+          "uiComponent": "sensor"
+        },
+        "water_flow_level.display": {
+          "uiComponent": "sensor"
+        }
+      },
       "pair": [
         {
           "id": "account",
@@ -1686,6 +1950,7 @@
     },
     "clean": {
       "type": "boolean",
+      "uiQuickAction": true,
       "getable": true,
       "setable": true,
       "title": {
@@ -1695,6 +1960,57 @@
       },
       "insights": false,
       "icon": "/assets/capabilities/clean.svg"
+    },
+    "clean_count_mode": {
+      "type": "enum",
+      "uiComponent": "picker",
+      "title": {
+        "en": "Number of passes",
+        "de": "Anzahl der Durchläufe",
+        "nl": "Aantal passes"
+      },
+      "values": [
+        {
+          "id": "1",
+          "title": {
+            "en": "1x"
+          }
+        },
+        {
+          "id": "2",
+          "title": {
+            "en": "2x"
+          }
+        }
+      ],
+      "getable": true,
+      "setable": true,
+      "insights": false,
+      "icon": "/assets/capabilities/clean_count_mode.svg"
+    },
+    "dry_mop": {
+      "type": "boolean",
+      "getable": true,
+      "setable": true,
+      "title": {
+        "en": "Dry mopping pads",
+        "de": "Wischpads trocknen",
+        "nl": "Dweilpads drogen"
+      },
+      "insights": false,
+      "icon": "/assets/capabilities/dry_mop.svg"
+    },
+    "empty_dustbin": {
+      "type": "boolean",
+      "getable": false,
+      "setable": true,
+      "title": {
+        "en": "Empty the dustbin",
+        "de": "Staubbehälter leeren",
+        "nl": "Leeg de stofbak"
+      },
+      "insights": false,
+      "icon": "/assets/capabilities/empty_dustbin.svg"
     },
     "park": {
       "type": "boolean",
@@ -1959,6 +2275,18 @@
       "setable": true,
       "insights": false,
       "icon": "/assets/capabilities/sweep_mode.svg"
+    },
+    "wash_mop": {
+      "type": "boolean",
+      "getable": true,
+      "setable": true,
+      "title": {
+        "en": "Wash mopping pads",
+        "de": "Wischpads waschen",
+        "nl": "Dweilpads wassen"
+      },
+      "insights": false,
+      "icon": "/assets/capabilities/wash_mop.svg"
     },
     "water_flow_level": {
       "type": "enum",

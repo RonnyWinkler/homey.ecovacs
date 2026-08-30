@@ -1,0 +1,39 @@
+{
+    "title": {
+        "en": "Use map",
+        "de": "Verwende Karte",
+        "nl": "Gebruik kaart"
+    },
+    "titleFormatted": {
+        "en": "Use map [[map]]",
+        "de": "Verwende Karte [[map]]",
+        "nl": "Gebruik kaart [[map]]"
+    },
+    "hint": {
+        "en": "Use the selected map as the active map",
+        "de": "Verwendet die gewählte Karte als aktive Karte",
+        "nl": "Gebruik de geselecteerde kaart als actieve kaart"
+    },
+    "args": [
+        {
+            "type": "autocomplete",
+            "name": "map",
+            "required": true,
+            "title": {
+                "en": "Map",
+                "de": "Karte",
+                "nl": "Kaart"
+            },
+            "placeholder": {
+                "en": "Ground floor",
+                "de": "Erdgeschoss",
+                "nl": "Basislaag"
+            }
+        },
+        {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+        }
+    ]
+}

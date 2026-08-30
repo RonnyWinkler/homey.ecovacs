@@ -1,0 +1,19 @@
+{
+    "title": {
+        "en": "Stop cleaning the Moppingpads",
+        "de": "Stoppe die Reinigung der Wischenpads",
+        "nl": "Stop de schoonmaak van de dweilpads"
+    },
+    "titleFormatted": {
+        "en": "Stop cleaning the Moppingpads",
+        "de": "Stoppe die Reinigung der Wischenpads",
+        "nl": "Stop de schoonmaak van de dweilpads"
+    },
+    "args": [
+        {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+        }
+    ]
+}

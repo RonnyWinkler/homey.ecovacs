@@ -1,0 +1,19 @@
+{
+    "title": {
+        "en": "Clean the Moppingpads",
+        "de": "Reinige die Wischenpads",
+        "nl": "Reinigen van de dweilpads"
+    },
+    "titleFormatted": {
+        "en": "Clean the Moppingpads",
+        "de": "Reinige die Wischenpads",
+        "nl": "Reinigen van de dweilpads"
+    },
+    "args": [
+        {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+        }
+    ]
+}

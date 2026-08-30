@@ -1,5 +1,6 @@
 {
     "type": "boolean",
+    "uiQuickAction" : true,
     "getable": true,
     "setable": true,
     "title": {

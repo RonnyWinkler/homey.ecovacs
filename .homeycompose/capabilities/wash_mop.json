@@ -1,0 +1,12 @@
+{
+    "type": "boolean",
+    "getable": true,
+    "setable": true,
+    "title": {
+        "en": "Wash mopping pads",
+        "de": "Wischpads waschen",
+        "nl": "Dweilpads wassen"
+    },
+    "insights": false,
+    "icon": "/assets/capabilities/wash_mop.svg"
+}

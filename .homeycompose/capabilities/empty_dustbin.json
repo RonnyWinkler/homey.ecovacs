@@ -1,0 +1,12 @@
+{
+    "type": "boolean",
+    "getable": false,
+    "setable": true,
+    "title": {
+        "en": "Empty the dustbin",
+        "de": "Staubbehälter leeren",
+        "nl": "Leeg de stofbak"
+    },
+    "insights": false,
+    "icon": "/assets/capabilities/empty_dustbin.svg"
+}

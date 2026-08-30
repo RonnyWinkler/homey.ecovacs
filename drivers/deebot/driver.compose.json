@@ -27,20 +27,46 @@
         "charge",
         "park",
         "park_position",
+        "wash_mop",
+        "dry_mop",
+        "empty_dustbin",
 
         "state_device",
         "state_station",
         "state_charge",
+        "work_mode.display",
+        "sweep_mode.display",
+        "clean_count_mode.display",
+        "suction_power.display",
+        "water_flow_level.display",
 
         "measure_battery",
 
         "work_mode",
         "sweep_mode",
+        "clean_count_mode",
         "suction_power",
         "water_flow_level",
         "water_flow_value"
 
     ],
+    "capabilitiesOptions": {
+        "work_mode.display": {
+            "uiComponent": "sensor"
+        },
+        "sweep_mode.display": {
+            "uiComponent": "sensor"
+        },
+        "clean_count_mode.display": {
+            "uiComponent": "sensor"
+        },
+        "suction_power.display": {
+            "uiComponent": "sensor"
+        },
+        "water_flow_level.display": {
+            "uiComponent": "sensor"
+        }
+    },
     "pair": [
         {
             "id": "account",

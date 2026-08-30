@@ -1,0 +1,19 @@
+{
+    "title": {
+        "en": "Dry the Moppingpads",
+        "de": "Trockne die Wischenpads",
+        "nl": "Droog van de dweilpads"
+    },
+    "titleFormatted": {
+        "en": "Dry the Moppingpads",
+        "de": "Trockne die Wischenpads",
+        "nl": "Droog van de dweilpads"
+    },
+    "args": [
+        {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+        }
+    ]
+}

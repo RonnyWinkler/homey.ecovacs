@@ -1,0 +1,12 @@
+{
+    "type": "boolean",
+    "getable": true,
+    "setable": true,
+    "title": {
+        "en": "Dry mopping pads",
+        "de": "Wischpads trocknen",
+        "nl": "Dweilpads drogen"
+    },
+    "insights": false,
+    "icon": "/assets/capabilities/dry_mop.svg"
+}

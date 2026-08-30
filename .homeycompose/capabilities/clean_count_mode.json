@@ -1,0 +1,27 @@
+{
+    "type": "enum",
+    "uiComponent": "picker",
+    "title": {
+        "en": "Number of passes",
+        "de": "Anzahl der Durchläufe",
+        "nl": "Aantal passes"
+    },
+    "values": [
+        {
+            "id": "1",
+            "title": {
+                "en": "1x"
+            }
+        },
+        {
+            "id": "2",
+            "title": {
+                "en": "2x"
+            }
+        }
+    ],
+    "getable": true,
+    "setable": true,
+    "insights": false,
+    "icon": "/assets/capabilities/clean_count_mode.svg"
+}

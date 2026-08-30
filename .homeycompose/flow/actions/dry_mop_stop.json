@@ -1,0 +1,19 @@
+{
+    "title": {
+        "en": "Stop drying the Moppingpads",
+        "de": "Stoppe die Trocknung der Wischenpads",
+        "nl": "Stop de droog van de dweilpads"
+    },
+    "titleFormatted": {
+        "en": "Stop drying the Moppingpads",
+        "de": "Stoppe die Trocknung der Wischenpads",
+        "nl": "Stop de droog van de dweilpads"
+    },
+    "args": [
+        {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+        }
+    ]
+}

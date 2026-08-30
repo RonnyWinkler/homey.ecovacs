@@ -1,0 +1,30 @@
+{
+    "title": {
+        "en": "Set number of passes changed",
+        "de": "Setze Anzahl der Durchläufe hat sich geändert",
+        "nl": "Aantal passes is gewijzigd"
+    },
+    "titleFormatted": {
+        "en": "Set number of passes changed",
+        "de": "Setze Anzahl der Durchläufe hat sich geändert",
+        "nl": "Aantal passes is gewijzigd"
+    },
+    "args": [
+        {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+        }
+    ],
+    "tokens": [
+        {
+            "name": "work_mode",
+            "type": "string",
+            "title": {
+                "en": "Number of passes",
+                "de": "Anzahl der Durchläufe",
+                "nl": "Aantal passes"
+            }
+        }
+    ]
+}

@@ -111,6 +111,26 @@ class Deebot extends Homey.App {
 			return await args.device.flowActionEmptyDustbin();
 		});
 
+		this.homey.flow.getActionCard('wash_mop_start').registerRunListener(async (args, state) => {
+			return await args.device.flowActionCleanMop();
+		});
+
+		this.homey.flow.getActionCard('wash_mop_start').registerRunListener(async (args, state) => {
+			return await args.device.flowActionWashMopStart();
+		});
+
+		this.homey.flow.getActionCard('wash_mop_stop').registerRunListener(async (args, state) => {
+			return await args.device.flowActionWashMopStop();
+		});
+
+		this.homey.flow.getActionCard('dry_mop_start').registerRunListener(async (args, state) => {
+			return await args.device.flowActionDryMopStart();
+		});
+
+		this.homey.flow.getActionCard('dry_mop_stop').registerRunListener(async (args, state) => {
+			return await args.device.flowActionDryMopStop();
+		});
+
 		this.homey.flow.getActionCard('airdrying_on').registerRunListener(async (args, state) => {
 			return await args.device.flowActionAirdryingOn();
 		});
@@ -142,6 +162,17 @@ class Deebot extends Homey.App {
 				});
 			});
 
+		this.homey.flow.getActionCard('set_map')
+			.registerRunListener(async (args, state) => {
+				return await args.device.flowActionSetMap( args.map );
+			})
+			.registerArgumentAutocompleteListener('map', async (query, args) => {
+				const mapList = args.device.getAutocompleteMapList(true);
+				return mapList.filter((result) => { 
+					return result.name.toLowerCase().includes(query.toLowerCase());
+				});
+			});
+
 		this.homey.flow.getActionCard('suction_power').registerRunListener(async (args, state) => {
 			return await args.device.flowActionSetCleanSpeed( args.suction_power );
 		});
@@ -160,6 +191,10 @@ class Deebot extends Homey.App {
 
 		this.homey.flow.getActionCard('sweep_mode').registerRunListener(async (args, state) => {
 			return await args.device.flowActionSetSweepMode( args.mode );
+		});
+
+		this.homey.flow.getActionCard('clean_count_mode').registerRunListener(async (args, state) => {
+			return await args.device.flowActionSetCleanCountpMode( args.mode );
 		});
 
 	}
@@ -226,6 +261,10 @@ class Deebot extends Homey.App {
 				return (args.device.getCapabilityValue('sweep_mode') == args.value);
 			})
 
+		this.homey.flow.getConditionCard('clean_count_mode')
+			.registerRunListener(async (args, state) => {
+				return (args.device.getCapabilityValue('clean_count_mode') == args.value);
+			})
 
 	}
 

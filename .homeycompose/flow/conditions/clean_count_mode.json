@@ -1,0 +1,42 @@
+{
+    "title": {
+        "en": "Number of passes !{{is|isn't}}",
+        "de": "Anzahl der Durchläufe !{{ist|ist nicht}}",
+        "nl": "Aantal passes !{{is|is niet}}"
+    },
+    "titleFormatted": {
+        "en": "Number of passes !{{is|isn't}} [[value]]",
+        "de": "Anzahl der Durchläufe !{{ist|ist nicht}} [[value]]",
+        "nl": "Aantal passes !{{is|is niet}} [[value]]"
+    },
+    "args": [
+        {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+        },
+        {
+            "name": "value",
+            "type": "dropdown",
+            "title": { 
+                "en": "Number of passes",
+                "de": "Anzahl der Durchläufe",
+                "nl": "Aantal passes"
+            },
+            "values": [
+                {
+                    "id": "1",
+                    "title": {
+                        "en": "1x"
+                    }
+                },
+                {
+                    "id": "2",
+                    "title": {
+                        "en": "2x"
+                    }
+                }
+            ]
+       }
+    ]
+}

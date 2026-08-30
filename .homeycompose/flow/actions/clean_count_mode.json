@@ -1,0 +1,44 @@
+{
+    "title": {
+        "en": "Set number of passes",
+        "de": "Setze Anzahl der Durchläufe",
+        "nl": "Aantal passes"
+    },
+    "titleFormatted": {
+        "en": "Set number of passes to [[mode]]",
+        "de": "Setze Anzahl der Durchläufe auf [[mode]]",
+        "nl": "Aantal passes instellen op [[mode]]"
+
+    },
+    "args": [
+        {
+            "type": "dropdown",
+            "name": "mode",
+            "required": true,
+            "title": {
+                "en": "Number of passes",
+                "de": "Anzahl der Durchläufe",
+                "nl": "Aantal passes"
+            },
+            "values": [
+                {
+                    "id": "1",
+                    "title": {
+                        "en": "1x"
+                    }
+                },
+                {
+                    "id": "2",
+                    "title": {
+                        "en": "2x"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+        }
+    ]
+}
