@@ -1,12 +1,12 @@
 {
     "title": {
         "en": "Water flow level has changed",
-        "de": "Waterdurchfluss-Stufe hat sich geændert",
+        "de": "Wasserdurchfluss-Stufe hat sich geändert",
         "nl": "Waterdoorstroomniveau is gewijzigd"
     },
     "titleFormatted": {
         "en": "Water flow level has changed",
-        "de": "Waterdurchfluss-Stufe hat sich geændert",
+        "de": "Wasserdurchfluss-Stufe hat sich geändert",
         "nl": "Waterdoorstroomniveau is gewijzigd"
     },
     "args": [
@@ -22,7 +22,7 @@
             "type": "string",
             "title": {
                 "en": "Water flow",
-                "de": "Waterdurchfluss",
+                "de": "Wasserdurchfluss",
                 "nl": "Waterverbruik"
             }
         }

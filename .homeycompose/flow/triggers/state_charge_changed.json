@@ -1,13 +1,13 @@
 {
     "title": {
         "en": "Charge state has changed",
-        "de": "Ladezustand hat sich geændert",
-        "nl": "Ladezicht gewijzigd"
+        "de": "Ladezustand hat sich geändert",
+        "nl": "Laadtoestand gewijzigd"
     },
     "titleFormatted": {
         "en": "Charge state has changed",
-        "de": "Ladezustand hat sich geændert",
-        "nl": "Ladezicht gewijzigd"
+        "de": "Ladezustand hat sich geändert",
+        "nl": "Laadtoestand gewijzigd"
     },
     "args": [
         {
@@ -22,8 +22,8 @@
             "type": "string",
             "title": {
                 "en": "Charge state",
-                "de": "Lade-Status",
-                "nl": "Laden toestand"
+                "de": "Ladezustand",
+                "nl": "Laadtoestand"
             }
         }
     ]

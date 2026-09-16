@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "com.ecovacs.deebot",
-  "version": "1.1.3",
+  "version": "1.1.4",
   "compatibility": ">=8.1.1",
   "sdk": 3,
   "name": {
@@ -84,7 +84,7 @@
       {
         "title": {
           "en": "Returning to docking station",
-          "de": "Zur Ladestation zurueckkehren",
+          "de": "Kehrt zur Ladestation zurück",
           "nl": "Ter dockingstation terugkeren"
         },
         "args": [
@@ -98,13 +98,13 @@
       },
       {
         "title": {
-          "en": "Set number of passes changed",
-          "de": "Setze Anzahl der Durchläufe hat sich geändert",
+          "en": "Number of passes changed",
+          "de": "Anzahl der Durchläufe hat sich geändert",
           "nl": "Aantal passes is gewijzigd"
         },
         "titleFormatted": {
-          "en": "Set number of passes changed",
-          "de": "Setze Anzahl der Durchläufe hat sich geändert",
+          "en": "Number of passes changed",
+          "de": "Anzahl der Durchläufe hat sich geändert",
           "nl": "Aantal passes is gewijzigd"
         },
         "args": [
@@ -234,13 +234,13 @@
       {
         "title": {
           "en": "Charge state has changed",
-          "de": "Ladezustand hat sich geændert",
-          "nl": "Ladezicht gewijzigd"
+          "de": "Ladezustand hat sich geändert",
+          "nl": "Laadtoestand gewijzigd"
         },
         "titleFormatted": {
           "en": "Charge state has changed",
-          "de": "Ladezustand hat sich geændert",
-          "nl": "Ladezicht gewijzigd"
+          "de": "Ladezustand hat sich geändert",
+          "nl": "Laadtoestand gewijzigd"
         },
         "args": [
           {
@@ -255,8 +255,8 @@
             "type": "string",
             "title": {
               "en": "Charge state",
-              "de": "Lade-Status",
-              "nl": "Laden toestand"
+              "de": "Ladezustand",
+              "nl": "Laadtoestand"
             }
           }
         ],
@@ -265,12 +265,12 @@
       {
         "title": {
           "en": "Device state has changed",
-          "de": "Geräte-Status hat sich geændert",
+          "de": "Geräte-Status hat sich geändert",
           "nl": "Apparaatstatus is gewijzigd"
         },
         "titleFormatted": {
           "en": "Device state has changed",
-          "de": "Geräte-Status hat sich geændert",
+          "de": "Geräte-Status hat sich geändert",
           "nl": "Apparaatstatus is gewijzigd"
         },
         "args": [
@@ -296,12 +296,12 @@
       {
         "title": {
           "en": "Station state has changed",
-          "de": "Station-Status hat sich geændert",
+          "de": "Station-Status hat sich geändert",
           "nl": "Stations toestand gewijzigd"
         },
         "titleFormatted": {
           "en": "Station state has changed",
-          "de": "Station-Status hat sich geændert",
+          "de": "Station-Status hat sich geändert",
           "nl": "Stations toestand gewijzigd"
         },
         "args": [
@@ -342,12 +342,12 @@
       {
         "title": {
           "en": "Suction power has changed",
-          "de": "Saugleistung hat sich geændert",
+          "de": "Saugleistung hat sich geändert",
           "nl": "Zuigkracht is gewijzigd"
         },
         "titleFormatted": {
           "en": "Suction power has changed",
-          "de": "Saugleistung hat sich geændert",
+          "de": "Saugleistung hat sich geändert",
           "nl": "Zuigkracht is gewijzigd"
         },
         "args": [
@@ -373,12 +373,12 @@
       {
         "title": {
           "en": "Cleaning speed has changed",
-          "de": "Reinigungsgeschwindigkeit hat sich geændert",
+          "de": "Reinigungsgeschwindigkeit hat sich geändert",
           "nl": "Reinigings snelheid is gewijzigd"
         },
         "titleFormatted": {
           "en": "Cleaning speed has changed",
-          "de": "Reinigungsgeschwindigkeit hat sich geændert",
+          "de": "Reinigungsgeschwindigkeit hat sich geändert",
           "nl": "Reinigings snelheid is gewijzigd"
         },
         "args": [
@@ -404,12 +404,12 @@
       {
         "title": {
           "en": "Water flow level has changed",
-          "de": "Waterdurchfluss-Stufe hat sich geændert",
+          "de": "Wasserdurchfluss-Stufe hat sich geändert",
           "nl": "Waterdoorstroomniveau is gewijzigd"
         },
         "titleFormatted": {
           "en": "Water flow level has changed",
-          "de": "Waterdurchfluss-Stufe hat sich geændert",
+          "de": "Wasserdurchfluss-Stufe hat sich geändert",
           "nl": "Waterdoorstroomniveau is gewijzigd"
         },
         "args": [
@@ -425,7 +425,7 @@
             "type": "string",
             "title": {
               "en": "Water flow",
-              "de": "Waterdurchfluss",
+              "de": "Wasserdurchfluss",
               "nl": "Waterverbruik"
             }
           }
@@ -435,12 +435,12 @@
       {
         "title": {
           "en": "Water flow value has changed",
-          "de": "Waterdurchfluss-Wert hat sich geændert",
+          "de": "Wasserdurchfluss-Wert hat sich geändert",
           "nl": "Waterdoorstroomwaarde is gewijzigd"
         },
         "titleFormatted": {
           "en": "Water flow value has changed",
-          "de": "Waterdurchfluss-Wert hat sich geændert",
+          "de": "Wasserdurchfluss-Wert hat sich geändert",
           "nl": "Waterdoorstroomwaarde is gewijzigd"
         },
         "args": [
@@ -456,7 +456,7 @@
             "type": "string",
             "title": {
               "en": "Water flow",
-              "de": "Waterdurchfluss",
+              "de": "Wasserdurchfluss",
               "nl": "Waterverbruik"
             }
           }
@@ -466,12 +466,12 @@
       {
         "title": {
           "en": "Cleaning mode has changed",
-          "de": "Reinigungsmodus hat sich geændert",
+          "de": "Reinigungsmodus hat sich geändert",
           "nl": "Reinigingsmodus is gewijzigd"
         },
         "titleFormatted": {
           "en": "Cleaning mode has changed",
-          "de": "Reinigungsmodus hat sich geændert",
+          "de": "Reinigungsmodus hat sich geändert",
           "nl": "Reinigingsmodus is gewijzigd"
         },
         "args": [
@@ -889,12 +889,12 @@
       {
         "title": {
           "en": "Water flow level !{{is|isn't}}",
-          "de": "Waterdurchfluss-Stufe !{{ist|ist nicht}}",
+          "de": "Wasserdurchfluss-Stufe !{{ist|ist nicht}}",
           "nl": "Waterdoorstroomniveau !{{is|is niet}}"
         },
         "titleFormatted": {
           "en": "Water flow level !{{is|isn't}} [[level]]",
-          "de": "Waterdurchfluss-Stufe !{{ist|ist nicht}} [[level]]",
+          "de": "Wasserdurchfluss-Stufe !{{ist|ist nicht}} [[level]]",
           "nl": "Waterdoorstroomniveau !{{is|is niet}} [[level]]"
         },
         "args": [
@@ -908,7 +908,7 @@
             "type": "dropdown",
             "title": {
               "en": "Water flow level",
-              "de": "Waterdurchfluss-Stufe",
+              "de": "Wasserdurchfluss-Stufe",
               "nl": "Waterdoorstroomniveau"
             },
             "values": [
@@ -952,12 +952,12 @@
       {
         "title": {
           "en": "Water flow value !{{is|isn't}}",
-          "de": "Waterdurchfluss-Wert !{{ist|ist nicht}}",
+          "de": "Wasserdurchfluss-Wert !{{ist|ist nicht}}",
           "nl": "Waterdoorstroomwaarde !{{is|is niet}}"
         },
         "titleFormatted": {
           "en": "Water flow value !{{is|isn't}} [[value]]",
-          "de": "Waterdurchfluss-Wert !{{ist|ist nicht}} [[value]]",
+          "de": "Wasserdurchfluss-Wert !{{ist|ist nicht}} [[value]]",
           "nl": "Waterdoorstroomwaarde !{{is|is niet}} [[value]]"
         },
         "args": [
@@ -971,7 +971,7 @@
             "type": "range",
             "title": {
               "en": "Water flow value",
-              "de": "Waterdurchfluss-Wert",
+              "de": "Wasserdurchfluss-Wert",
               "nl": "Waterdoorstroomwaarde"
             },
             "min": 1,
@@ -1347,12 +1347,12 @@
       {
         "title": {
           "en": "Dry the Moppingpads",
-          "de": "Trockne die Wischenpads",
+          "de": "Trockne die Wischpads",
           "nl": "Droog van de dweilpads"
         },
         "titleFormatted": {
           "en": "Dry the Moppingpads",
-          "de": "Trockne die Wischenpads",
+          "de": "Trockne die Wischpads",
           "nl": "Droog van de dweilpads"
         },
         "args": [
@@ -1367,12 +1367,12 @@
       {
         "title": {
           "en": "Stop drying the Moppingpads",
-          "de": "Stoppe die Trocknung der Wischenpads",
+          "de": "Stoppe die Trocknung der Wischpads",
           "nl": "Stop de droog van de dweilpads"
         },
         "titleFormatted": {
           "en": "Stop drying the Moppingpads",
-          "de": "Stoppe die Trocknung der Wischenpads",
+          "de": "Stoppe die Trocknung der Wischpads",
           "nl": "Stop de droog van de dweilpads"
         },
         "args": [
@@ -1727,12 +1727,12 @@
       {
         "title": {
           "en": "Clean the Moppingpads",
-          "de": "Reinige die Wischenpads",
+          "de": "Reinige die Wischpads",
           "nl": "Reinigen van de dweilpads"
         },
         "titleFormatted": {
           "en": "Clean the Moppingpads",
-          "de": "Reinige die Wischenpads",
+          "de": "Reinige die Wischpads",
           "nl": "Reinigen van de dweilpads"
         },
         "args": [
@@ -1747,12 +1747,12 @@
       {
         "title": {
           "en": "Stop cleaning the Moppingpads",
-          "de": "Stoppe die Reinigung der Wischenpads",
+          "de": "Stoppe die Reinigung der Wischpads",
           "nl": "Stop de schoonmaak van de dweilpads"
         },
         "titleFormatted": {
           "en": "Stop cleaning the Moppingpads",
-          "de": "Stoppe die Reinigung der Wischenpads",
+          "de": "Stoppe die Reinigung der Wischpads",
           "nl": "Stop de schoonmaak van de dweilpads"
         },
         "args": [
@@ -1869,7 +1869,7 @@
         },
         "titleFormatted": {
           "en": "Set cleaning mode to [[mode]]",
-          "de": "Setze SaugleisReinigungsmodustung auf [[mode]]",
+          "de": "Setze Reinigungsmodus auf [[mode]]",
           "nl": "Reinigingsmodus instellen op [[mode]]"
         },
         "args": [
@@ -2094,7 +2094,7 @@
       "setable": true,
       "title": {
         "en": "Return to docking station",
-        "de": "Zur Ladestation zurückkehren",
+        "de": "Kehrt zur Ladestation zurück",
         "nl": "Ter dockingstation terugkeren"
       },
       "insights": false,
@@ -2182,7 +2182,7 @@
       "setable": true,
       "title": {
         "en": "Save parking spot",
-        "de": "Parkpposition speichern",
+        "de": "Parkposition speichern",
         "nl": "Parkeerplaats bewaren"
       },
       "insights": false,
@@ -2453,7 +2453,7 @@
       "uiComponent": "picker",
       "title": {
         "en": "Water flow",
-        "de": "Waterdurchfluss",
+        "de": "Wasserdurchfluss",
         "nl": "Waterverbruik"
       },
       "values": [
@@ -2500,7 +2500,7 @@
       "uiComponent": "slider",
       "title": {
         "en": "Water flow",
-        "de": "Waterdurchfluss",
+        "de": "Wasserdurchfluss",
         "nl": "Waterverbruik"
       },
       "min": 1,

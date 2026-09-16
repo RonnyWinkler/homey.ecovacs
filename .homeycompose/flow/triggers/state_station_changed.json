@@ -1,12 +1,12 @@
 {
     "title": {
         "en": "Station state has changed",
-        "de": "Station-Status hat sich geændert",
+        "de": "Station-Status hat sich geändert",
         "nl": "Stations toestand gewijzigd"
     },
     "titleFormatted": {
         "en": "Station state has changed",
-        "de": "Station-Status hat sich geændert",
+        "de": "Station-Status hat sich geändert",
         "nl": "Stations toestand gewijzigd"
     },
     "args": [

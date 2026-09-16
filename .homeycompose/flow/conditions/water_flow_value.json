@@ -1,12 +1,12 @@
 {
     "title": {
         "en": "Water flow value !{{is|isn't}}",
-        "de": "Waterdurchfluss-Wert !{{ist|ist nicht}}",
+        "de": "Wasserdurchfluss-Wert !{{ist|ist nicht}}",
         "nl": "Waterdoorstroomwaarde !{{is|is niet}}"
     },
     "titleFormatted": {
         "en": "Water flow value !{{is|isn't}} [[value]]",
-        "de": "Waterdurchfluss-Wert !{{ist|ist nicht}} [[value]]",
+        "de": "Wasserdurchfluss-Wert !{{ist|ist nicht}} [[value]]",
         "nl": "Waterdoorstroomwaarde !{{is|is niet}} [[value]]"
     },
     "args": [
@@ -20,7 +20,7 @@
             "type": "range",
             "title": { 
                 "en": "Water flow value",
-                "de": "Waterdurchfluss-Wert",
+                "de": "Wasserdurchfluss-Wert",
                 "nl": "Waterdoorstroomwaarde"
             },
             "min": 1,

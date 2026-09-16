@@ -1,12 +1,12 @@
 {
     "title": {
         "en": "Device state has changed",
-        "de": "Geräte-Status hat sich geændert",
+        "de": "Geräte-Status hat sich geändert",
         "nl": "Apparaatstatus is gewijzigd"
     },
     "titleFormatted": {
         "en": "Device state has changed",
-        "de": "Geräte-Status hat sich geændert",
+        "de": "Geräte-Status hat sich geändert",
         "nl": "Apparaatstatus is gewijzigd"
     },
     "args": [

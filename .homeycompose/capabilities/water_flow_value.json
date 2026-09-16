@@ -3,7 +3,7 @@
     "uiComponent": "slider",
     "title": {
         "en": "Water flow",
-        "de": "Waterdurchfluss",
+        "de": "Wasserdurchfluss",
         "nl": "Waterverbruik"
     },
     "min":  1,

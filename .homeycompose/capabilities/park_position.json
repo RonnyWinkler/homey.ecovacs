@@ -4,7 +4,7 @@
     "setable": true,
     "title": {
         "en": "Save parking spot",
-        "de": "Parkpposition speichern",
+        "de": "Parkposition speichern",
         "nl": "Parkeerplaats bewaren"
     },
     "insights": false,

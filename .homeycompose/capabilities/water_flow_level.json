@@ -3,7 +3,7 @@
     "uiComponent": "picker",
     "title": {
         "en": "Water flow",
-        "de": "Waterdurchfluss",
+        "de": "Wasserdurchfluss",
         "nl": "Waterverbruik"
     },
     "values": [

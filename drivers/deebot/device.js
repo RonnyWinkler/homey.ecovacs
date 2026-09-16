@@ -115,6 +115,20 @@ class VacuumDevice extends Device {
 			this.api.on('credentialsUpdated', (data) => { 
 				this.log('credentialsUpdated'); 
 				this.setStoreValue('api', this.api);
+
+				let tokenExpiresAt = this.api.getTokenExpiry();
+				this.log('tokenExpiresAt: ' + tokenExpiresAt);
+
+				const MAX_DELAY = 23 * 60 * 60 * 1000; // 23h
+				const delay = Math.max(Math.min(tokenExpiresAt - Date.now(), MAX_DELAY), 0);
+
+				if (this._refreshTimer){
+					this.homey.clearTimeout(this._refreshTimer);
+				}
+				this._refreshTimer = this.homey.setTimeout(() => {
+					this.log('Token refresh timer expired, Refreshing token...');
+					this.api._runTokenRefresh();
+				}, delay);
 			});
 			// try to use auth token. 
 			try{
@@ -218,7 +232,7 @@ class VacuumDevice extends Device {
 			this.vacbot.on('MapImage ', async (mapImage) => 
 				this.onMapImage(mapImage));
 			this.vacbot.on('MapImageData', async (mapImage) =>  { 
-				this.log('MapImageData: ' + mapImage); });
+				this.log('MapImageData: ' + JSON.stringify(mapImage)); });
 			this.vacbot.on('MapDataReady', async (mapImage) =>  { 
 				this.log('MapDataReady: ' + mapImage); });
 			this.vacbot.on('MapDataObject', async (mapImage) =>  { 
@@ -379,7 +393,14 @@ class VacuumDevice extends Device {
 			return;
 		}
 
-		this.setCapabilityValue('water_flow_level', level).catch((error) => { this.error('Error: ' + error); });
+		let levelValue;
+		if (typeof level === 'string') {
+			levelValue = parseInt(level);
+		}
+		if (typeof level === 'number') {
+			levelValue = level.toString();
+		}	
+		this.setCapabilityValue('water_flow_level', levelValue).catch((error) => { this.error('Error: ' + error); });
 		this.setCapabilityValue('water_flow_level.display', level).catch((error) => { this.error('Error: ' + error); });
 		// map to int value
 		switch (level) {
@@ -600,6 +621,7 @@ class VacuumDevice extends Device {
 		// areasPrint.forEach(area => delete area.boundaries);
 		// if (appdebug) { this.log(JSON.stringify(areasPrint)); }
 
+		this.vacbot.run('GetMapInfo', mapset.mid);
 	}
 
 	onMapImage(mapImage){

@@ -1,12 +1,12 @@
 {
     "title": {
         "en": "Water flow level !{{is|isn't}}",
-        "de": "Waterdurchfluss-Stufe !{{ist|ist nicht}}",
+        "de": "Wasserdurchfluss-Stufe !{{ist|ist nicht}}",
         "nl": "Waterdoorstroomniveau !{{is|is niet}}"
     },
     "titleFormatted": {
         "en": "Water flow level !{{is|isn't}} [[level]]",
-        "de": "Waterdurchfluss-Stufe !{{ist|ist nicht}} [[level]]",
+        "de": "Wasserdurchfluss-Stufe !{{ist|ist nicht}} [[level]]",
         "nl": "Waterdoorstroomniveau !{{is|is niet}} [[level]]"
     },
     "args": [
@@ -20,7 +20,7 @@
             "type": "dropdown",
             "title": { 
                 "en": "Water flow level",
-                "de": "Waterdurchfluss-Stufe",
+                "de": "Wasserdurchfluss-Stufe",
                 "nl": "Waterdoorstroomniveau"
             },
             "values": [

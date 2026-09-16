@@ -1,12 +1,12 @@
 {
     "title": {
-        "en": "Set number of passes changed",
-        "de": "Setze Anzahl der Durchläufe hat sich geändert",
+        "en": "Number of passes changed",
+        "de": "Anzahl der Durchläufe hat sich geändert",
         "nl": "Aantal passes is gewijzigd"
     },
     "titleFormatted": {
-        "en": "Set number of passes changed",
-        "de": "Setze Anzahl der Durchläufe hat sich geändert",
+        "en": "Number of passes changed",
+        "de": "Anzahl der Durchläufe hat sich geändert",
         "nl": "Aantal passes is gewijzigd"
     },
     "args": [
