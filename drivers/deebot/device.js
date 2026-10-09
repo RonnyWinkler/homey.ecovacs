@@ -127,7 +127,7 @@ class VacuumDevice extends Device {
 				}
 				this._refreshTimer = this.homey.setTimeout(() => {
 					this.log('Token refresh timer expired, Refreshing token...');
-					this.api._runTokenRefresh();
+					this.api.connect( this.getStoreValue('email'), ecovacsApi.getPasswordHash(this.getStoreValue('password')) );
 				}, delay);
 			});
 			// try to use auth token. 
@@ -150,7 +150,7 @@ class VacuumDevice extends Device {
 			// await this.api.connect( this.getStoreValue('email'), ecovacsApi.getPasswordHash(this.getStoreValue('password')) );
 			
 			// Enable auto refrsh for both variante
-			this.api.enableAutoTokenRefresh(this.getStoreValue('email'),  ecovacsApi.getPasswordHash(this.getStoreValue('password')));
+			// this.api.enableAutoTokenRefresh(this.getStoreValue('email'),  ecovacsApi.getPasswordHash(this.getStoreValue('password')));
 		}
 		catch(error){
 			if (error.name === 'DeviceVerificationRequired') {
@@ -219,7 +219,9 @@ class VacuumDevice extends Device {
 			this.vacbot.on('WaterBoxScrubbingType', async (mode) => { this.log('WaterBoxScrubbingType: ' + mode); });
 			this.vacbot.on('MoppingSystemInfo ', async (state) => this.log('MoppingSystemInfo: ' + state));
 
-			this.vacbot.on('CleanReport', (cleanReport) => this.onCleanReport(cleanReport));
+			if (!this.vacbot.is950type_V2()) {
+				this.vacbot.on('CleanReport', (cleanReport) => this.onCleanReport(cleanReport));
+			}
 			this.vacbot.on('CleanLog', (cleanLog) => this.onCleanLog(cleanLog));
 			this.vacbot.on('LastCleanLogs', (lastCleanLogs) => this.onLastCleanLogs(lastCleanLogs));
 			this.vacbot.on('CurrentStats', (currentStats) => this.onCurrentStats(currentStats));
@@ -349,6 +351,33 @@ class VacuumDevice extends Device {
 
 	}
 
+	// Not emitted for V2
+	onCleanReport(cleanReport){
+		if (appdebug) { this.log('vacbot.on(CleanReport, ' + JSON.stringify(cleanReport) + ')'); }
+		switch (cleanReport) {
+			case 'parking':
+				break;
+			case 'pause':
+				this.setCapabilityValue('pause', true).catch((error) => { this.log('Error: ' + error); }); 
+				break;
+			case 'idle':
+				this.setCapabilityValue('state_device', CONSTANTS.WORKMODE_ROBOT_IDLE).catch((error) => { this.log('Error: ' + error); });
+				break;
+			case 'auto':
+				this.setCapabilityValue('state_device', CONSTANTS.WORKMODE_ROBOT_CLEANING).catch((error) => { this.log('Error: ' + error); });
+				this.setCapabilityValue('pause', false).catch((error) => { this.log('Error: ' + error); }); 
+				this.setCapabilityValue('clean', true).catch((error) => { this.log('Error: ' + error); }); 
+				break;
+			case 'returning':
+				break;
+			case 'alert':
+				break;
+			default:
+				this.setCapabilityValue('state_device', CONSTANTS.WORKMODE_ROBOT_IDLE).catch((error) => { this.log('Error: ' + error); });
+				this.setCapabilityValue('pause', false).catch((error) => { this.log('Error: ' + error); }); 
+				this.setCapabilityValue('clean', false).catch((error) => { this.log('Error: ' + error); }); 
+		}
+	}
 
 	onCleanCount(cleanCount){
 		if (appdebug) { this.log('vacbot.on(CleanCount, ' + JSON.stringify(cleanCount) + ')'); }
@@ -492,17 +521,6 @@ class VacuumDevice extends Device {
 		if (appdebug) { this.log('vacbot.on(LastCleanLogs, ' + JSON.stringify(lastCleanLogs) + ')'); }
 	}
 	
-	// Not emitted for V2
-	// onCleanReport(cleanReport){
-	// 	if (appdebug) { this.log('vacbot.on(CleanReport, ' + JSON.stringify(cleanReport) + ')'); }
-	// 	if (cleanReport != this.getStoreValue('lastCleanReport')
-	// 		|| 
-	// 		cleanReport == CONSTANTS.WORKMODE_ROBOT_IDLE)  {
-	// 		this.vacbot.run('GetCleanLogs');
-	// 		this.setStoreValue('lastCleanReport', cleanReport).catch((error) => { this.error('Error: ' + error); });
-	// 	}
-	// }
-
 	onCurrentStats(currentStats){
 		if (appdebug) { this.log('vacbot.on(CurrentStats, ' + JSON.stringify(currentStats) + ')'); }
 	}

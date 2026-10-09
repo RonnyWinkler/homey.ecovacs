@@ -34,5 +34,8 @@
   },
   "1.1.4": {
     "en": "Translations updated. Added auto token refresh."
+  },
+  "1.1.5": {
+    "en": "Improved token refresh. Added basic device state for V1 devices."
   }
 }
