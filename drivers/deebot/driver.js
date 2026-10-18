@@ -26,6 +26,12 @@ class VacuumDriver extends Driver {
 			deviceId: await this.createDeviceId()
 		};
 
+		let devices = this.getDevices();
+		if (devices != undefined && devices.length > 0) {
+			this.accountData.email = devices[0].getStoreValue('email');
+			this.accountData.password = devices[0].getStoreValue('password');
+		}
+
 		this.deviceApi = null; 
 
 		session.setHandler("accountChanged", async (data) => {

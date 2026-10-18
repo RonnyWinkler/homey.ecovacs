@@ -213,8 +213,9 @@ class VacuumDevice extends Device {
 			this.vacbot.on('MapSpotAreas', async (areas) => await this.onMapSpotAreas(areas));
 			this.vacbot.on('MapSpotAreaInfo', async (area) => await this.onMapSpotAreaInfo(area));
 			this.vacbot.on('MapSet_V2', async (mapset) => await this.onMapSet(mapset));
-			this.vacbot.on('ErrorCode', async (errorcode) => await this.onErrorCode(errorcode));
-			this.vacbot.on('ErrorCode', async (error) => await this.onError(error));
+			this.vacbot.on('Error', async (error) => await this.onError(error));
+			this.vacbot.on('ErrorCode', async (error) => await this.onErrorCode(error));
+			this.vacbot.on('LastError', async (error) => await this.onLastError(error));
 
 			this.vacbot.on('WaterBoxScrubbingType', async (mode) => { this.log('WaterBoxScrubbingType: ' + mode); });
 			this.vacbot.on('MoppingSystemInfo ', async (state) => this.log('MoppingSystemInfo: ' + state));
@@ -222,8 +223,8 @@ class VacuumDevice extends Device {
 			if (!this.vacbot.is950type_V2()) {
 				this.vacbot.on('CleanReport', (cleanReport) => this.onCleanReport(cleanReport));
 			}
-			this.vacbot.on('CleanLog', (cleanLog) => this.onCleanLog(cleanLog));
-			this.vacbot.on('LastCleanLogs', (lastCleanLogs) => this.onLastCleanLogs(lastCleanLogs));
+			// this.vacbot.on('CleanLog', (cleanLog) => this.onCleanLog(cleanLog));
+			// this.vacbot.on('LastCleanLogs', (lastCleanLogs) => this.onLastCleanLogs(lastCleanLogs));
 			this.vacbot.on('CurrentStats', (currentStats) => this.onCurrentStats(currentStats));
 			// this.vacbot.on('onWorkProgressReport ', async (state) => this.log('onWorkProgressReport: ' + state)); // currently not supported, example: { clean: 24, dry: 0, wash: 0 }
 			this.vacbot.on('TaskStarted', async (data) =>  { 
@@ -259,7 +260,9 @@ class VacuumDevice extends Device {
 			if (appdebug) { this.log('vacbot.run(GetChargeState)'); } this.vacbot.run('GetChargeState');
 			if (appdebug) { this.log('vacbot.run(GetWorkMode)'); } this.vacbot.run('GetWorkMode');
 			if (appdebug) { this.log('vacbot.run(GetSweepMode)'); } this.vacbot.run('GetSweepMode');
+			if (appdebug) { this.log('vacbot.run(GetError)'); } this.vacbot.run('GetError');
 			if (appdebug) { this.log('vacbot.run(GetMaps)'); } this._getMaps();
+			
 			// if (appdebug) { this.log('vacbot.run(GetCleanReport)'); } this.vacbot.run('GetCleanReport');
 
 			// this.vacbot.run("GetMapImage", 1132941211, "outline");
@@ -343,10 +346,10 @@ class VacuumDevice extends Device {
 			this.setCapabilityValue('dry_mop', false).catch((error) => { this.log('Error: ' + error); });
 		}
 
-		// get clean log
+		// cleaning finished?
 		if (lastRobotState != CONSTANTS.WORKMODE_ROBOT_IDLE &&
 			workState.robot == CONSTANTS.WORKMODE_ROBOT_IDLE ) {
-			this.vacbot.run('GetCleanLogs');
+			this.onCleaningComplete();
 		}
 
 	}
@@ -354,6 +357,9 @@ class VacuumDevice extends Device {
 	// Not emitted for V2
 	onCleanReport(cleanReport){
 		if (appdebug) { this.log('vacbot.on(CleanReport, ' + JSON.stringify(cleanReport) + ')'); }
+
+		let lastRobotState = this.getCapabilityValue('state_device');
+
 		switch (cleanReport) {
 			case 'parking':
 				break;
@@ -377,6 +383,13 @@ class VacuumDevice extends Device {
 				this.setCapabilityValue('pause', false).catch((error) => { this.log('Error: ' + error); }); 
 				this.setCapabilityValue('clean', false).catch((error) => { this.log('Error: ' + error); }); 
 		}
+
+		// cleaning finished?
+		if (lastRobotState != CONSTANTS.WORKMODE_ROBOT_IDLE &&
+			cleanReport == CONSTANTS.WORKMODE_ROBOT_IDLE ) {
+			this.onCleaningComplete();
+		}
+
 	}
 
 	onCleanCount(cleanCount){
@@ -417,10 +430,10 @@ class VacuumDevice extends Device {
 	}
 
 	onWaterLevel(level){
-		if (appdebug) { this.log('vacbot.on(WaterLevel, ' + level.toString() + ')'); }
 		if (level == undefined) {
 			return;
 		}
+		if (appdebug) { this.log('vacbot.on(WaterLevel, ' + level.toString() + ')'); }
 
 		let levelValue;
 		if (typeof level === 'string') {
@@ -647,20 +660,80 @@ class VacuumDevice extends Device {
 
 	}
 
-	async onErrorCode(errorcode) {
-		if (parseInt(errorcode) !== 0 && parseInt(errorcode) !== 100) {
-			var error = JSON.stringify(this.homey.__("Deebot.Error" + errorcode));
-			this.error('Deebot Error: ', error + " (errorcode " + errorcode + ")");
-			// this.homey.flow.getDeviceTriggerCard('error').trigger(this, { error: error, errorcode: parseInt(errorcode) });
+	async onErrorCode(error) {
+		if (appdebug) { this.log('vacbot.on(ErrorCode, ' + JSON.stringify(error) + ')'); }
+		if (parseInt(error) !== 0 && parseInt(error) !== 100) {
+			var errorMsg = JSON.stringify(this.homey.__("Deebot.Error" + error));
+			// this.homey.flow.getDeviceTriggerCard('error').trigger(this, { error: errorMsg, errorcode: parseInt(error) });
 
 			// await errorReportTrigger.trigger(this, { error: error, errorcode: parseInt(errorcode) });
 		}		
 	}
 
 	async onError(error) {
-		this.log('Deebot Error: ', error);
+		if (appdebug) { this.log('vacbot.on(Error, ' + JSON.stringify(error) + ')'); }
+
 	}
 
+	async onLastError(error) {
+		if (appdebug) { this.log('vacbot.on(LastError, ' + JSON.stringify(error) + ')'); }
+		if (error == undefined || error.code == undefined) return;
+
+		let code = Number(error.code);
+		if (code > 0 && code != 100){
+			// Error codes for real error, 1-99: Auth or request error, >100: Device error
+			if (this.hasCapability('alarm_error')) {
+				this.setCapabilityValue('alarm_error', true).catch((error) => { this.error('Error: ' + error); });
+			}
+			if (this.hasCapability('error_message')) {
+				this.setCapabilityValue('error_message', error.error).catch((error) => { this.error('Error: ' + error); });
+			}
+			const flowTriggerError = this.homey.flow.getDeviceTriggerCard('error');
+			flowTriggerError.trigger(this, {
+				error_id: code,
+				error_message: error.error,
+			}, null).catch((error) => { this.log('Error: ' + error)});		
+		}
+		else if (code === 0 || code === 100) {
+			// No error: 0 and 100 = "NoError: Robot is operational"
+			if (this.hasCapability('alarm_error')) {
+				this.setCapabilityValue('alarm_error', false).catch((error) => { this.error('Error: ' + error); });
+			}
+			if (this.hasCapability('error_message')) {
+				this.setCapabilityValue('error_message', null).catch((error) => { this.error('Error: ' + error); });
+			}
+		}
+		else{
+			// other internal errors: <0 
+		}
+	}
+
+
+	// =======================================================================================================================================================================================
+	// INTERNAL EVENTS/FUNCTIONS
+	// =======================================================================================================================================================================================	
+	onCleaningComplete() {
+		let tz  = this.homey.clock.getTimezone();
+		let cleanTimestamp = new Date(now);
+		let time = cleanTimestamp.toLocaleString(this.homey.i18n.getLanguage(), 
+            { 
+                hour12: false, 
+                timeZone: tz,
+                hour: "2-digit",
+                minute: "2-digit",
+                day: "2-digit",
+                month: "2-digit",
+                year: "numeric"
+            });
+        let timestamp = time.replace(',', '');
+
+		const flowTriggerCleanLog = this.homey.flow.getDeviceTriggerCard('cleaning_complete');
+      	flowTriggerCleanLog.trigger(this, {
+			timestamp: timestamp,
+			square_meters: 0,
+			totel_time: 0
+		}, null).catch((error) => { this.log('Error: ' + error)});		
+	}
 
 	// =======================================================================================================================================================================================
 	// CAPABILITIES

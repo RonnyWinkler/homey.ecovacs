@@ -1,0 +1,13 @@
+{
+    "type": "string",
+    "getable": true,
+    "setable": false,
+    "uiComponent": "sensor",
+    "title": {
+        "en": "Error message",
+        "de": "Fehlermeldung",
+        "nl": "Foutmelding"
+    },
+    "insights": false,
+    "icon": "/assets/capabilities/error_message.svg"
+}

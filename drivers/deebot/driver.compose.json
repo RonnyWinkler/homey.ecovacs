@@ -39,6 +39,8 @@
         "clean_count_mode.display",
         "suction_power.display",
         "water_flow_level.display",
+        "alarm_error",
+        "error_message",
 
         "measure_battery",
 

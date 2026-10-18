@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "com.ecovacs.deebot",
-  "version": "1.1.5",
+  "version": "1.2.0",
   "compatibility": ">=8.1.1",
   "sdk": 3,
   "name": {
@@ -81,6 +81,36 @@
   "homeyCommunityTopicId": 158711,
   "flow": {
     "triggers": [
+      {
+        "title": {
+          "en": "The error has been resolved. The device is operating normally.",
+          "de": "Der Fehler wurde behoben. Das Gerät arbeitet wieder normal.",
+          "nl": "De fout is opgelost. Het apparaat werkt weer normaal."
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+          }
+        ],
+        "id": "alarm_error_false"
+      },
+      {
+        "title": {
+          "en": "An error has occurred",
+          "de": "Ein Fehler ist aufgetreten",
+          "nl": "Er is een fout opgetreden"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+          }
+        ],
+        "id": "alarm_error_true"
+      },
       {
         "title": {
           "en": "Returning to docking station",
@@ -200,6 +230,67 @@
           }
         ],
         "id": "clean_true"
+      },
+      {
+        "title": {
+          "en": "Cleaning completed",
+          "de": "Reinigung abgeschlossen",
+          "nl": "Reiniging voltooid"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+          }
+        ],
+        "tokens": [
+          {
+            "name": "timestamp",
+            "type": "string",
+            "title": {
+              "en": "Timestamp",
+              "de": "Zeitstempel",
+              "nl": "Tijdstempel"
+            }
+          }
+        ],
+        "id": "cleaning_complete"
+      },
+      {
+        "title": {
+          "en": "An error occurred",
+          "de": "Ein Fehler ist aufgetreten",
+          "nl": "Er is een fout opgetreden"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+          }
+        ],
+        "tokens": [
+          {
+            "name": "error_id",
+            "type": "number",
+            "title": {
+              "en": "Error ID",
+              "de": "Fehler-ID",
+              "nl": "Fout-ID"
+            }
+          },
+          {
+            "name": "error_message",
+            "type": "string",
+            "title": {
+              "en": "Error Message",
+              "de": "Fehlermeldung",
+              "nl": "Foutmelding"
+            }
+          }
+        ],
+        "id": "error"
       },
       {
         "title": {
@@ -1967,6 +2058,8 @@
         "clean_count_mode.display",
         "suction_power.display",
         "water_flow_level.display",
+        "alarm_error",
+        "error_message",
         "measure_battery",
         "work_mode",
         "sweep_mode",
@@ -2088,6 +2181,29 @@
     }
   ],
   "capabilities": {
+    "alarm_error": {
+      "type": "boolean",
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "title": {
+        "en": "Error",
+        "de": "Fehler",
+        "nl": "Fout"
+      },
+      "insights": true,
+      "insightsTitleTrue": {
+        "en": "An error occurred",
+        "de": "Ein Fehler ist aufgetreten",
+        "nl": "Er is een fout opgetreden"
+      },
+      "insightsTitleFalse": {
+        "en": "The error has been resolved",
+        "de": "Der Fehler wurde behoben",
+        "nl": "De fout is opgelost"
+      },
+      "icon": "/assets/capabilities/alarm_error.svg"
+    },
     "charge": {
       "type": "boolean",
       "getable": false,
@@ -2163,6 +2279,19 @@
       },
       "insights": false,
       "icon": "/assets/capabilities/empty_dustbin.svg"
+    },
+    "error_message": {
+      "type": "string",
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "title": {
+        "en": "Error message",
+        "de": "Fehlermeldung",
+        "nl": "Foutmelding"
+      },
+      "insights": false,
+      "icon": "/assets/capabilities/error_message.svg"
     },
     "park": {
       "type": "boolean",

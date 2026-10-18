@@ -1,0 +1,23 @@
+{
+    "type": "boolean",
+    "getable": true,
+    "setable": false,
+    "uiComponent": "sensor",
+    "title": {
+        "en": "Error",
+        "de": "Fehler",
+        "nl": "Fout"
+    },
+    "insights": true,
+    "insightsTitleTrue": {
+        "en": "An error occurred",
+        "de": "Ein Fehler ist aufgetreten",
+        "nl": "Er is een fout opgetreden"
+    },
+    "insightsTitleFalse": {
+        "en": "The error has been resolved",
+        "de": "Der Fehler wurde behoben",
+        "nl": "De fout is opgelost"
+    },    
+    "icon": "/assets/capabilities/alarm_error.svg"
+}
