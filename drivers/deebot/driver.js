@@ -180,10 +180,11 @@ class VacuumDriver extends Driver {
 	}
 
 	async onUpdateDevice(session, device){
-		device.setStoreValue('email', this.accountData.email);
-		device.setStoreValue('password', this.accountData.password);
-		device.setStoreValue('deviceId', this.accountData.deviceId);
-		device.onInit();
+		await device.setStoreValue('email', this.accountData.email);
+		await device.setStoreValue('password', this.accountData.password);
+		await device.setStoreValue('deviceId', this.accountData.deviceId);
+		await device.setStoreValue('api', this.deviceApi);
+		await device.onInit();
 		await session.done();
 	}
 

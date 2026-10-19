@@ -43,5 +43,8 @@
   },
   "1.2.1": {
     "en": "Added error code capability and flow condition."
+  },
+  "1.2.2": {
+    "en": "Fixed device repair."
   }
 }
