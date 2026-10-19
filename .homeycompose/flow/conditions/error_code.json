@@ -1,0 +1,33 @@
+{
+    "title": {
+        "en": "Error !{{is|isn't}}",
+        "de": "Fehler !{{ist|ist nicht}}",
+        "nl": "Fout !{{is|is niet}}"
+    },
+    "titleFormatted": {
+        "en": "Error !{{is|isn't}} [[errorCode]]",
+        "de": "Fehler !{{ist|ist nicht}} [[errorCode]]",
+        "nl": "Fout !{{is|is niet}} [[errorCode]]"
+    },
+    "args": [
+        {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=deebot"
+        },
+        {
+            "name": "errorCode",
+            "type": "autocomplete",
+            "title": { 
+                "en": "Error code",
+                "de": "Fehlercode",
+                "nl": "Foutcode"
+            },
+            "placeholder": { 
+                "en": "Error",
+                "de": "Fehler",
+                "nl": "Fout"
+            }
+       }
+    ]
+}

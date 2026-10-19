@@ -682,11 +682,14 @@ class VacuumDevice extends Device {
 		let code = Number(error.code);
 		if (code > 0 && code != 100){
 			// Error codes for real error, 1-99: Auth or request error, >100: Device error
-			if (this.hasCapability('alarm_error')) {
-				this.setCapabilityValue('alarm_error', true).catch((error) => { this.error('Error: ' + error); });
-			}
 			if (this.hasCapability('error_message')) {
 				this.setCapabilityValue('error_message', error.error).catch((error) => { this.error('Error: ' + error); });
+			}
+			if (this.hasCapability('error_code')) {
+				this.setCapabilityValue('error_code', code).catch((error) => { this.error('Error: ' + error); });
+			}
+			if (this.hasCapability('alarm_error')) {
+				this.setCapabilityValue('alarm_error', true).catch((error) => { this.error('Error: ' + error); });
 			}
 			const flowTriggerError = this.homey.flow.getDeviceTriggerCard('error');
 			flowTriggerError.trigger(this, {
@@ -701,6 +704,9 @@ class VacuumDevice extends Device {
 			}
 			if (this.hasCapability('error_message')) {
 				this.setCapabilityValue('error_message', null).catch((error) => { this.error('Error: ' + error); });
+			}
+			if (this.hasCapability('error_code')) {
+				this.setCapabilityValue('error_code', 0).catch((error) => { this.error('Error: ' + error); });
 			}
 		}
 		else{
@@ -1128,6 +1134,18 @@ class VacuumDevice extends Device {
 				}
 			);
 		}
+		return list;
+	}
+
+	getAutocompleteErrorCodeList(){
+		const { errorCodes } = require('ecovacs-deebot/library/errorCodes.json');
+
+		const list = Object.entries(errorCodes)
+			.filter(([id]) => Number(id) >= 0)
+			.map(([id, name]) => ({
+				id,
+				name: id.toString() + ': ' + name
+			}));
 		return list;
 	}
 

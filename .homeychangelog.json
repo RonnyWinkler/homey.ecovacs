@@ -40,5 +40,8 @@
   },
   "1.2.0": {
     "en": "Added error trigger and capability."
+  },
+  "1.2.1": {
+    "en": "Added error code capability and flow condition."
   }
 }

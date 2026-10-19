@@ -313,6 +313,17 @@ class Deebot extends Homey.App {
 				return (args.device.getCapabilityValue('clean_count_mode') == args.value);
 			})
 
+		this.homey.flow.getConditionCard('error_code')
+			.registerRunListener(async (args, state) => {
+				return (args.device.getCapabilityValue('error_code') == args.errorCode.id);
+			})
+			.registerArgumentAutocompleteListener('errorCode', async (query, args) => {
+				const errorCodeList = args.device.getAutocompleteErrorCodeList();
+				return errorCodeList.filter((result) => { 
+					return result.name.toLowerCase().includes(query.toLowerCase());
+				});
+			});
+
 	}
 
 	// =======================================================================================================================================================================================

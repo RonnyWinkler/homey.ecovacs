@@ -1,0 +1,13 @@
+{
+    "type": "number",
+    "getable": true,
+    "setable": false,
+    "uiComponent": null,
+    "title": {
+        "en": "Error code",
+        "de": "Fehlercode",
+        "nl": "Foutcode"
+    },
+    "insights": false,
+    "icon": "/assets/capabilities/error_code.svg"
+}

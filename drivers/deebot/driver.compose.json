@@ -49,7 +49,8 @@
         "clean_count_mode",
         "suction_power",
         "water_flow_level",
-        "water_flow_value"
+        "water_flow_value",
+        "error_code"
 
     ],
     "capabilitiesOptions": {
