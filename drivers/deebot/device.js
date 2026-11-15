@@ -1,5 +1,7 @@
 'use strict';
 
+const LIVE_IMAGE_SCHEDULE_INTERVAL = 5000; // Example interval in milliseconds for live image updates
+
 const ecovacsApi = require('../../lib/ecovacsApi');
 const CONSTANTS = require('../../lib/constants.js');
 const { Device } = require('homey');
@@ -17,6 +19,8 @@ class VacuumDevice extends Device {
 	async onInit() {
 
 		this.log('Device ' + this.getName() + ' has been initialized');
+
+		this.mapImages = [];
 
 		await this._updateCapabilities();
 		await this.setAvailable();	
@@ -112,23 +116,28 @@ class VacuumDevice extends Device {
 
 			// Variant using the auth token to login
 			// store auth token if changed
-			this.api.on('credentialsUpdated', (data) => { 
+			this.api.on('credentialsUpdated', async (data) => { 
 				this.log('credentialsUpdated'); 
-				this.setStoreValue('api', this.api);
+				try{
+					await this.setStoreValue('api', this.api);
 
-				let tokenExpiresAt = this.api.getTokenExpiry();
-				this.log('tokenExpiresAt: ' + tokenExpiresAt);
+					let tokenExpiresAt = this.api.getTokenExpiry();
+					this.log('tokenExpiresAt: ' + tokenExpiresAt);
 
-				const MAX_DELAY = 23 * 60 * 60 * 1000; // 23h
-				const delay = Math.max(Math.min(tokenExpiresAt - Date.now(), MAX_DELAY), 0);
+					const MAX_DELAY = 23 * 60 * 60 * 1000; // 23h
+					const delay = Math.max(Math.min(tokenExpiresAt - Date.now(), MAX_DELAY), 0);
 
-				if (this._refreshTimer){
-					this.homey.clearTimeout(this._refreshTimer);
+					if (this._refreshTimer){
+						this.homey.clearTimeout(this._refreshTimer);
+					}
+					this._refreshTimer = this.homey.setTimeout(() => {
+						this.log('Token refresh timer expired, Refreshing token...');
+						this.api.connect( this.getStoreValue('email'), ecovacsApi.getPasswordHash(this.getStoreValue('password')) );
+					}, delay);
 				}
-				this._refreshTimer = this.homey.setTimeout(() => {
-					this.log('Token refresh timer expired, Refreshing token...');
-					this.api.connect( this.getStoreValue('email'), ecovacsApi.getPasswordHash(this.getStoreValue('password')) );
-				}, delay);
+				catch(error){
+					this.error("initApi() this.api.on('credentialsUpdated' error: " + error.message);
+				}
 			});
 			// try to use auth token. 
 			try{
@@ -165,7 +174,13 @@ class VacuumDevice extends Device {
 		await this.setStoreValue('mapnames', []).catch((error) => { this.error('Error: ' + error); });
 
 		this.log('Deebot ApiVersion : ', this.api.getVersion());
-		this.vacbot = this.api.getVacBot(this.api.uid, ecovacsApi.getConstant('REALM'), this.api.resource, this.api.user_access_token, this.getStoreValue('vacuum'), this.getStoreValue('geo'));
+		try{
+			this.vacbot = this.api.getVacBot(this.api.uid, ecovacsApi.getConstant('REALM'), this.api.resource, this.api.user_access_token, this.getStoreValue('vacuum'), this.getStoreValue('geo'));
+		}
+		catch(error){
+			this.log('Error initializing vacbot: ' + error);
+			this.log("Device: " + JSON.stringify(this.getStoreValue('vacuum')));
+		}
 
 		this.vacbot.on('ready', async (event) => {
 
@@ -232,8 +247,19 @@ class VacuumDevice extends Device {
 
 			
 
-			this.vacbot.on('MapImage ', async (mapImage) => 
+			this.vacbot.on('MapImage', async (mapImage) => 
 				this.onMapImage(mapImage));
+			this.vacbot.on('MapImageV2', async ({ mapID, mapBase64PNG }) => {
+				this.onMapImageV2(mapID, mapBase64PNG); });
+			
+			if (appdebug) { this.log('Register LiveMap update every ' + LIVE_IMAGE_SCHEDULE_INTERVAL + 'ms'); } 
+			this.vacbot.mapManager.setLiveMapImageInterval(LIVE_IMAGE_SCHEDULE_INTERVAL);
+			this.vacbot.on('LiveMapImageV2', ({ mapID, mapBase64PNG }) => {
+				this.onLiveMapImageV2(mapID, mapBase64PNG).catch(
+					error => this.error('LiveMapImageV2:', error)
+				);
+			});
+
 			this.vacbot.on('MapImageData', async (mapImage) =>  { 
 				this.log('MapImageData: ' + JSON.stringify(mapImage)); });
 			this.vacbot.on('MapDataReady', async (mapImage) =>  { 
@@ -538,38 +564,159 @@ class VacuumDevice extends Device {
 		if (appdebug) { this.log('vacbot.on(CurrentStats, ' + JSON.stringify(currentStats) + ')'); }
 	}
 
-	onMaps(maps){
-		if (appdebug) { this.log('vacbot.on(Maps, ' + JSON.stringify(maps) + ')'); }
+	// onMaps(maps){
+	// 	if (appdebug) { this.log('vacbot.on(Maps, ' + JSON.stringify(maps) + ')'); }
 
-		let mapnames = [];
-		for (const map of maps['maps']) {
-			const mapID = map['mapID'];
-			const mapIndex = map['mapIndex'];
-			mapnames.push(
-				{
-					'mapid': mapID,
-					'mapIndex': map['mapIndex'],
-					'name': map['mapName'],
-					'mapStatus': map['mapStatus'],
-					'mapIsCurrentMap': map['mapIsCurrentMap']
-				}
-			);
-			if (map['mapIsCurrentMap']) {
-				this.setStoreValue('currentMap', { 'mapID': mapID, 'MapIndex': mapIndex }).catch((error) => { this.error('Error: ' + error); });
-			}
+	// 	let mapnames = [];
+	// 	for (const map of maps['maps']) {
+	// 		const mapID = map['mapID'];
+	// 		const mapIndex = map['mapIndex'];
+	// 		mapnames.push(
+	// 			{
+	// 				'mapid': mapID,
+	// 				'mapIndex': map['mapIndex'],
+	// 				'name': map['mapName'],
+	// 				'mapStatus': map['mapStatus'],
+	// 				'mapIsCurrentMap': map['mapIsCurrentMap']
+	// 			}
+	// 		);
+	// 		if (map['mapIsCurrentMap']) {
+	// 			this.setStoreValue('currentMap', { 'mapID': mapID, 'MapIndex': mapIndex }).catch((error) => { this.error('Error: ' + error); });
+	// 		}
 
-			this.setStoreValue('maps', mapnames).catch((error) => { this.error('Error: ' + error); });
-			if (appdebug) { this.log('Maps: ', JSON.stringify(mapnames)); }
+	// 		this.setStoreValue('maps', mapnames).catch((error) => { this.error('Error: ' + error); });
+	// 		if (appdebug) { this.log('Maps: ', JSON.stringify(mapnames)); }
 
-			this.log('-Updating Floor ' + map['mapName']);
+	// 		this.log('-Updating Floor ' + map['mapName']);
 
-			// // Only V1
-			// this.vacbot.run('GetSpotAreas', mapID);
-			// V2 alternative (GetMapSet => GetMapSet_V2)
-			this.vacbot.run('GetMapSet', mapID, 'ar')
+	// 		// // Only V1
+	// 		// this.vacbot.run('GetSpotAreas', mapID);
+	// 		// V2 alternative (GetMapSet => GetMapSet_V2)
+	// 		this.vacbot.run('GetMapSet', mapID, 'ar')
 
+	// 	}
+
+	// }
+
+	async onMaps(maps) {
+		if (appdebug) {
+			this.log('vacbot.on(Maps)', JSON.stringify(maps));
 		}
 
+		// Only process a valid, complete map list.
+		if (!Array.isArray(maps?.maps)) {
+			return;
+		}
+
+		this.mapImages ??= [];
+
+		const mapnames = maps.maps.map(map => ({
+			mapid: String(map.mapID),
+			mapIndex: map.mapIndex,
+			name: map.mapName,
+			mapStatus: map.mapStatus,
+			mapIsCurrentMap: map.mapIsCurrentMap
+		}));
+
+		const validMapIds = new Set(
+			mapnames.map(map => map.mapid)
+		);
+
+		await this.setStoreValue('maps', mapnames);
+
+		// Remove registered images and cached data for deleted floors.
+		const removedImages = this.mapImages.filter(
+			entry =>
+				entry.mapId !== 'current' &&
+				!validMapIds.has(String(entry.mapId))
+		);
+
+		for (const entry of removedImages) {
+			try {
+				if (entry.deviceImage) {
+					await entry.deviceImage.unregister();
+				}
+
+				entry.mapImage = null;
+
+				this.mapImages = this.mapImages.filter(
+					item => item !== entry
+				);
+			} catch (error) {
+				this.error(
+					`Failed to remove map camera ${entry.mapId}:`,
+					error
+				);
+			}
+		}
+
+		const activeMap = mapnames.find(map => map.mapIsCurrentMap);
+		const storedCurrentMap = this.getStoreValue('currentMap');
+
+		if (activeMap) {
+			await this.setStoreValue('currentMap', {
+				mapID: activeMap.mapid,
+				MapIndex: activeMap.mapIndex
+			});
+		} else if (
+			storedCurrentMap &&
+			!validMapIds.has(String(storedCurrentMap.mapID))
+		) {
+			await this.unsetStoreValue('currentMap');
+		}
+
+		// Register the current camera first.
+		const currentTitle = activeMap
+			? `${this.homey.__('device.current_map')}: ${activeMap.name}`
+			: this.homey.__('device.current_map');
+
+		const current = await this._registerMapCamera(
+			'current',
+			currentTitle
+		);
+
+		// Retain the previous source only while that floor still exists.
+		const sourceMapId = activeMap
+			? activeMap.mapid
+			: validMapIds.has(String(current.sourceMapId))
+				? current.sourceMapId
+				: null;
+
+		const sourceChanged = current.sourceMapId !== sourceMapId;
+
+		if (sourceChanged) {
+			current.mapImage = null;
+		}
+
+		current.sourceMapId = sourceMapId;
+
+		// Register floor cameras in map-index order.
+		const sortedMaps = [...mapnames].sort(
+			(a, b) => Number(a.mapIndex) - Number(b.mapIndex)
+		);
+
+		for (const map of sortedMaps) {
+			await this._registerMapCamera(
+				map.mapid,
+				map.name || `Map ${map.mapid}`
+			);
+		}
+
+		const cached = this.mapImages.find(
+			entry => entry.mapId === current.sourceMapId
+		);
+
+		if (sourceChanged || cached?.mapImage) {
+			await current.deviceImage.update().catch(error => {
+				this.error('Failed to refresh current map camera:', error);
+			});
+		}
+
+		// Request map data after registration is complete.
+		for (const map of sortedMaps) {
+			this.log('-Updating Floor ' + map.name);
+			this.vacbot.run('GetMapSet', map.mapid, 'ar');
+		}
 	}
 
 	// Only V1
@@ -623,7 +770,8 @@ class VacuumDevice extends Device {
 	}
 
 	onMapSet(mapset){
-		if (appdebug) { this.log('vacbot.on(MapSet_V2, ' + JSON.stringify(mapset) + ')'); }
+		// if (appdebug) { this.log('vacbot.on(MapSet_V2, ' + JSON.stringify(mapset) + ')'); }
+		if (appdebug) { this.log('vacbot.on(MapSet_V2): ' + mapset.mid); }
 
 		if (mapset == undefined || mapset['subsets'] == undefined) {
 			return;
@@ -646,7 +794,7 @@ class VacuumDevice extends Device {
 			);
 			this.setStoreValue('areas', areas).catch((error) => { this.error('Error: ' + error); });
 		}
-		if (appdebug) { this.log(JSON.stringify(areas)); }
+		if (appdebug) { this.log("MapAreas: ", JSON.stringify(areas)); }
 		// var areasPrint = areas;
 		// areasPrint.forEach(area => delete area.toto);
 		// areasPrint.forEach(area => delete area.boundaries);
@@ -656,8 +804,87 @@ class VacuumDevice extends Device {
 	}
 
 	onMapImage(mapImage){
-		if (appdebug) { this.log('vacbot.on(MapImage, ' + JSON.stringify(mapImage) + ')'); }
+		if (appdebug) { this.log('vacbot.on(MapImage)'); }
+	}
 
+	async onMapImageV2(mapId, mapImage) {
+		if (appdebug) {
+			this.log('vacbot.on(MapImageV2)', mapId);
+		}
+
+		this.mapImages ??= [];
+		mapId = String(mapId);
+
+		let entry = this.mapImages.find(
+			item => item.mapId === mapId
+		);
+
+		// Cache early images even if onMaps has not registered cameras yet.
+		if (!entry) {
+			this.mapImages.push({
+				mapId,
+				mapName: null,
+				mapImage,
+				sourceMapId: null,
+				deviceImage: null
+			});
+		} else {
+			entry.mapImage = mapImage;
+
+			if (entry.deviceImage) {
+				await entry.deviceImage.update();
+			}
+		}
+
+		const current = this.mapImages.find(
+			item => item.mapId === 'current'
+		);
+
+		if (current?.deviceImage && current.sourceMapId === mapId) {
+			await current.deviceImage.update();
+		}
+	}
+
+	async onLiveMapImageV2(mapId, mapImage) {
+		if (appdebug) {
+			this.log('vacbot.on(LiveMapImageV2)', mapId);
+		}
+
+		try{
+			const current = this.mapImages?.find(
+				item => item.mapId === 'current'
+			);
+
+			if (!current?.deviceImage) {
+				return;
+			}
+
+			mapId = String(mapId);
+
+			const maps = this.getStoreValue('maps') ?? [];
+			const map = maps.find(
+				item => String(item.mapid) === mapId
+			);
+
+			const mapName = map?.name || `Map ${mapId}`;
+			const title = `${this.homey.__('device.current_map')}: ${mapName}`;
+
+			current.sourceMapId = mapId;
+			current.mapImage = mapImage;
+
+			if (current.mapName !== title) {
+				await this.setCameraImage(
+					'current', title, current.deviceImage
+				);
+				current.mapName = title;
+			}
+
+			await current.deviceImage.update();
+		} catch (error) {
+			if (appdebug) {
+				this.log('vacbot.on(LiveMapImageV2) error', error);
+			}
+		}
 	}
 
 	async onErrorCode(error) {
@@ -720,7 +947,7 @@ class VacuumDevice extends Device {
 	// =======================================================================================================================================================================================	
 	onCleaningComplete() {
 		let tz  = this.homey.clock.getTimezone();
-		let cleanTimestamp = new Date(now);
+		let cleanTimestamp = new Date();
 		let time = cleanTimestamp.toLocaleString(this.homey.i18n.getLanguage(), 
             { 
                 hour12: false, 
@@ -739,6 +966,130 @@ class VacuumDevice extends Device {
 			square_meters: 0,
 			totel_time: 0
 		}, null).catch((error) => { this.log('Error: ' + error)});		
+	}
+
+
+	// =======================================================================================================================================================================================
+	// HELPER
+	// =======================================================================================================================================================================================	
+	async _registerMapCamera(mapId, mapName) {
+		this.mapImages ??= [];
+		mapId = String(mapId);
+
+		let entry = this.mapImages.find(
+			item => item.mapId === mapId
+		);
+
+		if (!entry) {
+			entry = {
+				mapId,
+				mapName: null,
+				mapImage: null,
+				sourceMapId: null,
+				deviceImage: null
+			};
+
+			this.mapImages.push(entry);
+		}
+
+		if (!entry.deviceImage) {
+			const image = await this.homey.images.createImage();
+
+			image.setStream(async stream => {
+				const sourceId = mapId === 'current'
+					? entry.sourceMapId
+					: mapId;
+
+				const source = this.mapImages.find(
+					item => item.mapId === sourceId
+				);
+
+				// Current camera prefers its live PNG, falling back to the floor snapshot.
+				const mapImage = mapId === 'current'
+					? entry.mapImage || source?.mapImage
+					: source?.mapImage;
+
+				if (!mapImage) {
+					// just skip if map image is not available yet
+					stream.end();
+					return;
+					// throw new Error(
+					// 	`Map image ${sourceId ?? mapId} is not available yet`
+					// );
+				}
+
+				const base64 = mapImage.replace(
+					/^data:image\/png;base64,/,
+					''
+				);
+
+				stream.end(Buffer.from(base64, 'base64'));
+			});
+
+			try {
+				await this.setCameraImage(mapId, mapName, image);
+
+				entry.deviceImage = image;
+				entry.mapName = mapName;
+			} catch (error) {
+				// Preserve cached PNG data so registration can be retried.
+				await image.unregister().catch(() => {});
+				throw error;
+			}
+		} else if (entry.mapName !== mapName) {
+			await this.setCameraImage(
+				mapId, mapName, entry.deviceImage
+			);
+
+			entry.mapName = mapName;
+		}
+
+		return entry;
+	}
+
+	async _updateMapCamera(mapId, mapImage, mapName) {
+		this.mapImages ??= [];
+		mapId = String(mapId);
+
+		let entry = this.mapImages.find(
+			item => String(item.mapId) === mapId
+		);
+
+		if (!entry) {
+			const image = await this.homey.images.createImage();
+
+			entry = {
+				mapId,
+				mapName,
+				mapImage,
+				deviceImage: image
+			};
+
+			image.setStream(async stream => {
+				const base64 = entry.mapImage.replace(
+					/^data:image\/png;base64,/,
+					''
+				);
+
+				stream.end(Buffer.from(base64, 'base64'));
+			});
+
+			await this.setCameraImage(mapId, mapName, image);
+			this.mapImages.push(entry);
+		} else {
+			entry.mapImage = mapImage;
+
+			if (entry.mapName !== mapName) {
+				await this.setCameraImage(
+					mapId, mapName, entry.deviceImage
+				);
+				entry.mapName = mapName;
+			}
+		}
+
+		await entry.deviceImage.update();
+
+		return entry;
 	}
 
 	// =======================================================================================================================================================================================
@@ -980,13 +1331,13 @@ class VacuumDevice extends Device {
 	}
 
 	async flowActionCleanZone(zone) {
-		if (appdebug) { this.log('flowActionCleanZone(' + zone + ')'); }
+		if (appdebug) { this.log('flowActionCleanZone(' + JSON.stringify(zone) + ')'); }
 		this.vacbot.run('SpotArea', zone.id.zoneid, 1);
 		// await this.vacbot.run('FreeCLean', '1,' + zone.id.zoneid, 1);
 	}
 
 	async flowActionCleanZones(args) {
-		if (appdebug) { this.log('flowActionCleanZonea(' + args + ')'); }
+		if (appdebug) { this.log('flowActionCleanZonea(' + JSON.stringify(args) + ')'); }
 		const zones = [
 			args.zone01?.id.zoneid,
 			args.zone02?.id.zoneid,

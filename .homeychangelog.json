@@ -46,5 +46,8 @@
   },
   "1.2.2": {
     "en": "Fixed device repair."
+  },
+  "1.3.0": {
+    "en": "Added maps for V2 devices."
   }
 }

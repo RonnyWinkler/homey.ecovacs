@@ -99,5 +99,8 @@
     "mode": {
         "Vacuum": "Gesaugt",
         "Mop": "Gewischt"
-    }
+    },
+	"device": {
+		"current_map":			"Aktuelle Karte"
+	}
 }

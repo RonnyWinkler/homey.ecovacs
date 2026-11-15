@@ -99,5 +99,8 @@
 	"mode": {
 		"Vacuum":			"Vacuumed",
 		"Mop":				"Mopped"
+	},
+	"device": {
+		"current_map":			"Current map"
 	}
 }

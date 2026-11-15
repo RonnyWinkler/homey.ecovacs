@@ -99,5 +99,8 @@
 	"mode": {
 		"Vacuum":			"Gezogen",
 		"Mop":				"Gedweild"
+	},
+	"device": {
+		"current_map":			"Huidige kaart"
 	}
 }
