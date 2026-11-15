@@ -180,6 +180,7 @@ class VacuumDevice extends Device {
 		catch(error){
 			this.log('Error initializing vacbot: ' + error);
 			this.log("Device: " + JSON.stringify(this.getStoreValue('vacuum')));
+			throw error;
 		}
 
 		this.vacbot.on('ready', async (event) => {
