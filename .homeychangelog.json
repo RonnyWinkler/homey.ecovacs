@@ -55,5 +55,8 @@
   },
   "1.3.2": {
     "en": "Added logging."
+  },
+  "1.3.3": {
+    "en": "Added devices: T90 MAX, X12."
   }
 }

@@ -336,8 +336,8 @@ class VacuumDevice extends Device {
 		// 'vacuum': 1,        // Vacuum only
 		// 'mop': 2,           // Mop only
 		// 'mopAfterVacuum': 3 // Mop after vacuum
-		this.setCapabilityValue('work_mode', workMode.toString()).catch((error) => { this.log('Error: ' + error); });
-		this.setCapabilityValue('work_mode.display', workMode.toString()).catch((error) => { this.log('Error: ' + error); });
+		this.setCapabilityValue('work_mode', workMode.toString()).catch((error) => { this.log('Error onWorkMode work_mode: ' + error); });
+		this.setCapabilityValue('work_mode.display', workMode.toString()).catch((error) => { this.log('Error onWorkMode work_mode.display: ' + error); });
 	}
 
 	onWorkState(workState){
@@ -347,31 +347,31 @@ class VacuumDevice extends Device {
 
 		switch (workState.robot) {
 			case CONSTANTS.WORKMODE_ROBOT_CLEANING: 
-				this.setCapabilityValue('clean', true).catch((error) => { this.log('Error: ' + error); }); 
+				this.setCapabilityValue('clean', true).catch((error) => { this.log('Error onWorkState clean: ' + error); }); 
 				break;
 			case CONSTANTS.WORKMODE_ROBOT_IDLE:
-				this.setCapabilityValue('clean', false).catch((error) => { this.log('Error: ' + error); }); 
+				this.setCapabilityValue('clean', false).catch((error) => { this.log('Error onWorkState clean: ' + error); }); 
 				break;
 
 		}
 		if (workState.paused != undefined) {
-			this.setCapabilityValue('pause', workState.paused).catch((error) => { this.log('Error: ' + error); }); 
+			this.setCapabilityValue('pause', workState.paused).catch((error) => { this.log('Error onWorkState pause: ' + error); }); 
 		}
-		this.setCapabilityValue('state_device', workState.robot).catch((error) => { this.log('Error: ' + error); });
-		this.setCapabilityValue('state_station', workState.station).catch((error) => { this.log('Error: ' + error); });
+		this.setCapabilityValue('state_device', workState.robot).catch((error) => { this.log('Error onWorkState state_device: ' + error); });
+		this.setCapabilityValue('state_station', workState.station).catch((error) => { this.log('Error onWorkState state_station: ' + error); });
 
 		// set buttons state
 		if (workState.station == CONSTANTS.WORKMODE_STATION_GOWASHING || workState.station == CONSTANTS.WORKMODE_STATION_WASHING) {
-			this.setCapabilityValue('wash_mop', true).catch((error) => { this.log('Error: ' + error); });
+			this.setCapabilityValue('wash_mop', true).catch((error) => { this.log('Error onWorkState wash_mop: ' + error); });
 		}
 		else{
-			this.setCapabilityValue('wash_mop', false).catch((error) => { this.log('Error: ' + error); });
+			this.setCapabilityValue('wash_mop', false).catch((error) => { this.log('Error onWorkState wash_mop: ' + error); });
 		}
 		if (workState.station == CONSTANTS.WORKMODE_STATION_DRYING) {
-			this.setCapabilityValue('dry_mop', true).catch((error) => { this.log('Error: ' + error); });
+			this.setCapabilityValue('dry_mop', true).catch((error) => { this.log('Error onWorkState dry_mop: ' + error); });
 		}
 		else{
-			this.setCapabilityValue('dry_mop', false).catch((error) => { this.log('Error: ' + error); });
+			this.setCapabilityValue('dry_mop', false).catch((error) => { this.log('Error onWorkState dry_mop: ' + error); });
 		}
 
 		// cleaning finished?
@@ -392,24 +392,24 @@ class VacuumDevice extends Device {
 			case 'parking':
 				break;
 			case 'pause':
-				this.setCapabilityValue('pause', true).catch((error) => { this.log('Error: ' + error); }); 
+				this.setCapabilityValue('pause', true).catch((error) => { this.log('Error onCleanReport pause: ' + error); }); 
 				break;
 			case 'idle':
-				this.setCapabilityValue('state_device', CONSTANTS.WORKMODE_ROBOT_IDLE).catch((error) => { this.log('Error: ' + error); });
+				this.setCapabilityValue('state_device', CONSTANTS.WORKMODE_ROBOT_IDLE).catch((error) => { this.log('Error onCleanReport state_device: ' + error); });
 				break;
 			case 'auto':
-				this.setCapabilityValue('state_device', CONSTANTS.WORKMODE_ROBOT_CLEANING).catch((error) => { this.log('Error: ' + error); });
-				this.setCapabilityValue('pause', false).catch((error) => { this.log('Error: ' + error); }); 
-				this.setCapabilityValue('clean', true).catch((error) => { this.log('Error: ' + error); }); 
+				this.setCapabilityValue('state_device', CONSTANTS.WORKMODE_ROBOT_CLEANING).catch((error) => { this.log('Error onCleanReport state_device: ' + error); });
+				this.setCapabilityValue('pause', false).catch((error) => { this.log('Error onCleanReport pause: ' + error); }); 
+				this.setCapabilityValue('clean', true).catch((error) => { this.log('Error onCleanReport clean: ' + error); }); 
 				break;
 			case 'returning':
 				break;
 			case 'alert':
 				break;
 			default:
-				this.setCapabilityValue('state_device', CONSTANTS.WORKMODE_ROBOT_IDLE).catch((error) => { this.log('Error: ' + error); });
-				this.setCapabilityValue('pause', false).catch((error) => { this.log('Error: ' + error); }); 
-				this.setCapabilityValue('clean', false).catch((error) => { this.log('Error: ' + error); }); 
+				this.setCapabilityValue('state_device', CONSTANTS.WORKMODE_ROBOT_IDLE).catch((error) => { this.log('Error onCleanReport state_device: ' + error); });
+				this.setCapabilityValue('pause', false).catch((error) => { this.log('Error onCleanReport pause: ' + error); }); 
+				this.setCapabilityValue('clean', false).catch((error) => { this.log('Error onCleanReport clean: ' + error); }); 
 		}
 
 		// cleaning finished?
@@ -422,18 +422,18 @@ class VacuumDevice extends Device {
 
 	onCleanCount(cleanCount){
 		if (appdebug) { this.log('vacbot.on(CleanCount, ' + JSON.stringify(cleanCount) + ')'); }
-		this.setCapabilityValue('clean_count_mode', cleanCount.toString()).catch((error) => { this.error('Error: ' + error); });
-		this.setCapabilityValue('clean_count_mode.display', cleanCount.toString()).catch((error) => { this.error('Error: ' + error); });
+		this.setCapabilityValue('clean_count_mode', cleanCount.toString()).catch((error) => { this.error('Error onCleanCount clean_count_mode: ' + error); });
+		this.setCapabilityValue('clean_count_mode.display', cleanCount.toString()).catch((error) => { this.error('Error onCleanCount clean_count_mode.display: ' + error); });
 	}
 
 	onDebotPosition(position){
 		if (appdebug) { this.log('vacbot.on(DeebotPosition, ' + JSON.stringify(position) + ')'); }
-		this.setStoreValue('currentPosition', position).catch((error) => { this.log('Error: ' + error); });
+		this.setStoreValue('currentPosition', position).catch((error) => { this.log('Error onDebotPosition: ' + error); });
 	}
 
 	onBatteryInfo(battery){
 		if (appdebug) { this.log('vacbot.on(BatteryInfo, ' + JSON.stringify(battery) + ')'); }
-		this.setCapabilityValue('measure_battery', Math.round(battery)).catch((error) => { this.log('Error: ' + error); });
+		this.setCapabilityValue('measure_battery', Math.round(battery)).catch((error) => { this.log('Error onBatteryInfo: ' + error); });
 	}
 
 	onChargeState(state){
@@ -441,7 +441,7 @@ class VacuumDevice extends Device {
 
 		// let lastChargeState = this.getCapabilityValue('state_charge');
 
-		this.setCapabilityValue('state_charge', state).catch((error) => { this.log('Error: ' + error); });
+		this.setCapabilityValue('state_charge', state).catch((error) => { this.log('Error onChargeState: ' + error); });
 
 		// clean log request now done for robot state (WorkState)
 		// // work done (charge state idle => charging)
@@ -453,8 +453,8 @@ class VacuumDevice extends Device {
 
 	onCleanSpeed(level){
 		if (appdebug) { this.log('vacbot.on(CleanSpeed, ' + level.toString() + ')'); }
-		this.setCapabilityValue('suction_power', level.toString()).catch((error) => { this.error('Error: ' + error); });
-		this.setCapabilityValue('suction_power.display', level.toString()).catch((error) => { this.error('Error: ' + error); });
+		this.setCapabilityValue('suction_power', level.toString()).catch((error) => { this.error('Error onCleanSpeed suction_power: ' + error); });
+		this.setCapabilityValue('suction_power.display', level.toString()).catch((error) => { this.error('Error onCleanSpeed suction_power.display: ' + error); });
 	}
 
 	onWaterLevel(level){
@@ -470,25 +470,25 @@ class VacuumDevice extends Device {
 		if (typeof level === 'number') {
 			levelValue = level.toString();
 		}	
-		this.setCapabilityValue('water_flow_level', levelValue).catch((error) => { this.error('Error: ' + error); });
-		this.setCapabilityValue('water_flow_level.display', level).catch((error) => { this.error('Error: ' + error); });
+		this.setCapabilityValue('water_flow_level', levelValue).catch((error) => { this.error('Error onWaterLevel water_flow_level: ' + error); });
+		this.setCapabilityValue('water_flow_level.display', level).catch((error) => { this.error('Error onWaterLevel water_flow_level.display: ' + error); });
 		// map to int value
 		switch (level) {
 			case 1:
 			case '1':
-				this.setCapabilityValue('water_flow_value', 20).catch((error) => { this.error('Error: ' + error); });
+				this.setCapabilityValue('water_flow_value', 20).catch((error) => { this.error('Error onWaterLevel water_flow_value: ' + error); });
 				break;
 			case 2:
 			case '2':
-				this.setCapabilityValue('water_flow_value', 30).catch((error) => { this.error('Error: ' + error); });
+				this.setCapabilityValue('water_flow_value', 30).catch((error) => { this.error('Error onWaterLevel water_flow_value: ' + error); });
 				break;
 			case 3:
 			case '3':
-				this.setCapabilityValue('water_flow_value', 40).catch((error) => { this.error('Error: ' + error); });
+				this.setCapabilityValue('water_flow_value', 40).catch((error) => { this.error('Error onWaterLevel water_flow_value: ' + error); });
 				break;
 			case 4:
 			case '4':
-				this.setCapabilityValue('water_flow_value', 50).catch((error) => { this.error('Error: ' + error); });
+				this.setCapabilityValue('water_flow_value', 50).catch((error) => { this.error('Error onWaterLevel water_flow_value: ' + error); });
 				break;
 		}
 	}
@@ -502,30 +502,30 @@ class VacuumDevice extends Device {
 		if (level.customAmount == undefined) {
 			return;
 		}
-		this.setCapabilityValue('water_flow_value', level.customAmount).catch((error) => { this.error('Error: ' + error); });
+		this.setCapabilityValue('water_flow_value', level.customAmount).catch((error) => { this.error('Error onWaterInfo: ' + error); });
 		// map to enum value
 		if (level.customAmount <= 20) {
-			this.setCapabilityValue('water_flow_level', '1' ).catch((error) => { this.error('Error: ' + error); });
-			this.setCapabilityValue('water_flow_level.display', '1' ).catch((error) => { this.error('Error: ' + error); });
+			this.setCapabilityValue('water_flow_level', '1' ).catch((error) => { this.error('Error onWaterInfo water_flow_level: ' + error); });
+			this.setCapabilityValue('water_flow_level.display', '1' ).catch((error) => { this.error('Error onWaterInfo water_flow_level.display: ' + error); });
 		}
 		else if (level.customAmount <= 30) {
-			this.setCapabilityValue('water_flow_level', '2' ).catch((error) => { this.error('Error: ' + error); });
-			this.setCapabilityValue('water_flow_level.display', '2' ).catch((error) => { this.error('Error: ' + error); });
+			this.setCapabilityValue('water_flow_level', '2' ).catch((error) => { this.error('Error onWaterInfo water_flow_level: ' + error); });
+			this.setCapabilityValue('water_flow_level.display', '2' ).catch((error) => { this.error('Error onWaterInfo water_flow_level.display: ' + error); });
 		}
 		else if (level.customAmount <= 40) {
-			this.setCapabilityValue('water_flow_level', '3' ).catch((error) => { this.error('Error: ' + error); });
-			this.setCapabilityValue('water_flow_level.display', '3' ).catch((error) => { this.error('Error: ' + error); });
+			this.setCapabilityValue('water_flow_level', '3' ).catch((error) => { this.error('Error onWaterInfo water_flow_level: ' + error); });
+			this.setCapabilityValue('water_flow_level.display', '3' ).catch((error) => { this.error('Error onWaterInfo water_flow_level.display: ' + error); });
 		}
 		else {
-			this.setCapabilityValue('water_flow_level', '4' ).catch((error) => { this.error('Error: ' + error); });
-			this.setCapabilityValue('water_flow_level.display', '4' ).catch((error) => { this.error('Error: ' + error); });
+			this.setCapabilityValue('water_flow_level', '4' ).catch((error) => { this.error('Error onWaterInfo water_flow_level: ' + error); });
+			this.setCapabilityValue('water_flow_level.display', '4' ).catch((error) => { this.error('Error onWaterInfo water_flow_level.display: ' + error); });
 		}
 	}
 
 	onSweepMode(mode){
 		if (appdebug) { this.log('vacbot.on(SweepMode, ' + JSON.stringify(mode) + ')'); }
-		this.setCapabilityValue('sweep_mode', mode.toString()).catch((error) => { this.error('Error: ' + error); });
-		this.setCapabilityValue('sweep_mode.display', mode.toString()).catch((error) => { this.error('Error: ' + error); });
+		this.setCapabilityValue('sweep_mode', mode.toString()).catch((error) => { this.error('Error onSweepMode sweep_mode: ' + error); });
+		this.setCapabilityValue('sweep_mode.display', mode.toString()).catch((error) => { this.error('Error onSweepMode sweep_mode.display: ' + error); });
 		// 0=Standard, 1=Tief, 2=Effizient
 	}
 
