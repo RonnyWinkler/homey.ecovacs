@@ -110,7 +110,8 @@ class VacuumDevice extends Device {
 
 		// let data = this.getData();
 		this.log('Device ID: ' + this.getStoreValue('deviceId') + ' email: ' + this.getStoreValue('email'));
-
+		this.log("Device details: " + JSON.stringify(this.getStoreValue('vacuum')));
+		
 		try{
 			this.api = await ecovacsApi.getApi(this.getStoreValue('deviceId'));
 
