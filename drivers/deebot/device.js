@@ -338,6 +338,8 @@ class VacuumDevice extends Device {
 		// 'mopAfterVacuum': 3 // Mop after vacuum
 		this.setCapabilityValue('work_mode', workMode.toString()).catch((error) => { this.log('Error onWorkMode work_mode: ' + error); });
 		this.setCapabilityValue('work_mode.display', workMode.toString()).catch((error) => { this.log('Error onWorkMode work_mode.display: ' + error); });
+
+		this.vacbot.run('GetPosition');
 	}
 
 	onWorkState(workState){
@@ -380,6 +382,7 @@ class VacuumDevice extends Device {
 			this.onCleaningComplete();
 		}
 
+		this.vacbot.run('GetPosition');
 	}
 
 	// Not emitted for V2
@@ -714,6 +717,8 @@ class VacuumDevice extends Device {
 			});
 		}
 
+		this.vacbot.mapManager.scheduleLiveMapImageV2();
+
 		// Request map data after registration is complete.
 		for (const map of sortedMaps) {
 			this.log('-Updating Floor ' + map.name);
@@ -776,6 +781,12 @@ class VacuumDevice extends Device {
 		if (appdebug) { this.log('vacbot.on(MapSet_V2): ' + mapset.mid); }
 
 		if (mapset == undefined || mapset['subsets'] == undefined) {
+			return;
+		}
+
+
+		// Only room subsets may update the room list.
+		if (mapset.subsets[0]?.type !== 'ar') {
 			return;
 		}
 
@@ -1013,11 +1024,11 @@ class VacuumDevice extends Device {
 
 				if (!mapImage) {
 					// just skip if map image is not available yet
-					stream.end();
-					return;
-					// throw new Error(
-					// 	`Map image ${sourceId ?? mapId} is not available yet`
-					// );
+					// stream.end();
+					// return;
+					throw new Error(
+						`Map image ${mapName} is not available yet`
+					);
 				}
 
 				const base64 = mapImage.replace(
