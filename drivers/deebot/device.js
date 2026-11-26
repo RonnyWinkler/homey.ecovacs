@@ -98,12 +98,55 @@ class VacuumDevice extends Device {
 
 	async onDeleted() {
 		this.log('Device ' + this.getName() + 'has been deleted');
-		this.vacbot.disconnect();
+	    this._deviceDeleted = true;
+		if (this._refreshTimer) {
+			this.homey.clearTimeout(this._refreshTimer);
+			this._refreshTimer = null;
+		}
+		await this.vacbot.disconnect();
 	}
 
 	// =======================================================================================================================================================================================
 	// API
 	// =======================================================================================================================================================================================	
+
+	_scheduleTokenRefresh(delay) {
+		if (this._deviceDeleted) {
+			return;
+		}
+		
+		if (this._refreshTimer) {
+			this.homey.clearTimeout(this._refreshTimer);
+		}
+
+		this._refreshTimer = this.homey.setTimeout(async () => {
+			this._refreshTimer = null;
+
+			try {
+				this.log('Refreshing Ecovacs token...');
+
+				await this.api.connect(
+					this.getStoreValue('email'),
+					ecovacsApi.getPasswordHash(
+						this.getStoreValue('password')
+					)
+				);
+
+				// credentialsUpdated schedules the next normal refresh.
+			} catch (error) {
+				this.error('Ecovacs token refresh failed:', error);
+
+				if (error.cause) {
+					this.error('Original error:', error.cause);
+				}
+
+				// Preserve any refresh already scheduled by credentialsUpdated.
+				if (!this._refreshTimer) {
+					this._scheduleTokenRefresh(60000);
+				}
+			}
+		}, delay);
+	}
 
 	async initApi() {
 		this.log('Vacuum has been added');
@@ -117,27 +160,31 @@ class VacuumDevice extends Device {
 
 			// Variant using the auth token to login
 			// store auth token if changed
-			this.api.on('credentialsUpdated', async (data) => { 
-				this.log('credentialsUpdated'); 
-				try{
-					await this.setStoreValue('api', this.api);
+			this.api.on('credentialsUpdated', async () => {
+				this.log('credentialsUpdated');
 
-					let tokenExpiresAt = this.api.getTokenExpiry();
-					this.log('tokenExpiresAt: ' + tokenExpiresAt);
+				try {
+					const tokenExpiresAt = Number(this.api.getTokenExpiry());
 
-					const MAX_DELAY = 23 * 60 * 60 * 1000; // 23h
-					const delay = Math.max(Math.min(tokenExpiresAt - Date.now(), MAX_DELAY), 0);
-
-					if (this._refreshTimer){
-						this.homey.clearTimeout(this._refreshTimer);
+					if (!Number.isFinite(tokenExpiresAt)) {
+						throw new Error('Invalid token expiry');
 					}
-					this._refreshTimer = this.homey.setTimeout(() => {
-						this.log('Token refresh timer expired, Refreshing token...');
-						this.api.connect( this.getStoreValue('email'), ecovacsApi.getPasswordHash(this.getStoreValue('password')) );
-					}, delay);
-				}
-				catch(error){
-					this.error("initApi() this.api.on('credentialsUpdated' error: " + error.message);
+
+					const MAX_DELAY = 23 * 60 * 60 * 1000;
+					const delay = Math.max(
+						Math.min(tokenExpiresAt - Date.now(), MAX_DELAY),
+						60000
+					);
+
+					this._scheduleTokenRefresh(delay);
+
+					await this.setStoreValue('api', this.api);
+				} catch (error) {
+					this.error('credentialsUpdated failed:', error);
+
+					if (!this._refreshTimer) {
+						this._scheduleTokenRefresh(60000);
+					}
 				}
 			});
 			// try to use auth token. 
@@ -185,140 +232,157 @@ class VacuumDevice extends Device {
 		}
 
 		this.vacbot.on('ready', async (event) => {
+			try {
 
-			this.log('Model information');
-			this.log('- Name: ' + this.vacbot.getName());
-			this.log('- Model: ' + this.vacbot.deviceModel);
-			this.log('- DeviceClass: ' + this.vacbot.deviceClass);
-			this.log('- Image url: ' + this.vacbot.deviceImageURL);
-			this.log('- Is fully supported model: ' + this.vacbot.isSupportedDevice());
-			this.log('- Is a at least partly supported model: ' + this.vacbot.isKnownDevice());
-			this.log('- Is legacy model: ' + this.vacbot.isLegacyModel());
-			this.log('- Is 950 type model: ' + this.vacbot.is950type());
-			this.log('- V2 commands are implemented: ' + this.vacbot.is950type_V2());
-			this.log('- Communication protocol: ' + this.vacbot.getProtocol());
-			this.log('- Main brush: ' + this.vacbot.hasMainBrush());
-			this.log('- Mapping capabilities: ' + this.vacbot.hasMappingCapabilities());
-			this.log('- Edge cleaning mode: ' + this.vacbot.hasEdgeCleaningMode());
-			this.log('- Spot cleaning mode: ' + this.vacbot.hasSpotCleaningMode());
-			this.log('- Spot area cleaning mode: ' + this.vacbot.hasSpotAreaCleaningMode());
-			this.log('- Custom area cleaning mode: ' + this.vacbot.hasCustomAreaCleaningMode());
-			this.log('- Mopping system: ' + this.vacbot.hasMoppingSystem());
-			this.log('- Voice reports: ' + this.vacbot.hasVoiceReports());
-			this.log('- Auto empty station: ' + this.vacbot.hasAutoEmptyStation());
-			this.log('- Canvas module available: ' + this.api.getCanvasModuleIsAvailable());
-			this.log('- Using country: ' + this.api.getCountryName());
-			this.log('- Using continent code: ' + this.api.getContinent());
-			this.log('ApiVersion : ' + this.api.getVersion());
-			this.log('Device is ready');
+				this.log('Model information');
+				this.log('- Name: ' + this.vacbot.getName());
+				this.log('- Model: ' + this.vacbot.deviceModel);
+				this.log('- DeviceClass: ' + this.vacbot.deviceClass);
+				this.log('- Image url: ' + this.vacbot.deviceImageURL);
+				this.log('- Is fully supported model: ' + this.vacbot.isSupportedDevice());
+				this.log('- Is a at least partly supported model: ' + this.vacbot.isKnownDevice());
+				this.log('- Is legacy model: ' + this.vacbot.isLegacyModel());
+				this.log('- Is 950 type model: ' + this.vacbot.is950type());
+				this.log('- V2 commands are implemented: ' + this.vacbot.is950type_V2());
+				this.log('- Communication protocol: ' + this.vacbot.getProtocol());
+				this.log('- Main brush: ' + this.vacbot.hasMainBrush());
+				this.log('- Mapping capabilities: ' + this.vacbot.hasMappingCapabilities());
+				this.log('- Edge cleaning mode: ' + this.vacbot.hasEdgeCleaningMode());
+				this.log('- Spot cleaning mode: ' + this.vacbot.hasSpotCleaningMode());
+				this.log('- Spot area cleaning mode: ' + this.vacbot.hasSpotAreaCleaningMode());
+				this.log('- Custom area cleaning mode: ' + this.vacbot.hasCustomAreaCleaningMode());
+				this.log('- Mopping system: ' + this.vacbot.hasMoppingSystem());
+				this.log('- Voice reports: ' + this.vacbot.hasVoiceReports());
+				this.log('- Auto empty station: ' + this.vacbot.hasAutoEmptyStation());
+				this.log('- Canvas module available: ' + this.api.getCanvasModuleIsAvailable());
+				this.log('- Using country: ' + this.api.getCountryName());
+				this.log('- Using continent code: ' + this.api.getContinent());
+				this.log('ApiVersion : ' + this.api.getVersion());
+				this.log('Device is ready');
 
-			this.vacbot.on('WorkMode', (workMode) =>  this.onWorkMode(workMode));
-			this.vacbot.on('SweepMode', (mode) => this.onSweepMode(mode));
-			this.vacbot.on('WorkState', (workState) => this.onWorkState(workState));
-			this.vacbot.on('CleanCount', (cleanCount) => this.onCleanCount(cleanCount));
-			// this.vacbot.on('BatteryLevel', (batteryLevel) => {
-			// 	if (appdebug) { this.log('vacbot.on(BatteryLevel, ' + JSON.stringify(batteryLevel) + ')'); }
-			// });
-			this.vacbot.on('BatteryInfo', (battery) => this.onBatteryInfo(battery));
-			this.vacbot.on('ChargeState', (state) => this.onChargeState(state));
-			this.vacbot.on('DeebotPosition', (values) => this.onDebotPosition(position));
-			this.vacbot.on('CleanSpeed', (level) => this.onCleanSpeed(level));
-			this.vacbot.on('WaterLevel', (level) => this.onWaterLevel(level));
-			this.vacbot.on('WaterInfo', (level) => this.onWaterInfo(level));
+				this.vacbot.on('WorkMode', (workMode) =>  this.onWorkMode(workMode));
+				this.vacbot.on('SweepMode', (mode) => this.onSweepMode(mode));
+				this.vacbot.on('WorkState', (workState) => this.onWorkState(workState));
+				this.vacbot.on('CleanCount', (cleanCount) => this.onCleanCount(cleanCount));
+				// this.vacbot.on('BatteryLevel', (batteryLevel) => {
+				// 	if (appdebug) { this.log('vacbot.on(BatteryLevel, ' + JSON.stringify(batteryLevel) + ')'); }
+				// });
+				this.vacbot.on('BatteryInfo', (battery) => this.onBatteryInfo(battery));
+				this.vacbot.on('ChargeState', (state) => this.onChargeState(state));
+				this.vacbot.on('DeebotPosition', (position) => this.onDebotPosition(position));
+				this.vacbot.on('CleanSpeed', (level) => this.onCleanSpeed(level));
+				this.vacbot.on('WaterLevel', (level) => this.onWaterLevel(level));
+				this.vacbot.on('WaterInfo', (level) => this.onWaterInfo(level));
 
-			this.vacbot.on('Maps', async (maps) => await this.onMaps(maps));
-			this.vacbot.on('MapSpotAreas', async (areas) => await this.onMapSpotAreas(areas));
-			this.vacbot.on('MapSpotAreaInfo', async (area) => await this.onMapSpotAreaInfo(area));
-			this.vacbot.on('MapSet_V2', async (mapset) => await this.onMapSet(mapset));
-			this.vacbot.on('Error', async (error) => await this.onError(error));
-			this.vacbot.on('ErrorCode', async (error) => await this.onErrorCode(error));
-			this.vacbot.on('LastError', async (error) => await this.onLastError(error));
+				this.vacbot.on('Maps', async (maps) => await this.onMaps(maps));
+				this.vacbot.on('MapSpotAreas', async (areas) => await this.onMapSpotAreas(areas));
+				this.vacbot.on('MapSpotAreaInfo', async (area) => await this.onMapSpotAreaInfo(area));
+				this.vacbot.on('MapSet_V2', async (mapset) => await this.onMapSet(mapset));
+				this.vacbot.on('Error', async (error) => await this.onError(error));
+				this.vacbot.on('ErrorCode', async (error) => await this.onErrorCode(error));
+				this.vacbot.on('LastError', async (error) => await this.onLastError(error));
 
-			this.vacbot.on('WaterBoxScrubbingType', async (mode) => { this.log('WaterBoxScrubbingType: ' + mode); });
-			this.vacbot.on('MoppingSystemInfo ', async (state) => this.log('MoppingSystemInfo: ' + state));
+				this.vacbot.on('WaterBoxScrubbingType', async (mode) => { this.log('WaterBoxScrubbingType: ' + mode); });
+				this.vacbot.on('MoppingSystemInfo ', async (state) => this.log('MoppingSystemInfo: ' + state));
 
-			if (!this.vacbot.is950type_V2()) {
-				this.vacbot.on('CleanReport', (cleanReport) => this.onCleanReport(cleanReport));
+				if (!this.vacbot.is950type_V2()) {
+					this.vacbot.on('CleanReport', (cleanReport) => this.onCleanReport(cleanReport));
+				}
+				// this.vacbot.on('CleanLog', (cleanLog) => this.onCleanLog(cleanLog));
+				// this.vacbot.on('LastCleanLogs', (lastCleanLogs) => this.onLastCleanLogs(lastCleanLogs));
+				this.vacbot.on('CurrentStats', (currentStats) => this.onCurrentStats(currentStats));
+				// this.vacbot.on('onWorkProgressReport ', async (state) => this.log('onWorkProgressReport: ' + state)); // currently not supported, example: { clean: 24, dry: 0, wash: 0 }
+				this.vacbot.on('TaskStarted', async (data) =>  { 
+					this.log('TaskStarted: ' + data); });
+
+				
+
+				this.vacbot.on('MapImage', async (mapImage) => {
+					try{
+						await this.onMapImage(mapImage);
+					} catch (error) {
+						this.error('onMapImage error:', error);
+					}
+				});
+
+				this.vacbot.on('MapImageV2', async ({ mapID, mapBase64PNG }) => {
+					try{
+						await this.onMapImageV2(mapID, mapBase64PNG); 
+					} catch (error) {
+						this.error('onMapImageV2 error:', error);
+					}
+				});
+				
+				if (appdebug) { this.log('Register LiveMap update every ' + LIVE_IMAGE_SCHEDULE_INTERVAL + 'ms'); } 
+				this.vacbot.mapManager.setLiveMapImageInterval(LIVE_IMAGE_SCHEDULE_INTERVAL);
+				this.vacbot.on('LiveMapImageV2', ({ mapID, mapBase64PNG }) => {
+					this.onLiveMapImageV2(mapID, mapBase64PNG).catch(
+						error => this.error('LiveMapImageV2:', error)
+					);
+				});
+
+				this.vacbot.on('MapImageData', async (mapImage) =>  { 
+					this.log('MapImageData: ' + JSON.stringify(mapImage)); });
+				this.vacbot.on('MapDataReady', async (mapImage) =>  { 
+					this.log('MapDataReady: ' + mapImage); });
+				this.vacbot.on('MapDataObject', async (mapImage) =>  { 
+					this.log('MapDataObject: ' + mapImage); });
+				this.vacbot.on('MapInfo', async (mapInfo) =>  { 
+					this.log('MapInfo: ' + mapInfo); });
+				this.vacbot.on('MinorMap', async (mapInfo) =>  { 
+					this.log('MinorMap: ' + mapInfo); });
+
+				// Update states
+				if (appdebug) { this.log('vacbot.run(GetWaterBoxInfo)'); } this.vacbot.run('GetWaterBoxInfo');
+				if (appdebug) { this.log('vacbot.run(GetCleanCount)'); } this.vacbot.run('GetCleanCount');
+				if (appdebug) { this.log('vacbot.run(GetCleanSpeed)'); } this.vacbot.run('GetCleanSpeed');
+				if (appdebug) { this.log('vacbot.run(GetWaterLevel)'); } this.vacbot.run('GetWaterLevel');
+				if (appdebug) { this.log('vacbot.run(GetWaterInfo)'); } this.vacbot.run('GetWaterInfo');
+				if (appdebug) { this.log('vacbot.run(GetAutoEmpty)'); } this.vacbot.run('GetAutoEmpty');
+				if (appdebug) { this.log('vacbot.run(GetBatteryState)'); } this.vacbot.run('GetBatteryState');
+				if (appdebug) { this.log('vacbot.run(GetCleanState)'); } this.vacbot.run('GetCleanState');
+				if (appdebug) { this.log('vacbot.run(GetPosition)'); } this.vacbot.run('GetPosition');
+				if (appdebug) { this.log('vacbot.run(GetStats)'); } this.vacbot.run('GetStats');
+				if (appdebug) { this.log('vacbot.run(GetWorkState)'); } this.vacbot.run('GetWorkState');
+				if (appdebug) { this.log('vacbot.run(GetChargeState)'); } this.vacbot.run('GetChargeState');
+				if (appdebug) { this.log('vacbot.run(GetWorkMode)'); } this.vacbot.run('GetWorkMode');
+				if (appdebug) { this.log('vacbot.run(GetSweepMode)'); } this.vacbot.run('GetSweepMode');
+				if (appdebug) { this.log('vacbot.run(GetError)'); } this.vacbot.run('GetError');
+				if (appdebug) { this.log('vacbot.run(GetMaps)'); } this._getMaps();
+				
+				// if (appdebug) { this.log('vacbot.run(GetCleanReport)'); } this.vacbot.run('GetCleanReport');
+
+				// this.vacbot.run("GetMapImage", 1132941211, "outline");
+
+				// this.vacbot.on('CleanLog', async (object) => {
+				// 	if (appdebug) { this.log('vacbot.on(CleanLog, ' + object + ')'); }
+				// 	if (object.length === 0) { return; }
+				// 	var stopReason = -1;
+				// 	try {
+				// 		switch ((object[0].stopReason - 1).toString()) {
+				// 			case '0': stopReason = 'CLEAN_SUCCESSFUL'; break;
+				// 			case '1': stopReason = 'STOPPED_BY_APP'; break;
+				// 			case '2': stopReason = 'BATTERY_LOW'; break;
+				// 			case '3': stopReason = 'STOPPED_BY_IR'; break;
+				// 			case '4': stopReason = 'STOPPED_BY_BUTTON'; break;
+				// 			case '5': stopReason = 'STOPPED_BY_WARNING'; break;
+				// 			case '6': stopReason = 'STOPPED_BY_NO_DISTURB'; break;
+				// 			case '7': stopReason = 'STOPPED_BY_CLEARMAP'; break;
+				// 			case '8': stopReason = 'STOPPED_BY_NO_PATH'; break;
+				// 			case '9': stopReason = 'STOPPED_BY_NOT_IN_MAP'; break;
+				// 			case '10': stopReason = 'STOPPED_BY_VIRTUAL_WALL'; break;
+				// 			case '11': stopReason = 'WIRE_CHARGING'; break;
+				// 			case '12': stopReason = 'STOPPED_BY_AIR_SPOT'; break;
+				// 			case '13': stopReason = 'STOPPED_BY_AIR_AUTO'; break;
+				// 			default: stopReason = 'UNKNOWN (' + object[0].stopReason + ')';
+				// 		}
+				// 	}
+				// catch (error) {
+				// 	this.error('Failed to parse CleanLog:', error);
+				// }
+			} catch (error) {
+				this.error('Ecovacs ready handler failed:', error);
 			}
-			// this.vacbot.on('CleanLog', (cleanLog) => this.onCleanLog(cleanLog));
-			// this.vacbot.on('LastCleanLogs', (lastCleanLogs) => this.onLastCleanLogs(lastCleanLogs));
-			this.vacbot.on('CurrentStats', (currentStats) => this.onCurrentStats(currentStats));
-			// this.vacbot.on('onWorkProgressReport ', async (state) => this.log('onWorkProgressReport: ' + state)); // currently not supported, example: { clean: 24, dry: 0, wash: 0 }
-			this.vacbot.on('TaskStarted', async (data) =>  { 
-				this.log('TaskStarted: ' + data); });
-
-			
-
-			this.vacbot.on('MapImage', async (mapImage) => 
-				this.onMapImage(mapImage));
-			this.vacbot.on('MapImageV2', async ({ mapID, mapBase64PNG }) => {
-				this.onMapImageV2(mapID, mapBase64PNG); });
-			
-			if (appdebug) { this.log('Register LiveMap update every ' + LIVE_IMAGE_SCHEDULE_INTERVAL + 'ms'); } 
-			this.vacbot.mapManager.setLiveMapImageInterval(LIVE_IMAGE_SCHEDULE_INTERVAL);
-			this.vacbot.on('LiveMapImageV2', ({ mapID, mapBase64PNG }) => {
-				this.onLiveMapImageV2(mapID, mapBase64PNG).catch(
-					error => this.error('LiveMapImageV2:', error)
-				);
-			});
-
-			this.vacbot.on('MapImageData', async (mapImage) =>  { 
-				this.log('MapImageData: ' + JSON.stringify(mapImage)); });
-			this.vacbot.on('MapDataReady', async (mapImage) =>  { 
-				this.log('MapDataReady: ' + mapImage); });
-			this.vacbot.on('MapDataObject', async (mapImage) =>  { 
-				this.log('MapDataObject: ' + mapImage); });
-			this.vacbot.on('MapInfo', async (mapInfo) =>  { 
-				this.log('MapInfo: ' + mapInfo); });
-			this.vacbot.on('MinorMap', async (mapInfo) =>  { 
-				this.log('MinorMap: ' + mapInfo); });
-
-			// Update states
-			if (appdebug) { this.log('vacbot.run(GetWaterBoxInfo)'); } this.vacbot.run('GetWaterBoxInfo');
-			if (appdebug) { this.log('vacbot.run(GetCleanCount)'); } this.vacbot.run('GetCleanCount');
-			if (appdebug) { this.log('vacbot.run(GetCleanSpeed)'); } this.vacbot.run('GetCleanSpeed');
-			if (appdebug) { this.log('vacbot.run(GetWaterLevel)'); } this.vacbot.run('GetWaterLevel');
-			if (appdebug) { this.log('vacbot.run(GetWaterInfo)'); } this.vacbot.run('GetWaterInfo');
-			if (appdebug) { this.log('vacbot.run(GetAutoEmpty)'); } this.vacbot.run('GetAutoEmpty');
-			if (appdebug) { this.log('vacbot.run(GetBatteryState)'); } this.vacbot.run('GetBatteryState');
-			if (appdebug) { this.log('vacbot.run(GetCleanState)'); } this.vacbot.run('GetCleanState');
-			if (appdebug) { this.log('vacbot.run(GetPosition)'); } this.vacbot.run('GetPosition');
-			if (appdebug) { this.log('vacbot.run(GetStats)'); } this.vacbot.run('GetStats');
-			if (appdebug) { this.log('vacbot.run(GetWorkState)'); } this.vacbot.run('GetWorkState');
-			if (appdebug) { this.log('vacbot.run(GetChargeState)'); } this.vacbot.run('GetChargeState');
-			if (appdebug) { this.log('vacbot.run(GetWorkMode)'); } this.vacbot.run('GetWorkMode');
-			if (appdebug) { this.log('vacbot.run(GetSweepMode)'); } this.vacbot.run('GetSweepMode');
-			if (appdebug) { this.log('vacbot.run(GetError)'); } this.vacbot.run('GetError');
-			if (appdebug) { this.log('vacbot.run(GetMaps)'); } this._getMaps();
-			
-			// if (appdebug) { this.log('vacbot.run(GetCleanReport)'); } this.vacbot.run('GetCleanReport');
-
-			// this.vacbot.run("GetMapImage", 1132941211, "outline");
-
-			// this.vacbot.on('CleanLog', async (object) => {
-			// 	if (appdebug) { this.log('vacbot.on(CleanLog, ' + object + ')'); }
-			// 	if (object.length === 0) { return; }
-			// 	var stopReason = -1;
-			// 	try {
-			// 		switch ((object[0].stopReason - 1).toString()) {
-			// 			case '0': stopReason = 'CLEAN_SUCCESSFUL'; break;
-			// 			case '1': stopReason = 'STOPPED_BY_APP'; break;
-			// 			case '2': stopReason = 'BATTERY_LOW'; break;
-			// 			case '3': stopReason = 'STOPPED_BY_IR'; break;
-			// 			case '4': stopReason = 'STOPPED_BY_BUTTON'; break;
-			// 			case '5': stopReason = 'STOPPED_BY_WARNING'; break;
-			// 			case '6': stopReason = 'STOPPED_BY_NO_DISTURB'; break;
-			// 			case '7': stopReason = 'STOPPED_BY_CLEARMAP'; break;
-			// 			case '8': stopReason = 'STOPPED_BY_NO_PATH'; break;
-			// 			case '9': stopReason = 'STOPPED_BY_NOT_IN_MAP'; break;
-			// 			case '10': stopReason = 'STOPPED_BY_VIRTUAL_WALL'; break;
-			// 			case '11': stopReason = 'WIRE_CHARGING'; break;
-			// 			case '12': stopReason = 'STOPPED_BY_AIR_SPOT'; break;
-			// 			case '13': stopReason = 'STOPPED_BY_AIR_AUTO'; break;
-			// 			default: stopReason = 'UNKNOWN (' + object[0].stopReason + ')';
-			// 		}
-			// 	}
-
 
 
 		});
@@ -816,7 +880,7 @@ class VacuumDevice extends Device {
 		this.vacbot.run('GetMapInfo', mapset.mid);
 	}
 
-	onMapImage(mapImage){
+	async onMapImage(mapImage){
 		if (appdebug) { this.log('vacbot.on(MapImage)'); }
 	}
 
